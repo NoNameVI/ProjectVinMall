@@ -12,8 +12,6 @@ import java.util.Scanner;
 
 interface IMall {
 
-    String soString();
-
     void sortByName();
 
     void sortByRating();
@@ -425,3 +423,4 @@ public class ProjectVinMall {
 
     }
 }
+
