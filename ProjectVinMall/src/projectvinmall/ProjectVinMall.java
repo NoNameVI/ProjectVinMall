@@ -1012,6 +1012,18 @@ public void listAllFoods() {
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
+    public void VehicleUI() {
+
+        System.out.println("----VEHICLE MANAGEMENT----");
+        System.out.println("1. Display list ");
+        System.out.println("2. Add new Vehicle");
+        System.out.println("3. Edit vehicle infomation");
+        System.out.println("4. Delete vehicle");
+        System.out.println("5. Sort Vehicle");
+        System.out.println("6. Search Vehicle");
+        System.out.println("0. Back To MALL MANAGEMENT");
+
+    }
 
     public void ElectronicUI() {
         System.out.println("----Electronic MANAGEMENT----");
@@ -1314,7 +1326,35 @@ public void listAllFoods() {
                     //------------------------------------endFood--------------------------------
                     break;
                 case 6://Vehicle
-
+                    boolean stopVe = false;
+                    while (!stopVe){
+                    VinMall.clearScreen();
+                    VinMall.VehicleUI();
+                    int VehicleSelect = VinMall.getValidInput(6);
+                    switch (VehicleSelect){
+                        case 1:
+                            
+                            break;
+                        case 2:
+                            
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            
+                            break;
+                        case 5:
+                        
+                            break;
+                        case 6:
+                            
+                            break;
+                        case 0:
+                            
+                            break;
+                    }
+                    }
                     //------------------------------------endVehicle--------------------------------
                     break;
                 case 7://Employee
