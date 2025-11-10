@@ -5,9 +5,10 @@
         <group>
             <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/Product.java</file>
             <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/Employee.java</file>
-            <file>file:/D:/Java/ProjectVinMall/foodin.txt</file>
+            <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/IMall.java</file>
             <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/Appliance.java</file>
             <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/Food.java</file>
+            <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/Vehicle.java</file>
             <file>file:/D:/Java/ProjectVinMall/src/projectvinmall/ProjectVinMall.java</file>
         </group>
     </open-files>

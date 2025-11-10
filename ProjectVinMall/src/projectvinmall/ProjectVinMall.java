@@ -302,12 +302,15 @@ public class ProjectVinMall implements IMall {
 
     //--------------------------------------------------Ham ho tro -------------------------------------------------------------------------------------------------------------------------------
     void listEmployee() {
-        
         employeeData.forEach(Employee -> {
             System.out.println(Employee.getInfo());
         });
     }
-    
+    void listVehicle() {
+        vehicleData.forEach(Vehicle -> {
+            System.out.println(Vehicle.toString());
+        });
+    }    
     void displayElectronic(){
     electronicData.forEach(Electronic -> {
         System.out.println(Electronic.toString());
@@ -635,7 +638,7 @@ public class ProjectVinMall implements IMall {
 }
 
 public void addBook() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Book ID: ");
     String id = sc.nextLine();
     System.out.print("Book Name: ");
@@ -653,7 +656,7 @@ public void addBook() {
 }
 
 public void editBook() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Enter book ID to edit: ");
     String id = sc.nextLine();
     Book book = null;
@@ -691,7 +694,7 @@ public void editBook() {
 }
 
 public void deleteBook() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Enter book ID to delete: ");
     String id = sc.nextLine();
     boolean removed = bookData.removeIf(b -> b.getId().equals(id));
@@ -709,7 +712,7 @@ public void listAllDrinks() {
         }
 }
 public void addDrink() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Drink ID: ");
     String id = sc.nextLine();
     System.out.print("Drink Name: ");
@@ -725,7 +728,7 @@ public void addDrink() {
 }
 
 public void editDrink() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Enter drink ID to edit: ");
     String id = sc.nextLine();
     Drink drink = null;
@@ -759,7 +762,7 @@ public void editDrink() {
 }
 
 public void deleteDrink() {
-    Scanner sc = new Scanner(System.in);
+    
     System.out.print("Enter drink ID to delete: ");
     String id = sc.nextLine();
     boolean removed = drinkData.removeIf(d -> d.getId().equals(id));
@@ -777,7 +780,7 @@ public void listAllFoods() {
     }
 
     public void addFood() {
-        Scanner sc = new Scanner(System.in);
+        
         System.out.print("Food ID: ");
         String id = sc.nextLine();
         System.out.print("Food Name: ");
@@ -793,7 +796,7 @@ public void listAllFoods() {
     }
 
     public void editFood() {
-        Scanner sc = new Scanner(System.in);
+        
         System.out.print("Enter food ID to edit: ");
         String id = sc.nextLine();
         Food food = null;
@@ -835,7 +838,7 @@ public void listAllFoods() {
     }
 
     public void deleteFood() {
-        Scanner sc = new Scanner(System.in);
+        
         System.out.print("Enter food ID to delete: ");
         String id = sc.nextLine();
         boolean removed = foodData.removeIf(f -> f.getId().equals(id));
@@ -987,6 +990,231 @@ public void listAllFoods() {
         }
         
     }
+    
+    //Vehicle Method------------------------------------
+    
+    
+    void addVehicle(){
+    System.out.println("-------------Add new Vehicle-----------");
+    String newVeId;
+        while (true){
+            System.out.print("Enter new ID:");
+            newVeId = getValidString();
+            if (checkVehicleID(newVeId)){
+                break;
+            } else System.out.println("ID exist!");
+        }
+    System.out.print("Enter new vehicle Name:");
+    String newVeName = getValidString();
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
+    System.out.print("Enter new vehicle Chassis Number:");
+    String newCha = getValidString();
+    System.out.print("Enter new vehicle Engine Type:");
+    String newengineType = getValidString();
+    System.out.print("Enter new vehicle brand:");
+    String newbrand = getValidString();
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
+    System.out.print("Enter new vehicle inspection Fee:");
+    double Fee = getValidDouble();
+    
+    Vehicle newVe = new Vehicle(
+            newVeId,
+            newVeName,
+            newPrice,
+            newRating,
+            newCha,
+            newengineType,
+            newbrand,
+            newmanuyear,
+            Fee
+    );
+    vehicleData.add(newVe);
+    System.out.println("New Vehicle Informantion:"+newVe.toString());
+    waitForEnter("Enter to continue.");
+    }
+    
+    
+    void editVehicle(){
+        System.out.println("--------------Edit Vehicle information----------------");
+        String newId;
+        while (true){
+            System.out.print("Enter Vehicle ID:");
+            newId = getValidString();
+            if (!checkVehicleID(newId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        
+    System.out.print("Enter new vehicle Name:");
+    String newVeName = getValidString();
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
+    System.out.print("Enter new vehicle Chassis Number:");
+    String newCha = getValidString();
+    System.out.print("Enter new vehicle Engine Type:");
+    String newengineType = getValidString();
+    System.out.print("Enter new vehicle brand:");
+    String newbrand = getValidString();
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
+    System.out.print("Enter new vehicle inspection Fee:");
+    double Fee = getValidDouble();
+        Vehicle newVe = new Vehicle(
+            newId,
+            newVeName,
+            newPrice,
+            newRating,
+            newCha,
+            newengineType,
+            newbrand,
+            newmanuyear,
+            Fee
+    );
+        int index = 0;
+        for (int i = 0 ; i<vehicleData.size() ; ++i ){
+            if (vehicleData.get(i).getId().equalsIgnoreCase(newId)){
+                index = i;
+                break;
+            }
+        }
+        vehicleData.set(index, newVe);
+        System.out.println("Vehicle Informantion:"+newVe.toString());
+        waitForEnter("Enter to continue.");  
+    }
+    
+    
+    void deleteVehicle(){
+        System.out.println("--------------Delete Vehicle-----------------");
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkVehicleID(newEmId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        int i=0;
+        for (int index =0 ; index < vehicleData.size() ; index++){
+                if (vehicleData.get(index).getId().equalsIgnoreCase(newEmId)){
+                    i = index;
+                    break;
+                }
+        }
+        
+        vehicleData.remove(i);
+        System.out.println("Vehicle Deleted.");
+        waitForEnter("Enter to continue.");  
+    }
+    
+    
+   void sortVehicle(){
+       boolean sortstop = false;
+        while (!sortstop) {
+        System.out.println("--------------Sort Vehicle-----------------");
+        System.out.println("Sorting by what?");
+        System.out.println("1. ID");
+        System.out.println("2. Name");
+        System.out.println("3. Price");
+        System.out.println("4. Rating");
+        System.out.println("5. Chassis Number");
+        System.out.println("6. EngineType");
+        System.out.println("7. Brand");
+        System.out.println("8. Manufacture Year");
+        System.out.println("9. Inspection Fee");
+        System.out.println("0. Back to Employees manage");
+        int sortEmSelect = getValidInput(9);
+            switch (sortEmSelect){
+                case 1:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getId));
+                    System.out.println("----------- List sorted by ID ------------");
+                    listVehicle();
+                    
+                    break;
+                case 2:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getName));
+                    System.out.println("----------- List sorted by Name ------------");
+                    listVehicle();
+                    break;
+                case 3:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getPrice));
+                    System.out.println("----------- List sorted by Price ------------");
+                    listVehicle();
+                    break;
+                case 4:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getRating));
+                    System.out.println("-----------List sorted by Rating ------------");
+                    listVehicle();
+                    
+                    break;
+                case 5:
+                    vehicleData.sort(Comparator.comparing(Vehicle ::  getChassisNumber));
+                    System.out.println("-----------List sorted by Chassis Number ------------");
+                    listVehicle();
+                    break;
+                case 6:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getEngineType));
+                    System.out.println("-----------List sorted by EngineType ------------");
+                    listVehicle();
+                    break;
+                case 7:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getBrand));
+                    System.out.println("-----------List sorted by Brand ------------");
+                    listVehicle();
+                    
+                    break;
+                case 8:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getManufactureYear));
+                    System.out.println("-----------List sorted by Manufacture Year ------------");
+                    listVehicle();
+                    break;
+                case 9:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getInspectionFee));
+                    System.out.println("-----------List sorted by Inspection Fee ------------");
+                    listVehicle();
+                    break;
+                case 0:
+                    System.out.println("Data saved.");
+                    sortstop = true;                    
+                    break;
+            }
+            waitForEnter("Enter to continue.");
+        }   
+   }
+   
+   void findVehicle(){
+        System.out.println("--------------Find Vehicle-----------------");
+        System.out.print("Enter any thing to find:");
+        String find = getValidString();
+        System.out.println("--------------List Find Vehicle-----------------");
+        int notfind = 0;   
+   
+            for (Vehicle e : vehicleData){
+            if (  e.getId().contains(find) ||
+                   e.getName().contains(find) ||
+                   e.getBrand().contains(find) ||
+                   e.getChassisNumber().contains(find) ||
+                   e.getEngineType().contains(find) ||
+                   String.valueOf(e.getManufactureYear()).contains(find) ||
+                   String.valueOf(e.getInspectionFee()).contains(find) ||
+                   String.valueOf(e.getPrice()).contains(find) ||
+                   String.valueOf(e.getRating()).contains(find)
+                    ){
+                System.out.println(e.toString());
+                ++notfind;
+            }
+        }
+        if (notfind == 0){
+            System.out.println("No resuft!");  
+        
+        }
+        waitForEnter("Enter to continue.");
+    }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
         System.out.println("----MALL MANAGEMENT SYSTEM----");
@@ -1015,12 +1243,11 @@ public void listAllFoods() {
     public void VehicleUI() {
 
         System.out.println("----VEHICLE MANAGEMENT----");
-        System.out.println("1. Display list ");
-        System.out.println("2. Add new Vehicle");
-        System.out.println("3. Edit vehicle infomation");
-        System.out.println("4. Delete vehicle");
-        System.out.println("5. Sort Vehicle");
-        System.out.println("6. Search Vehicle");
+        System.out.println("1. Add new Vehicle");
+        System.out.println("2. Edit vehicle infomation");
+        System.out.println("3. Delete vehicle");
+        System.out.println("4. Sort Vehicle");
+        System.out.println("5. Search Vehicle");
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
@@ -1117,7 +1344,9 @@ public void listAllFoods() {
     public boolean checkEmployeeID(String id){
         return !employeeData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
     }
-    
+    public boolean checkVehicleID(String id){
+        return !vehicleData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
+    }
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
 
     /**
@@ -1163,7 +1392,7 @@ public void listAllFoods() {
     public double getValidDouble() {
         double input = 0;
         Scanner lsc = new Scanner(System.in);
-        System.out.print("Please enter a valid number: ");
+       
         if (lsc.hasNextDouble()) {
             input = lsc.nextDouble(); 
            
@@ -1178,7 +1407,7 @@ public void listAllFoods() {
     public int getValidInt() {
         int input = 0;
         Scanner lsc = new Scanner(System.in);
-        System.out.print("Please enter a valid integer: ");
+        
         if (lsc.hasNextInt()) {
             input = lsc.nextInt(); 
             
@@ -1329,29 +1558,29 @@ public void listAllFoods() {
                     boolean stopVe = false;
                     while (!stopVe){
                     VinMall.clearScreen();
-                    VinMall.VehicleUI();
-                    int VehicleSelect = VinMall.getValidInput(6);
+                     System.out.println("------------------- Vehicle List---------------");
+                    VinMall.listVehicle();
+                    VinMall.VehicleUI();   
+                    int VehicleSelect = VinMall.getValidInput(5);
                     switch (VehicleSelect){
                         case 1:
-                            
+                            VinMall.addVehicle();
                             break;
                         case 2:
-                            
+                            VinMall.editVehicle();
                             break;
                         case 3:
-                            
+                            VinMall.deleteVehicle();
                             break;
                         case 4:
-                            
+                            VinMall.sortVehicle();
                             break;
                         case 5:
-                        
-                            break;
-                        case 6:
-                            
+                            VinMall.findVehicle();
                             break;
                         case 0:
-                            
+                            System.out.println("Back");
+                            stopVe = true;
                             break;
                     }
                     }
