@@ -292,17 +292,17 @@ public class ProjectVinMall {
             System.out.println(Employee.getInfo());
         });
     }
-    void displayElictronic(){
-    elictronicData.forEach(Elictronic -> {
-        System.out.println(Elictronic.toString());
+    void displayElectronic(){
+    ElectronicData.forEach(Electronic -> {
+        System.out.println(Electronic.toString());
     });
     }
-    void addElictronic(){
+    void addElectronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString();
     boolean value = false;
-    for (int index = 0; index < elictronicData.size();index++ ){
-        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
+    for (int index = 0; index < ElectronicData.size();index++ ){
+        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
             value = true;
             System.out.println("ID already exists");
             System.out.println("Please enter another ID!");
@@ -326,30 +326,30 @@ public class ProjectVinMall {
             int EreleaseYear = sc.nextInt();
             System.out.println("Please enter Battery Capacity: ");
             int EbatteryCapacity = sc.nextInt();
-            Elictronic newApp = new Elictronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
-            elictronicData.add(newApp);
-            System.out.println("Elictronic add success. "); 
+            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
+            ElectronicData.add(newApp);
+            System.out.println("Electronic add success. "); 
             return;
     }
     }
-    void deleteElictronic(){
+    void deleteElectronic(){
         System.out.println("Please enter ID: ");
         String EId = getValidString();
-        for (int index = 0; index < elictronicData.size();index++ ){
-        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
-        elictronicData.remove(index);
-        System.out.println("Elictronic delete success.");
+        for (int index = 0; index < ElectronicData.size();index++ ){
+        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
+        ElectronicData.remove(index);
+        System.out.println("Electronic delete success.");
         break;     
         }
-         else {System.out.println("Elictronic delete unsuccess.");break;}
+         else {System.out.println("Electronic delete unsuccess.");break;}
         }        
     }
-    void editElictronic(){
+    void editElectronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString().trim();
     boolean value = false;
-    for (int index = 0; index < elictronicData.size();index++ ){
-        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
+    for (int index = 0; index < ElectronicData.size();index++ ){
+        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
             value = true;
         System.out.println("Please enter Name: ");
         String ENewName = getValidString();
@@ -367,17 +367,17 @@ public class ProjectVinMall {
         int ENewreleaseYear = sc.nextInt();
         System.out.println("Please enter Battery Capacity: ");
         int ENewbatteryCapacity = sc.nextInt();
-        Elictronic newApp = new Elictronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
-        elictronicData.set(index, newApp);
-        System.out.println("Elictronic edit success.");  
+        Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
+        ElectronicData.set(index, newApp);
+        System.out.println("Electronic edit success.");  
         break;
         }    
         }
-    if (!value){System.out.println("Elictronic edit unsuccess.");}     
+    if (!value){System.out.println("Electronic edit unsuccess.");}     
     }
     
     
-    void searchElictronic(){
+    void searchElectronic(){
     boolean value = true;
     while(value){
             System.out.println("Search by: ");
@@ -390,28 +390,28 @@ public class ProjectVinMall {
                 case 1:
                     System.out.println("Enter ID: ");
                     String id = getValidString();
-                    for (int index = 0; index < elictronicData.size();index++ ){
-                     if (elictronicData.get(index).getId().equalsIgnoreCase(id)){
+                    for (int index = 0; index < ElectronicData.size();index++ ){
+                     if (ElectronicData.get(index).getId().equalsIgnoreCase(id)){
                      found = true;
-                       System.out.println(elictronicData.get(index).toString());
+                       System.out.println(ElectronicData.get(index).toString());
                        return;
         }
                      
     }
-                    if (!found){System.out.println("Elictronic id or name not found.");return;}
+                    if (!found){System.out.println("Electronic id or name not found.");return;}
                     
                 
                 case 2:
                     System.out.println("Enter Name: ");
                     String name = getValidString();
-                    for (int index = 0; index < elictronicData.size();index++ ){
-                     if ( elictronicData.get(index).getName().equalsIgnoreCase(name)){
+                    for (int index = 0; index < ElectronicData.size();index++ ){
+                     if ( ElectronicData.get(index).getName().equalsIgnoreCase(name)){
                      found = true;
-                      System.out.println(elictronicData.get(index).toString());
+                      System.out.println(ElectronicData.get(index).toString());
                       break;
         }                     
     }
-                    if (!found){System.out.println("Elictronic id or name not found.");return;}
+                    if (!found){System.out.println("Electronic id or name not found.");return;}
                     
                    
                 
@@ -424,7 +424,7 @@ public class ProjectVinMall {
             }
         }
     }
-    void sortElictronic(){
+    void sortElectronic(){
         boolean value = true;
         List<Appliance> app;
         while(value){
@@ -643,8 +643,8 @@ public class ProjectVinMall {
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
-    public void ElictronicUI(){
-        System.out.println("----ELICTRONIC MANAGEMENT----");
+    public void ElectronicUI(){
+        System.out.println("----Electronic MANAGEMENT----");
         System.out.println("1. Display list ");
         System.out.println("2. Add new device ");
         System.out.println("3. Edit information ");
@@ -791,27 +791,27 @@ public class ProjectVinMall {
                 case 4:{
                     boolean stopE = true;
                 while(stopE){
-                 VinMall.ElictronicUI();
-                 int ElictronicSelect = getValidInput(6);
+                 VinMall.ElectronicUI();
+                 int ElectronicSelect = getValidInput(6);
                  
-                 switch(ElictronicSelect){
+                 switch(ElectronicSelect){
                      case 1:
-                         VinMall.displayElictronic();
+                         VinMall.displayElectronic();
                      break;
                      case 2:
-                         VinMall.addElictronic();
+                         VinMall.addElectronic();
                      break;
                      case 3:
-                         VinMall.editElictronic();
+                         VinMall.editElectronic();
                      break;
                      case 4:
-                         VinMall.deleteElictronic();
+                         VinMall.deleteElectronic();
                      break;
                      case 5:
-                         VinMall.sortElictronic();
+                         VinMall.sortElectronic();
                      break;
                      case 6:
-                         VinMall.searchElictronic();
+                         VinMall.searchElectronic();
                      break;
                      default:
                          System.out.println("Data saved.");
@@ -850,6 +850,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
