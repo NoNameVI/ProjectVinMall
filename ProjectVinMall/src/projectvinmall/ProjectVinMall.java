@@ -479,19 +479,7 @@ public class ProjectVinMall {
     }
     void addAppliance(){
         System.out.print("Please enter ID: ");
-        String Aid;
-        while(true){
-            Aid = getValidString();
-            boolean check = false;
-            for(Appliance a : applianceData){
-                if(a.getId().equalsIgnoreCase(Aid)){
-                    System.out.print("ID already exists! Please enter again: ");
-                    check = true;
-                    break;
-                }
-            }
-            if(!check){break;}
-        }
+        String Aid = getValidString();
         System.out.print("Please enter Name: ");
         String Aname= getValidString();
         System.out.print("Please enter Price: ");
@@ -636,7 +624,164 @@ public class ProjectVinMall {
         }
     }
 
-    
+    static String getValidString(){
+    String string;
+        try (Scanner scanner = new Scanner(System.in)) {
+            string = null;
+            while (true){
+                string = scanner.nextLine().trim();
+                if (string == null || string.isEmpty()){
+                    System.out.println("Try again!");
+                } else {
+                    break;
+                }
+            }
+        }
+        return string;
+       
+    }
+    ///Bookmethot///
+    public void listAllBooks() {
+        for (Book book : bookData) {
+            System.out.println(book);
+        }
+}
+
+public void addBook() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Book ID: ");
+    String id = sc.nextLine();
+    System.out.print("Book Name: ");
+    String name = sc.nextLine();
+    System.out.print("Price: ");
+    double price = Double.parseDouble(sc.nextLine());
+    System.out.print("Rating: ");
+    double rating = Double.parseDouble(sc.nextLine());
+    System.out.print("Author: ");
+    String author = sc.nextLine();
+    System.out.print("Pages: ");
+    int pages = Integer.parseInt(sc.nextLine());
+    bookData.add(new Book(id, name, price, rating, author, pages));
+    System.out.println("Book added.");
+}
+
+public void editBook() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter book ID to edit: ");
+    String id = sc.nextLine();
+    Book book = null;
+    for (Book b : bookData) {
+        if (b.getId().equals(id)) {
+            book = b;
+            break;
+        }
+    }
+    if (book != null) {
+        System.out.print("New Name [" + book.getName() + "]: ");
+        String name = sc.nextLine();
+        if (!name.isEmpty()) book.setName(name);
+
+        System.out.print("New Price [" + book.getPrice() + "]: ");
+        String price = sc.nextLine();
+        if (!price.isEmpty()) book.setPrice(Double.parseDouble(price));
+
+        System.out.print("New Rating [" + book.getRating() + "]: ");
+        String rating = sc.nextLine();
+        if (!rating.isEmpty()) book.setRating(Double.parseDouble(rating));
+
+        System.out.print("New Author [" + book.getAuthor() + "]: ");
+        String author = sc.nextLine();
+        if (!author.isEmpty()) book.setAuthor(author);
+
+        System.out.print("New Pages [" + book.getPages() + "]: ");
+        String pages = sc.nextLine();
+        if (!pages.isEmpty()) book.setPages(Integer.parseInt(pages));
+
+        System.out.println("Book updated.");
+    } else {
+        System.out.println("Book not found.");
+    }
+}
+
+public void deleteBook() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter book ID to delete: ");
+    String id = sc.nextLine();
+    boolean removed = bookData.removeIf(b -> b.getId().equals(id));
+    if (removed) {
+        System.out.println("Book deleted.");
+    } else {
+        System.out.println("Book not found.");
+    }
+}
+
+// ------- Drink methods -------
+public void listAllDrinks() {
+        for (Drink drink : drinkData) {
+            System.out.println(drink);
+        }
+}
+public void addDrink() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Drink ID: ");
+    String id = sc.nextLine();
+    System.out.print("Drink Name: ");
+    String name = sc.nextLine();
+    System.out.print("Price: ");
+    double price = Double.parseDouble(sc.nextLine());
+    System.out.print("Rating: ");
+    double rating = Double.parseDouble(sc.nextLine());
+    System.out.print("Size: ");
+    String size = sc.nextLine();
+    drinkData.add(new Drink(id, name, price, rating, size));
+    System.out.println("Drink added.");
+}
+
+public void editDrink() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter drink ID to edit: ");
+    String id = sc.nextLine();
+    Drink drink = null;
+    for (Drink d : drinkData) {
+        if (d.getId().equals(id)) {
+            drink = d;
+            break;
+        }
+    }
+    if (drink != null) {
+        System.out.print("New Name [" + drink.getName() + "]: ");
+        String name = sc.nextLine();
+        if (!name.isEmpty()) drink.setName(name);
+
+        System.out.print("New Price [" + drink.getPrice() + "]: ");
+        String price = sc.nextLine();
+        if (!price.isEmpty()) drink.setPrice(Double.parseDouble(price));
+
+        System.out.print("New Rating [" + drink.getRating() + "]: ");
+        String rating = sc.nextLine();
+        if (!rating.isEmpty()) drink.setRating(Double.parseDouble(rating));
+
+        System.out.print("New Size [" + drink.getSize() + "]: ");
+        String size = sc.nextLine();
+        if (!size.isEmpty()) drink.setSize(size);
+
+        System.out.println("Drink updated.");
+    } else {
+        System.out.println("Drink not found.");
+    }
+}
+
+public void deleteDrink() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter drink ID to delete: ");
+    String id = sc.nextLine();
+    boolean removed = drinkData.removeIf(d -> d.getId().equals(id));
+    if (removed) {
+        System.out.println("Drink deleted.");
+    } else {
+        System.out.println("Drink not found.");
+    }
+}
 
     
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
@@ -663,16 +808,6 @@ public class ProjectVinMall {
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
-    public void ElectronicUI(){
-        System.out.println("----Electronic MANAGEMENT----");
-        System.out.println("1. Display list ");
-        System.out.println("2. Add new device ");
-        System.out.println("3. Edit information ");
-        System.out.println("4. Delete device");
-        System.out.println("5. Sort by (brand or price)");
-        System.out.println("6. Search information by (Id or name)");
-        System.out.println("0. Back To MALL MANAGEMENT");
-    }
 
     public void ApplianceUI() {
         System.out.println("----EMPLOYEE MANAGEMENT----");
@@ -684,6 +819,179 @@ public class ProjectVinMall {
         System.out.println("6. Search information by (id or name)");
         System.out.println("0. Back To MALL MANAGEMEN");
     }
+    public void BookUI() {
+    Scanner sc = new Scanner(System.in);
+    while (true) {
+        System.out.println("---- BOOK MANAGEMENT ----");
+        System.out.println("1. List all books");
+        System.out.println("2. Add a book");
+        System.out.println("3. Edit a book");
+        System.out.println("4. Delete a book");
+        System.out.println("5. Sort books by (ID, Name, Rating, Price)");
+        System.out.println("6. Search books by (ID or Name)");
+        System.out.println("0. Back to Main Menu");
+        int choice = getValidInput(6);
+        switch (choice) {
+            case 1:
+                    listAllBooks();
+                break;
+            case 2:
+                System.out.print("Enter Book ID: "); String id = sc.nextLine();
+                System.out.print("Enter Book Name: "); String name = sc.nextLine();
+                System.out.print("Enter Book Price: "); double price = Double.parseDouble(sc.nextLine());
+                System.out.print("Enter Book Rating: "); double rating = Double.parseDouble(sc.nextLine());
+                System.out.print("Enter Author: "); String author = sc.nextLine();
+                System.out.print("Enter Number of Pages: "); int pages = Integer.parseInt(sc.nextLine());
+                bookData.add(new Book(id, name, price, rating, author, pages));
+                System.out.println("Book added successfully.");
+                break;
+            case 3:
+                System.out.print("Enter the ID of the book to edit: "); String editId = sc.nextLine();
+                Book toEdit = null;
+                for (Book b : bookData) if (b.getId().equals(editId)) toEdit = b;
+                if (toEdit != null) {
+                    System.out.print("New Name ("+toEdit.getName()+"): "); toEdit.setName(sc.nextLine());
+                    System.out.print("New Price ("+toEdit.getPrice()+"): "); toEdit.setPrice(Double.parseDouble(sc.nextLine()));
+                    System.out.print("New Rating ("+toEdit.getRating()+"): "); toEdit.setRating(Double.parseDouble(sc.nextLine()));
+                    System.out.print("New Author ("+toEdit.getAuthor()+"): "); toEdit.setAuthor(sc.nextLine());
+                    System.out.print("New Number of Pages ("+toEdit.getPages()+"): "); toEdit.setPages(Integer.parseInt(sc.nextLine()));
+                    System.out.println("Book information updated.");
+                } else {
+                    System.out.println("Book not found.");
+                }
+                break;
+            case 4:
+                System.out.print("Enter the ID of the book to delete: "); String delId = sc.nextLine();
+                boolean removed = bookData.removeIf(b -> b.getId().equals(delId));
+                if (removed) System.out.println("Book deleted.");
+                else System.out.println("Book not found.");
+                break;
+            case 5:
+                System.out.println("Sort by: 1. ID, 2. Name, 3. Rating, 4. Price");
+                int sortChoice = getValidInput(4);
+                switch (sortChoice) {
+                    case 1: bookData.sort((a, b) -> a.getId().compareTo(b.getId())); break;
+                    case 2: bookData.sort((a, b) -> a.getName().compareTo(b.getName())); break;
+                    case 3: bookData.sort((a, b) -> Double.compare(a.getRating(), b.getRating())); break;
+                    case 4: bookData.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice())); break;
+                }
+                System.out.println("Sorted successfully.");
+                break;
+            case 6:
+                System.out.println("Search by: 1. ID, 2. Name");
+                int searchChoice = getValidInput(2);
+                boolean found = false;
+                if (searchChoice == 1) {
+                    System.out.print("Enter book ID: ");
+                    String sid = sc.nextLine();
+                    for (Book b : bookData) {
+                        if (b.getId().equals(sid)) {
+                            System.out.println(b);
+                            found = true;
+                        }
+                    }
+                } else {
+                    System.out.print("Enter book name: ");
+                    String sname = sc.nextLine().toLowerCase();
+                    for (Book b : bookData) {
+                        if (b.getName().toLowerCase().contains(sname)) {
+                            System.out.println(b);
+                            found = true;
+                        }
+                    }
+                }
+                if (!found) System.out.println("Book not found.");
+                break;
+            case 0:
+                return;
+        }
+    }
+}
+
+public void DrinkUI() {
+    Scanner sc = new Scanner(System.in);
+    while (true) {
+        System.out.println("---- DRINK MANAGEMENT ----");
+        System.out.println("1. List all drinks");
+        System.out.println("2. Add a drink");
+        System.out.println("3. Edit a drink");
+        System.out.println("4. Delete a drink");
+        System.out.println("5. Sort drinks by (ID, Name, Rating, Price)");
+        System.out.println("6. Search drinks by (ID or Name)");
+        System.out.println("0. Back to Main Menu");
+        int choice = getValidInput(6);
+        switch (choice) {
+            case 1:
+                    listAllDrinks();;
+                    break;
+            case 2:
+                System.out.print("Enter Drink ID: "); String id = sc.nextLine();
+                System.out.print("Enter Drink Name: "); String name = sc.nextLine();
+                System.out.print("Enter Drink Price: "); double price = Double.parseDouble(sc.nextLine());
+                System.out.print("Enter Drink Rating: "); double rating = Double.parseDouble(sc.nextLine());
+                System.out.print("Enter Drink Size: "); String size = sc.nextLine();
+                drinkData.add(new Drink(id, name, price, rating, size));
+                break;
+            case 3:
+                System.out.print("Enter the ID of the drink to edit: "); String editId = sc.nextLine();
+                Drink toEdit = null;
+                for (Drink d : drinkData) if (d.getId().equals(editId)) toEdit = d;
+                if (toEdit != null) {
+                    System.out.print("New Name ("+toEdit.getName()+"): "); toEdit.setName(sc.nextLine());
+                    System.out.print("New Price ("+toEdit.getPrice()+"): "); toEdit.setPrice(Double.parseDouble(sc.nextLine()));
+                    System.out.print("New Rating ("+toEdit.getRating()+"): "); toEdit.setRating(Double.parseDouble(sc.nextLine()));
+                    System.out.print("New Size ("+toEdit.getSize()+"): "); toEdit.setSize(sc.nextLine());
+                    System.out.println("Drink information updated.");
+                } else {
+                    System.out.println("Drink not found.");
+                }
+                break;
+            case 4:
+                System.out.print("Enter the ID of the drink to delete: "); String delId = sc.nextLine();
+                boolean removed = drinkData.removeIf(d -> d.getId().equals(delId));
+                if (removed) System.out.println("Drink deleted.");
+                else System.out.println("Drink not found.");
+                break;
+            case 5:
+                System.out.println("Sort by: 1. ID, 2. Name, 3. Rating, 4. Price");
+                int sortChoice = getValidInput(4);
+                switch (sortChoice) {
+                    case 1: drinkData.sort((a, b) -> a.getId().compareTo(b.getId())); break;
+                    case 2: drinkData.sort((a, b) -> a.getName().compareTo(b.getName())); break;
+                    case 3: drinkData.sort((a, b) -> Double.compare(a.getRating(), b.getRating())); break;
+                    case 4: drinkData.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice())); break;
+                }
+                break;
+            case 6:
+                    System.out.println("Search by: 1. ID, 2. Name");
+                    int searchChoice = getValidInput(2);
+                    boolean found = false;
+                    if (searchChoice == 1) {
+                        System.out.print("Enter drink ID: ");
+                        String sid = sc.nextLine();
+                        for (Drink d : drinkData) {
+                            if (d.getId().equals(sid)) {
+                                System.out.println(d);
+                                found = true;
+                            }
+                        }
+                    } else {
+                        System.out.print("Enter drink name: ");
+                        String sname = sc.nextLine().toLowerCase();
+                        for (Drink d : drinkData) {
+                            if (d.getName().toLowerCase().contains(sname)) {
+                                System.out.println(d);
+                                found = true;
+                            }
+                        }
+                    }
+                    if (!found) System.out.println("Drink not found.");
+                    break;
+            case 0:
+                return;
+        }
+    }
+}
 
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
         public static int getValidInput(int range) {
@@ -721,7 +1029,6 @@ public class ProjectVinMall {
         
         sc.close();
         return string;
-       
     }
     public static void clearScreen() {
         try {
