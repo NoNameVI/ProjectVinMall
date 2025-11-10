@@ -10,18 +10,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Comparator;
-import java.util.*;
 
-interface IMall {
 
-    void sortByName();
 
-    void sortByRating();
 
-    void sortByPrice();
-}
-
-public class ProjectVinMall {
+public class ProjectVinMall implements IMall {
 
     public static String RESET = "\u001B[0m";
     public static String RED = "\u001B[31m";
@@ -965,7 +958,8 @@ public void listAllFoods() {
 }
 
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
-        public static int getValidInput(int range) {
+    @Override
+        public int getValidInput(int range) {
        Scanner sc = new Scanner(System.in);
         int input;
         while (true) {
@@ -986,7 +980,8 @@ public void listAllFoods() {
         return input;
     }
         
-    public static String getValidString(){
+    @Override
+    public String getValidString(){
     String string;
             Scanner sc = new Scanner(System.in);
             string = null;
@@ -1002,7 +997,8 @@ public void listAllFoods() {
        
         return string;
     }
-    public static void clearScreen() {
+    @Override
+    public void clearScreen() {
         try {
             Thread.sleep(1000);
             if (System.getProperty("os.name").contains("Windows")) {
@@ -1015,7 +1011,9 @@ public void listAllFoods() {
         }
     }
     // clear cmd cho dep
-    public static void delay(long s) {
+    
+    @Override
+    public void delay(long s) {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < s) {
         }
@@ -1039,15 +1037,15 @@ public void listAllFoods() {
         
          */
         ProjectVinMall VinMall = new ProjectVinMall();
-
+        
         VinMall.loadData();
-
+        
         boolean stop = false;
 
         while (!stop) {
-            clearScreen();
+            VinMall.clearScreen();
             VinMall.mainUI();
-            int MainSelect = getValidInput(7);
+            int MainSelect = VinMall.getValidInput(7);
 
             switch (MainSelect) {
                 case 1: //Book
@@ -1058,7 +1056,7 @@ public void listAllFoods() {
                     boolean stopA = true;
                     while(stopA){
                         VinMall.ApplianceUI();
-                        int ApplianceSelect = getValidInput(7);
+                        int ApplianceSelect = VinMall.getValidInput(7);
                         switch(ApplianceSelect){
                             case 1:
                                 VinMall.listAppliance();
@@ -1095,7 +1093,7 @@ public void listAllFoods() {
                     boolean stopE = true;
                 while(stopE){
                  VinMall.ElectronicUI();
-                 int ElectronicSelect = getValidInput(6);
+                 int ElectronicSelect = VinMall.getValidInput(6);
                  
                  switch(ElectronicSelect){
                      case 1:
@@ -1138,13 +1136,13 @@ public void listAllFoods() {
 
                     VinMall.listEmployee();
                     VinMall.EmployeeUI();
-                    int EmployeeSelect = getValidInput(4);
+                    int EmployeeSelect = VinMall.getValidInput(4);
 
                     //------------------------------------endEmployee--------------------------------
                     break;
                 default:
                     VinMall.saveData();
-                    clearScreen();
+                    VinMall.clearScreen();
                     System.out.println("Data saved.");
                     System.out.println("Exit.");
                     stop = true;
@@ -1153,5 +1151,4 @@ public void listAllFoods() {
 
     }
 }
-
 
