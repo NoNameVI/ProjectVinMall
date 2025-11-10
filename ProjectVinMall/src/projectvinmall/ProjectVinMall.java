@@ -21,7 +21,7 @@ interface IMall {
 }
 
 public class ProjectVinMall {
-
+    Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
     ArrayList<String> DrinksList = new ArrayList<>();
@@ -833,6 +833,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
