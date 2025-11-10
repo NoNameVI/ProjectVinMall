@@ -21,6 +21,16 @@ interface IMall {
 }
 
 public class ProjectVinMall {
+
+    public static String RESET = "\u001B[0m";
+    public static String RED = "\u001B[31m";
+    public static String GREEN = "\u001B[32m";
+    public static String YELLOW = "\u001B[33m";
+    public static String BLUE = "\u001B[34m";
+    public static String PURPLE = "\u001B[35m";
+    public static String CYAN = "\u001B[36m";
+    public static String WHITE = "\u001B[37m";
+    
     Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
@@ -70,6 +80,7 @@ public class ProjectVinMall {
         try (Scanner sc = new Scanner(new File(df))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
+                delay(40);
                 System.out.println("Data loaded: " + line);
                 dataMap.get(df).add(line);
             }
@@ -204,7 +215,7 @@ public class ProjectVinMall {
                 for (String line : tempList) {
                     fw.write(line + System.lineSeparator());
                     System.out.println("Data stored: " + line);
-
+                    delay(40);
                 }
             }
 
@@ -213,7 +224,7 @@ public class ProjectVinMall {
         }
     }
 
-    public void saveData() {
+       public void saveData() {
         for (String file : fileList) {
             switch (file) {
                 case "bookin.txt":
@@ -222,63 +233,72 @@ public class ProjectVinMall {
                         BooksList.add(b.toString());
                     }
                     dataMap.put(file, BooksList);
+                    clearScreen();
                     System.out.println("\n---Book store data---\n");
                     break;
-
+                
                 case "employeein.txt":
                     EmployeesList.clear();
                     for (Employee e : employeeData) {
                         EmployeesList.add(e.getInfo());
                     }
                     dataMap.put(file, EmployeesList);
+                    clearScreen();
                     System.out.println("\n---Employees data---\n");
                     break;
-
+                
                 case "appliancein.txt":
                     AppliancesList.clear();
                     for (Appliance a : applianceData) {
                         AppliancesList.add(a.toString());
                     }
                     dataMap.put(file, AppliancesList);
+                    clearScreen();
                     System.out.println("\n---Appliance store data---\n");
                     break;
-
+                
                 case "drinkin.txt":
                     DrinksList.clear();
                     for (Drink d : drinkData) {
                         DrinksList.add(d.toString());
                     }
                     dataMap.put(file, DrinksList);
+                    clearScreen();
                     System.out.println("\n---Drink store data---\n");
                     break;
-
+                
                 case "electronicin.txt":
                     ElectronicsList.clear();
                     for (Electronic e : electronicData) {
                         ElectronicsList.add(e.toString());
                     }
                     dataMap.put(file, ElectronicsList);
+                    clearScreen();
                     System.out.println("\n---Electronic store data---\n");
                     break;
-
+                
                 case "vehiclesin.txt":
                     VehiclesList.clear();
                     for (Vehicle v : vehicleData) {
                         VehiclesList.add(v.toString());
                     }
                     dataMap.put(file, VehiclesList);
+                    clearScreen();
                     System.out.println("\n---Vehicle store data---\n");
+                    delay(100);
                     break;
-
+                
                 case "foodin.txt":
                     FoodsList.clear();
                     for (Food f : foodData) {
                         FoodsList.add(f.toString());
                     }
                     dataMap.put(file, FoodsList);
+                    clearScreen();
                     System.out.println("\n---Food store data---\n");
+                    delay(100);
                     break;
-
+                
                 default:
                     break;
             }
@@ -292,17 +312,17 @@ public class ProjectVinMall {
             System.out.println(Employee.getInfo());
         });
     }
-    void displayElectronic(){
-    ElectronicData.forEach(Electronic -> {
-        System.out.println(Electronic.toString());
+    void displayElictronic(){
+    elictronicData.forEach(Elictronic -> {
+        System.out.println(Elictronic.toString());
     });
     }
-    void addElectronic(){
+    void addElictronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString();
     boolean value = false;
-    for (int index = 0; index < ElectronicData.size();index++ ){
-        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
+    for (int index = 0; index < elictronicData.size();index++ ){
+        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
             value = true;
             System.out.println("ID already exists");
             System.out.println("Please enter another ID!");
@@ -326,30 +346,30 @@ public class ProjectVinMall {
             int EreleaseYear = sc.nextInt();
             System.out.println("Please enter Battery Capacity: ");
             int EbatteryCapacity = sc.nextInt();
-            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
-            ElectronicData.add(newApp);
-            System.out.println("Electronic add success. "); 
+            Elictronic newApp = new Elictronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
+            elictronicData.add(newApp);
+            System.out.println("Elictronic add success. "); 
             return;
     }
     }
-    void deleteElectronic(){
+    void deleteElictronic(){
         System.out.println("Please enter ID: ");
         String EId = getValidString();
-        for (int index = 0; index < ElectronicData.size();index++ ){
-        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
-        ElectronicData.remove(index);
-        System.out.println("Electronic delete success.");
+        for (int index = 0; index < elictronicData.size();index++ ){
+        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
+        elictronicData.remove(index);
+        System.out.println("Elictronic delete success.");
         break;     
         }
-         else {System.out.println("Electronic delete unsuccess.");break;}
+         else {System.out.println("Elictronic delete unsuccess.");break;}
         }        
     }
-    void editElectronic(){
+    void editElictronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString().trim();
     boolean value = false;
-    for (int index = 0; index < ElectronicData.size();index++ ){
-        if (ElectronicData.get(index).getId().equalsIgnoreCase(EId)){
+    for (int index = 0; index < elictronicData.size();index++ ){
+        if (elictronicData.get(index).getId().equalsIgnoreCase(EId)){
             value = true;
         System.out.println("Please enter Name: ");
         String ENewName = getValidString();
@@ -367,17 +387,17 @@ public class ProjectVinMall {
         int ENewreleaseYear = sc.nextInt();
         System.out.println("Please enter Battery Capacity: ");
         int ENewbatteryCapacity = sc.nextInt();
-        Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
-        ElectronicData.set(index, newApp);
-        System.out.println("Electronic edit success.");  
+        Elictronic newApp = new Elictronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
+        elictronicData.set(index, newApp);
+        System.out.println("Elictronic edit success.");  
         break;
         }    
         }
-    if (!value){System.out.println("Electronic edit unsuccess.");}     
+    if (!value){System.out.println("Elictronic edit unsuccess.");}     
     }
     
     
-    void searchElectronic(){
+    void searchElictronic(){
     boolean value = true;
     while(value){
             System.out.println("Search by: ");
@@ -390,28 +410,28 @@ public class ProjectVinMall {
                 case 1:
                     System.out.println("Enter ID: ");
                     String id = getValidString();
-                    for (int index = 0; index < ElectronicData.size();index++ ){
-                     if (ElectronicData.get(index).getId().equalsIgnoreCase(id)){
+                    for (int index = 0; index < elictronicData.size();index++ ){
+                     if (elictronicData.get(index).getId().equalsIgnoreCase(id)){
                      found = true;
-                       System.out.println(ElectronicData.get(index).toString());
+                       System.out.println(elictronicData.get(index).toString());
                        return;
         }
                      
     }
-                    if (!found){System.out.println("Electronic id or name not found.");return;}
+                    if (!found){System.out.println("Elictronic id or name not found.");return;}
                     
                 
                 case 2:
                     System.out.println("Enter Name: ");
                     String name = getValidString();
-                    for (int index = 0; index < ElectronicData.size();index++ ){
-                     if ( ElectronicData.get(index).getName().equalsIgnoreCase(name)){
+                    for (int index = 0; index < elictronicData.size();index++ ){
+                     if ( elictronicData.get(index).getName().equalsIgnoreCase(name)){
                      found = true;
-                      System.out.println(ElectronicData.get(index).toString());
+                      System.out.println(elictronicData.get(index).toString());
                       break;
         }                     
     }
-                    if (!found){System.out.println("Electronic id or name not found.");return;}
+                    if (!found){System.out.println("Elictronic id or name not found.");return;}
                     
                    
                 
@@ -424,7 +444,7 @@ public class ProjectVinMall {
             }
         }
     }
-    void sortElectronic(){
+    void sortElictronic(){
         boolean value = true;
         List<Appliance> app;
         while(value){
@@ -643,8 +663,8 @@ public class ProjectVinMall {
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
-    public void ElectronicUI(){
-        System.out.println("----Electronic MANAGEMENT----");
+    public void ElictronicUI(){
+        System.out.println("----ELICTRONIC MANAGEMENT----");
         System.out.println("1. Display list ");
         System.out.println("2. Add new device ");
         System.out.println("3. Edit information ");
@@ -721,6 +741,10 @@ public class ProjectVinMall {
         while (System.currentTimeMillis() - start < s) {
         }
     }
+    
+    public static void printfc(String color, String format, Object... args) {
+        System.out.printf(color + format + RESET, args);
+    }
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
@@ -791,27 +815,27 @@ public class ProjectVinMall {
                 case 4:{
                     boolean stopE = true;
                 while(stopE){
-                 VinMall.ElectronicUI();
-                 int ElectronicSelect = getValidInput(6);
+                 VinMall.ElictronicUI();
+                 int ElictronicSelect = getValidInput(6);
                  
-                 switch(ElectronicSelect){
+                 switch(ElictronicSelect){
                      case 1:
-                         VinMall.displayElectronic();
+                         VinMall.displayElictronic();
                      break;
                      case 2:
-                         VinMall.addElectronic();
+                         VinMall.addElictronic();
                      break;
                      case 3:
-                         VinMall.editElectronic();
+                         VinMall.editElictronic();
                      break;
                      case 4:
-                         VinMall.deleteElectronic();
+                         VinMall.deleteElictronic();
                      break;
                      case 5:
-                         VinMall.sortElectronic();
+                         VinMall.sortElictronic();
                      break;
                      case 6:
-                         VinMall.searchElectronic();
+                         VinMall.searchElictronic();
                      break;
                      default:
                          System.out.println("Data saved.");
