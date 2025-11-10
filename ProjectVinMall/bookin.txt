@@ -1,0 +1,5 @@
+B00001-Nhung Nguoi Khon Kho-350000-9.5-Victor Hugo-1232
+B00002-Hoang Tu Be-70000-9.8-Antoine de Saint Exupery-96
+B00003-Nguoi Xa La-110000-9.0-Albert Camus-123
+B00004-Ba Tuoc Monte Cristo-320000-9.3-Alexandre Dumas-1136
+B00005-Ba Bovary-135000-8.7-Gustave Flaubert-328
