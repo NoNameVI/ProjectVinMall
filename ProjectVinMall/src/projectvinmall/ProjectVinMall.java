@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Comparator;
+import java.util.*;
 
 interface IMall {
 
@@ -317,6 +318,7 @@ public class ProjectVinMall {
         System.out.println(Electronic.toString());
     });
     }
+    
     void addElectronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString();
@@ -367,7 +369,7 @@ public class ProjectVinMall {
     if (!found) System.out.println("ID not found!");
     
         }
-    }
+    
 
     void editElectronic(){
     System.out.println("Please enter ID: ");
@@ -629,22 +631,7 @@ public class ProjectVinMall {
         }
     }
 
-    static String getValidString(){
-    String string;
-        try (Scanner scanner = new Scanner(System.in)) {
-            string = null;
-            while (true){
-                string = scanner.nextLine().trim();
-                if (string == null || string.isEmpty()){
-                    System.out.println("Try again!");
-                } else {
-                    break;
-                }
-            }
-        }
-        return string;
-       
-    }
+    
     ///Bookmethot///
     public void listAllBooks() {
         for (Book book : bookData) {
@@ -998,6 +985,7 @@ public void listAllFoods() {
         
         return input;
     }
+        
     public static String getValidString(){
     String string;
             Scanner sc = new Scanner(System.in);
@@ -1165,20 +1153,5 @@ public void listAllFoods() {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
