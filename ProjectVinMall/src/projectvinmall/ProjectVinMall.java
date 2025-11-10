@@ -353,17 +353,22 @@ public class ProjectVinMall {
     }
     }
     void deleteElectronic(){
-        System.out.println("Please enter ID: ");
-        String EId = getValidString();
-        for (int index = 0; index < electronicData.size();index++ ){
-        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
-        electronicData.remove(index);
-        System.out.println("Electronic delete success.");
-        break;     
+    System.out.println("Please enter ID: ");
+    String EId = getValidString();
+    boolean found = false;
+    for (int i = 0; i < electronicData.size(); i++) {
+        if (electronicData.get(i).getId().equalsIgnoreCase(EId)) {
+            electronicData.remove(i);
+            System.out.println("Electronic delete success.");
+            found = true;
+            break;
         }
-         else {System.out.println("Electronic delete unsuccess.");break;}
-        }        
     }
+    if (!found) {
+        System.out.println("Electronic ID not found.");
+        }
+    }
+
     void editElectronic(){
     System.out.println("Please enter ID: ");
     String EId = getValidString().trim();
@@ -446,7 +451,7 @@ public class ProjectVinMall {
     }
     void sortElectronic(){
         boolean value = true;
-        List<Appliance> app;
+        List<Electronic> app;
         while(value){
             System.out.println("Sort by: ");
             System.out.println("1. Id");
@@ -455,12 +460,12 @@ public class ProjectVinMall {
             int choose = getValidInput(3);
             switch(choose){
                 case 1:
-                    applianceData.sort(Comparator.comparing(Appliance::getBrand));
+                    electronicData.sort(Comparator.comparing(Electronic::getBrand));
                     System.out.println("Sorted by Price successfully!");
                     value=false;
                 break;
                 case 2:
-                    applianceData.sort(Comparator.comparing(Appliance::getPrice));
+                    electronicData.sort(Comparator.comparing(Electronic::getPrice));
                     System.out.println("Sorted by Price successfully!");
                     value=false;
                 break;
@@ -990,7 +995,7 @@ public void listAllFoods() {
                 sc.next();
             }
         }
-        sc.close();
+        
         return input;
     }
     public static String getValidString(){
@@ -1006,7 +1011,7 @@ public void listAllFoods() {
                 }
             }
         
-        sc.close();
+       
         return string;
     }
     public static void clearScreen() {
@@ -1160,6 +1165,7 @@ public void listAllFoods() {
 
     }
 }
+
 
 
 
