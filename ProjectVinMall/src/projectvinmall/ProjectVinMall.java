@@ -221,6 +221,7 @@ public class ProjectVinMall {
                         BooksList.add(b.toString());
                     }
                     dataMap.put(file, BooksList);
+                    System.out.println("\n---Book store data---\n");
                     break;
 
                 case "employeein.txt":
@@ -229,6 +230,7 @@ public class ProjectVinMall {
                         EmployeesList.add(e.getInfo());
                     }
                     dataMap.put(file, EmployeesList);
+                    System.out.println("\n---Employees data---\n");
                     break;
 
                 case "appliancein.txt":
@@ -237,6 +239,7 @@ public class ProjectVinMall {
                         AppliancesList.add(a.toString());
                     }
                     dataMap.put(file, AppliancesList);
+                    System.out.println("\n---Appliance store data---\n");
                     break;
 
                 case "drinkin.txt":
@@ -245,7 +248,7 @@ public class ProjectVinMall {
                         DrinksList.add(d.toString());
                     }
                     dataMap.put(file, DrinksList);
-
+                    System.out.println("\n---Drink store data---\n");
                     break;
 
                 case "electronicin.txt":
@@ -254,7 +257,7 @@ public class ProjectVinMall {
                         ElectronicsList.add(e.toString());
                     }
                     dataMap.put(file, ElectronicsList);
-                    System.out.println("---Electronic store data---");
+                    System.out.println("\n---Electronic store data---\n");
                     break;
 
                 case "vehiclesin.txt":
@@ -263,7 +266,7 @@ public class ProjectVinMall {
                         VehiclesList.add(v.toString());
                     }
                     dataMap.put(file, VehiclesList);
-                    System.out.println("---Vehicle store data---");
+                    System.out.println("\n---Vehicle store data---\n");
                     break;
 
                 case "foodin.txt":
@@ -272,7 +275,7 @@ public class ProjectVinMall {
                         FoodsList.add(f.toString());
                     }
                     dataMap.put(file, FoodsList);
-                    System.out.println("---Food store data---");
+                    System.out.println("\n---Food store data---\n");
                     break;
 
                 default:
@@ -423,4 +426,5 @@ public class ProjectVinMall {
 
     }
 }
+
 
