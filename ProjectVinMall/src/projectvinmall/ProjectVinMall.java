@@ -357,15 +357,15 @@ public class ProjectVinMall {
     String EId = getValidString();
     boolean found = false;
     for (int i = 0; i < electronicData.size(); i++) {
-        if (electronicData.get(i).getId().equalsIgnoreCase(EId)) {
-            electronicData.remove(i);
-            System.out.println("Electronic delete success.");
-            found = true;
-            break;
+    if (electronicData.get(i).getId().equalsIgnoreCase(EId)) {
+        electronicData.remove(i);
+        found = true;
+        System.out.println("Delete success!");
+        break;
         }
     }
-    if (!found) {
-        System.out.println("Electronic ID not found.");
+    if (!found) System.out.println("ID not found!");
+    
         }
     }
 
@@ -1165,6 +1165,7 @@ public void listAllFoods() {
 
     }
 }
+
 
 
 
