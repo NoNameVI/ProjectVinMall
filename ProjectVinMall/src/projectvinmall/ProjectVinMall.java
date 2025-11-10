@@ -442,6 +442,24 @@ public class ProjectVinMall {
         }
     }
 
+    static String getValidString(){
+    String string;
+        try (Scanner scanner = new Scanner(System.in)) {
+            string = null;
+            while (true){
+                string = scanner.nextLine().trim();
+                if (string == null || string.isEmpty()){
+                    System.out.println("Try again!");
+                } else {
+                    break;
+                }
+            }
+        }
+        return string;
+       
+    }
+
+    
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
         System.out.println("----MALL MANAGEMENT SYSTEM----");
@@ -499,20 +517,7 @@ public class ProjectVinMall {
 
         return input;
     }
-    public static String getValidString(){
-        Scanner scanner = new Scanner(System.in);
-        String string=null;
-        
-        while (true){  
-            string = scanner.nextLine().trim();        
-            if (string == null || string.isEmpty()){
-                System.out.println("Try again!");
-            } else {
-                break;
-            }     
-        }       
-        return string;
-    }
+    
     public static void clearScreen() {
         try {
             Thread.sleep(1000);
@@ -625,6 +630,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
