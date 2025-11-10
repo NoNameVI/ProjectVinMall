@@ -302,6 +302,7 @@ public class ProjectVinMall implements IMall {
 
     //--------------------------------------------------Ham ho tro -------------------------------------------------------------------------------------------------------------------------------
     void listEmployee() {
+        System.out.println("--------------------Employee List------------------------");
         employeeData.forEach(Employee -> {
             System.out.println(Employee.getInfo());
         });
@@ -870,6 +871,7 @@ public void listAllFoods() {
         
         employeeData.add(newEmp);
         System.out.println("New Employee infor:" + newEmp.getInfo());
+        waitForEnter("Enter to continue.");
     }
     
     void editEmloyee(){
@@ -898,13 +900,52 @@ public void listAllFoods() {
                 break;
             }
         }
-        
         employeeData.set(index, newEmp);
-
         System.out.println("Employee infor:" + newEmp.getInfo());
-        
+        waitForEnter("Enter to continue.");
     }
     
+    void DissmisEmployee(){
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkEmployeeID(newEmId)){
+                
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        int i=0;
+        for (int index =0 ; index < employeeData.size() ; index++){
+                if (employeeData.get(index).getId().equalsIgnoreCase(newEmId)){
+                    i = index;
+                    break;
+                }
+        }
+        
+        employeeData.remove(i);
+        System.out.println("Employee Dissmised");
+    }
+    
+    void findEmployee(){
+        System.out.print("Enter id, name or position :");
+        String find = getValidString();
+        int notfind = 0;
+        for (Employee e : employeeData){
+            if (  e.getId().contains(find) ||
+                   e.getName().contains(find) ||
+                   e.getPosition().contains(find)
+                    ){
+                System.out.println(e.getInfo());
+                ++notfind;
+            }
+        }
+        if (notfind == 0){
+            System.out.println("No resuft!");
+            
+        }
+        waitForEnter("Enter to continue.");
+    }
     
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
@@ -1110,7 +1151,10 @@ public void listAllFoods() {
         while (System.currentTimeMillis() - start < s) {
         }
     }
-    
+    public void waitForEnter(String prompt) {
+        System.out.print(prompt);
+        sc.nextLine();
+    }
     
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
@@ -1241,10 +1285,10 @@ public void listAllFoods() {
                                     VinMall.editEmloyee();
                                     break;
                                 case 3://Dissmis
-                                    
+                                    VinMall.DissmisEmployee();
                                     break;
                                 case 4://Find
-                                    
+                                    VinMall.findEmployee();
                                     break;
                                 case 5://Sort
                                     break;
