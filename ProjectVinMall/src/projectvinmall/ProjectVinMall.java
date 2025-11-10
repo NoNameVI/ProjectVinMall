@@ -683,7 +683,7 @@ public class ProjectVinMall {
                 scanner.next();
             }
         }
-
+        scanner.close();
         return input;
     }
     public static String getValidString(){
@@ -699,6 +699,7 @@ public class ProjectVinMall {
                 }
             }
         }
+        scanner.close();
         return string;
        
     }
@@ -849,6 +850,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
