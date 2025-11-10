@@ -686,13 +686,13 @@ public class ProjectVinMall {
     }
 
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
-    public static int getValidInput(int range) {
-        Scanner scanner = new Scanner(System.in);
+        public static int getValidInput(int range) {
+       Scanner sc = new Scanner(System.in);
         int input;
         while (true) {
             System.out.print("Please select an option: ");
-            if (scanner.hasNextInt()) {
-                input = scanner.nextInt();
+            if (sc.hasNextInt()) {
+                input = sc.nextInt();
                 if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
                     break; // valid
                 } else {
@@ -700,26 +700,26 @@ public class ProjectVinMall {
                 }
             } else {
                 System.out.println("Vui long nhap so nguyen.");
-                scanner.next();
+                sc.next();
             }
         }
-        scanner.close();
+        sc.close();
         return input;
     }
     public static String getValidString(){
     String string;
-        try (Scanner scanner = new Scanner(System.in)) {
+            Scanner sc = new Scanner(System.in);
             string = null;
             while (true){
-                string = scanner.nextLine().trim();
+                string = sc.nextLine().trim();
                 if (string == null || string.isEmpty()){
                     System.out.println("Try again!");
                 } else {
                     break;
                 }
             }
-        }
-        scanner.close();
+        
+        sc.close();
         return string;
        
     }
@@ -874,6 +874,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
