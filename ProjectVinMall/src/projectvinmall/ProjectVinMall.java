@@ -715,7 +715,11 @@ public class ProjectVinMall {
         }
     }
     // clear cmd cho dep
-
+    public static void delay(long s) {
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() - start < s) {
+        }
+    }
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
@@ -845,6 +849,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
