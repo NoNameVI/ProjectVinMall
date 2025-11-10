@@ -306,6 +306,7 @@ public class ProjectVinMall implements IMall {
             System.out.println(Employee.getInfo());
         });
     }
+    
     void displayElectronic(){
     electronicData.forEach(Electronic -> {
         System.out.println(Electronic.toString());
@@ -972,7 +973,7 @@ public void listAllFoods() {
                     System.out.printf("The value is out of range(0-%d).", range);
                 }
             } else {
-                System.out.println("Vui long nhap so nguyen.");
+                System.out.println("Please enter only positive integer.");
                 sc.next();
             }
         }
@@ -1007,7 +1008,7 @@ public void listAllFoods() {
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (Exception e) {
-            System.out.println("Không thể xóa màn hình: " + e.getMessage());
+            System.out.println("Can not clear the Screen!" + e.getMessage());
         }
     }
     // clear cmd cho dep
@@ -1125,7 +1126,7 @@ public void listAllFoods() {
                     //------------------------------------endElectronic--------------------------------
                     break;
                 case 5://Food
-
+                        
                     //------------------------------------endFood--------------------------------
                     break;
                 case 6://Vehicle
@@ -1133,22 +1134,41 @@ public void listAllFoods() {
                     //------------------------------------endVehicle--------------------------------
                     break;
                 case 7://Employee
-
-                    VinMall.listEmployee();
-                    VinMall.EmployeeUI();
-                    int EmployeeSelect = VinMall.getValidInput(4);
-
+                    
+                    boolean stopEmp = false;
+                    while (!stopEmp) {
+                            VinMall.clearScreen();
+                            VinMall.listEmployee();
+                            VinMall.EmployeeUI();
+                            int EmployeeSelect = VinMall.getValidInput(4);
+                            switch (EmployeeSelect){
+                                case 1:
+                                    
+                                    break;
+                                case 2:
+                                    
+                                    break;
+                                case 3:
+                                    
+                                    break;
+                                case 4:
+                                    
+                                    break;
+                                case 0:
+                                    System.out.println("Back");
+                                    stopEmp = true;
+                            }
+                    }        
                     //------------------------------------endEmployee--------------------------------
                     break;
-                default:
+                case 0:
                     VinMall.saveData();
                     VinMall.clearScreen();
                     System.out.println("Data saved.");
                     System.out.println("Exit.");
                     stop = true;
+                    break;
             }
         }
-
     }
 }
-
