@@ -459,7 +459,19 @@ public class ProjectVinMall {
     }
     void addAppliance(){
         System.out.print("Please enter ID: ");
-        String Aid = getValidString();
+        String Aid;
+        while(true){
+            Aid = getValidString();
+            boolean check = false;
+            for(Appliance a : applianceData){
+                if(a.getId().equalsIgnoreCase(Aid)){
+                    System.out.print("ID already exists! Please enter again: ");
+                    check = true;
+                    break;
+                }
+            }
+            if(!check){break;}
+        }
         System.out.print("Please enter Name: ");
         String Aname= getValidString();
         System.out.print("Please enter Price: ");
@@ -833,6 +845,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
