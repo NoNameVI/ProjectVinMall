@@ -11,4 +11,5 @@ interface IMall {
     void delay(long s);
     void setFile();
     double getValidDouble();
+    int getValidInt();
 }

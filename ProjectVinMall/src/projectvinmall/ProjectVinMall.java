@@ -302,7 +302,7 @@ public class ProjectVinMall implements IMall {
 
     //--------------------------------------------------Ham ho tro -------------------------------------------------------------------------------------------------------------------------------
     void listEmployee() {
-        System.out.println("--------------------Employee List------------------------");
+        
         employeeData.forEach(Employee -> {
             System.out.println(Employee.getInfo());
         });
@@ -849,6 +849,7 @@ public void listAllFoods() {
     //-----------------------------------Employee Method-------------------------------
     
     void addEmployee(){
+        System.out.println("--------------Hire new Employee----------------");
         String newEmId;
         while (true){
             System.out.print("Enter new ID:");
@@ -875,6 +876,7 @@ public void listAllFoods() {
     }
     
     void editEmloyee(){
+        System.out.println("--------------Edit Employees information----------------");
         String newEmId;
         while (true){
             System.out.print("Enter Employee ID:");
@@ -906,6 +908,7 @@ public void listAllFoods() {
     }
     
     void DissmisEmployee(){
+        System.out.println("--------------Dissmis Employees-----------------");
         String newEmId;
         while (true){
             System.out.print("Enter Employee ID:");
@@ -928,6 +931,7 @@ public void listAllFoods() {
     }
     
     void findEmployee(){
+        System.out.println("--------------Find Employees-----------------");
         System.out.print("Enter id, name or position :");
         String find = getValidString();
         int notfind = 0;
@@ -947,6 +951,42 @@ public void listAllFoods() {
         waitForEnter("Enter to continue.");
     }
     
+    void sortEmployee(){
+        boolean sortstop = false;
+        while (!sortstop) {
+        System.out.println("--------------Sort Employees-----------------");
+        System.out.println("Sorting by what?");
+        System.out.println("1. ID");
+        System.out.println("2. Name");
+        System.out.println("3. Salary");
+        System.out.println("0. Back to Employees manage");
+        int sortEmSelect = getValidInput(3);
+            switch (sortEmSelect){
+                case 1:
+                    employeeData.sort(Comparator.comparing(Employee :: getId));
+                    System.out.println("-----------List sorted by ID------------");
+                    listEmployee();
+                    
+                    break;
+                case 2:
+                    employeeData.sort(Comparator.comparing(Employee :: getName));
+                    System.out.println("-----------List sorted by Name------------");
+                    listEmployee();
+                    break;
+                case 3:
+                    employeeData.sort(Comparator.comparing(Employee :: getSalary));
+                    System.out.println("-----------List sorted by Salary------------");
+                    listEmployee();
+                    break;
+                case 0:
+                    System.out.println("Data saved.");
+                    sortstop = true;                    
+                    break;
+            }
+            waitForEnter("Enter to continue.");
+        }
+        
+    }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
         System.out.println("----MALL MANAGEMENT SYSTEM----");
@@ -1073,63 +1113,71 @@ public void listAllFoods() {
      * @return
      */
     @Override
-    public double getValidDouble() {
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-            String line = sc.nextLine().trim();
-            if (line.isEmpty()) {
-                System.out.println("Must not EMPTY!");
-                continue;
-            }
-            try {
-                return Double.parseDouble(line);
-            } catch (NumberFormatException e) {
-                System.out.println("Real number only!");
-            }
-        }
-    }
-    
-    
-    
-    @Override
-        public int getValidInput(int range) {
-       Scanner sc = new Scanner(System.in);
-        int input;
-        while (true) {
+    public int getValidInput(int range) {
+        Scanner lsc = new Scanner(System.in);
+        int input; 
             System.out.print("Please select an option: ");
-            if (sc.hasNextInt()) {
-                input = sc.nextInt();
+            if (lsc.hasNextInt()) {
+
+                input = lsc.nextInt();
+             
                 if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
-                    break; // valid
+                    return input;
                 } else {
                     System.out.printf("The value is out of range(0-%d).", range);
                 }
+
             } else {
-                System.out.println("Please enter only positive integer.");
-                sc.next();
+                System.out.println("Please select an option:");
             }
-        }
+        return getValidInput(range);  
+    }
+
+    @Override
+    public String getValidString() {
+        String string;
+        Scanner lsc = new Scanner(System.in);
+        string = null;
+        string = lsc.nextLine().trim();
+     
+        if (string == null || string.isEmpty()) {
+            System.out.println("Try again!");
+            getValidString();
+        } 
+        return string;
+    }
+
+    @Override 
+    public double getValidDouble() {
+        double input = 0;
+        Scanner lsc = new Scanner(System.in);
+        System.out.print("Please enter a valid number: ");
+        if (lsc.hasNextDouble()) {
+            input = lsc.nextDouble(); 
+           
+        } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                getValidDouble();
+            }
         
         return input;
     }
-    
     @Override
-    public String getValidString(){
-    String string;
-            Scanner sc = new Scanner(System.in);
-            string = null;
-            while (true){
-                string = sc.nextLine().trim();
-                if (string == null || string.isEmpty()){
-                    System.out.print("Try again!: ");
-                } else {
-                    break;
-                }
+    public int getValidInt() {
+        int input = 0;
+        Scanner lsc = new Scanner(System.in);
+        System.out.print("Please enter a valid integer: ");
+        if (lsc.hasNextInt()) {
+            input = lsc.nextInt(); 
+            
+        } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                getValidInt();
             }
         
-       
-        return string;
+        return input;
     }
+
     @Override
     public void clearScreen() {
         try {
@@ -1274,9 +1322,10 @@ public void listAllFoods() {
                     boolean stopEmp = false;
                     while (!stopEmp) {
                             VinMall.clearScreen();
+                            System.out.println("-------------List Employee--------------");
                             VinMall.listEmployee();
                             VinMall.EmployeeUI();
-                            int EmployeeSelect = VinMall.getValidInput(4);
+                            int EmployeeSelect = VinMall.getValidInput(5);
                             switch (EmployeeSelect){
                                 case 1: //Hire
                                     VinMall.addEmployee();
@@ -1291,6 +1340,7 @@ public void listAllFoods() {
                                     VinMall.findEmployee();
                                     break;
                                 case 5://Sort
+                                    VinMall.sortEmployee();
                                     break;
                                 case 0:
                                     System.out.println("Back");
