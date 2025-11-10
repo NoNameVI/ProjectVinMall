@@ -45,7 +45,7 @@ public class Employee{
                             getName()+"-"+
                             getPosition()+"-"+
                             getPhoneNum()+"-"+
-                            getSalary()
+                            String.format("%.0f",getSalary())
                             );
     }
 }

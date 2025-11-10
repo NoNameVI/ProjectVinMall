@@ -845,6 +845,36 @@ public void listAllFoods() {
         }
     }
 
+    //-----------------------------------Employee Method-------------------------------
+    
+    void addEmployee(){
+        String newEmId;
+        while (true){
+            System.out.print("Enter new ID:");
+            newEmId = getValidString();
+            if (checkEmployeeID(newEmId)){
+                
+                break;
+            } else System.out.println("ID exist!");
+        }
+        System.out.print("Enter Employee Name:");
+        String newEmName = getValidString();
+        System.out.print("Enter Employee position:");
+        String newEmPos = getValidString();
+        System.out.print("Enter Employee phone number:");
+        String newEmPhone = getValidString();
+        System.out.print("Enter Employee salary:");
+        double newEmSa = getValidDouble();
+        
+        Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
+        
+        employeeData.add(newEmp);
+        System.out.println("New Employee infor:" + newEmp.getInfo());
+    }
+    
+    
+    
+    
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
         System.out.println("----MALL MANAGEMENT SYSTEM----");
@@ -866,6 +896,7 @@ public void listAllFoods() {
         System.out.println("2. Edit Emloyee Information");
         System.out.println("3. Dismiss Employee");
         System.out.println("4. Find Employee");
+        System.out.println("5. Sort Employee");
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
@@ -958,7 +989,36 @@ public void listAllFoods() {
     }
 }
 
+    
+    public boolean checkEmployeeID(String id){
+        return !employeeData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
+    }
+    
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public double getValidDouble() {
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine().trim();
+            if (line.isEmpty()) {
+                System.out.println("Must not EMPTY!");
+                continue;
+            }
+            try {
+                return Double.parseDouble(line);
+            } catch (NumberFormatException e) {
+                System.out.println("Real number only!");
+            }
+        }
+    }
+    
+    
+    
     @Override
         public int getValidInput(int range) {
        Scanner sc = new Scanner(System.in);
@@ -980,7 +1040,7 @@ public void listAllFoods() {
         
         return input;
     }
-        
+    
     @Override
     public String getValidString(){
     String string;
@@ -989,7 +1049,7 @@ public void listAllFoods() {
             while (true){
                 string = sc.nextLine().trim();
                 if (string == null || string.isEmpty()){
-                    System.out.println("Try again!");
+                    System.out.print("Try again!: ");
                 } else {
                     break;
                 }
@@ -1019,6 +1079,7 @@ public void listAllFoods() {
         while (System.currentTimeMillis() - start < s) {
         }
     }
+    
     
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
@@ -1142,17 +1203,19 @@ public void listAllFoods() {
                             VinMall.EmployeeUI();
                             int EmployeeSelect = VinMall.getValidInput(4);
                             switch (EmployeeSelect){
-                                case 1:
+                                case 1: //Hire
+                                    VinMall.addEmployee();
+                                    break;
+                                case 2://Edit
                                     
                                     break;
-                                case 2:
+                                case 3://Dissmis
                                     
                                     break;
-                                case 3:
+                                case 4://Find
                                     
                                     break;
-                                case 4:
-                                    
+                                case 5://Sort
                                     break;
                                 case 0:
                                     System.out.println("Back");

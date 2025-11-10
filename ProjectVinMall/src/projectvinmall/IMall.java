@@ -1,6 +1,8 @@
 
 package projectvinmall;
 
+import java.util.ArrayList;
+
 
 interface IMall {
     int getValidInput(int range);
@@ -8,4 +10,5 @@ interface IMall {
     void clearScreen();
     void delay(long s);
     void setFile();
+    double getValidDouble();
 }
