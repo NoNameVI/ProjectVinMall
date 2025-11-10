@@ -21,7 +21,7 @@ interface IMall {
 }
 
 public class ProjectVinMall {
-
+    Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
     ArrayList<String> DrinksList = new ArrayList<>();
@@ -517,7 +517,20 @@ public class ProjectVinMall {
 
         return input;
     }
-    
+    public static String getValidString(){
+        Scanner scanner = new Scanner(System.in);
+        String string=null;
+        
+        while (true){  
+            string = scanner.nextLine().trim();        
+            if (string == null || string.isEmpty()){
+                System.out.println("Try again!");
+            } else {
+                break;
+            }     
+        }       
+        return string;
+    }
     public static void clearScreen() {
         try {
             Thread.sleep(1000);
@@ -630,6 +643,7 @@ public class ProjectVinMall {
 
     }
 }
+
 
 
 
