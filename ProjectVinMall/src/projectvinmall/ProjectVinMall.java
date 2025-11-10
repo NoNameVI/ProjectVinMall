@@ -21,6 +21,16 @@ interface IMall {
 }
 
 public class ProjectVinMall {
+
+    public static String RESET = "\u001B[0m";
+    public static String RED = "\u001B[31m";
+    public static String GREEN = "\u001B[32m";
+    public static String YELLOW = "\u001B[33m";
+    public static String BLUE = "\u001B[34m";
+    public static String PURPLE = "\u001B[35m";
+    public static String CYAN = "\u001B[36m";
+    public static String WHITE = "\u001B[37m";
+    
     Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
@@ -70,6 +80,7 @@ public class ProjectVinMall {
         try (Scanner sc = new Scanner(new File(df))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
+                delay(40);
                 System.out.println("Data loaded: " + line);
                 dataMap.get(df).add(line);
             }
@@ -204,7 +215,7 @@ public class ProjectVinMall {
                 for (String line : tempList) {
                     fw.write(line + System.lineSeparator());
                     System.out.println("Data stored: " + line);
-
+                    delay(40);
                 }
             }
 
@@ -213,7 +224,7 @@ public class ProjectVinMall {
         }
     }
 
-    public void saveData() {
+       public void saveData() {
         for (String file : fileList) {
             switch (file) {
                 case "bookin.txt":
@@ -222,63 +233,72 @@ public class ProjectVinMall {
                         BooksList.add(b.toString());
                     }
                     dataMap.put(file, BooksList);
+                    clearScreen();
                     System.out.println("\n---Book store data---\n");
                     break;
-
+                
                 case "employeein.txt":
                     EmployeesList.clear();
                     for (Employee e : employeeData) {
                         EmployeesList.add(e.getInfo());
                     }
                     dataMap.put(file, EmployeesList);
+                    clearScreen();
                     System.out.println("\n---Employees data---\n");
                     break;
-
+                
                 case "appliancein.txt":
                     AppliancesList.clear();
                     for (Appliance a : applianceData) {
                         AppliancesList.add(a.toString());
                     }
                     dataMap.put(file, AppliancesList);
+                    clearScreen();
                     System.out.println("\n---Appliance store data---\n");
                     break;
-
+                
                 case "drinkin.txt":
                     DrinksList.clear();
                     for (Drink d : drinkData) {
                         DrinksList.add(d.toString());
                     }
                     dataMap.put(file, DrinksList);
+                    clearScreen();
                     System.out.println("\n---Drink store data---\n");
                     break;
-
+                
                 case "electronicin.txt":
                     ElectronicsList.clear();
                     for (Electronic e : electronicData) {
                         ElectronicsList.add(e.toString());
                     }
                     dataMap.put(file, ElectronicsList);
+                    clearScreen();
                     System.out.println("\n---Electronic store data---\n");
                     break;
-
+                
                 case "vehiclesin.txt":
                     VehiclesList.clear();
                     for (Vehicle v : vehicleData) {
                         VehiclesList.add(v.toString());
                     }
                     dataMap.put(file, VehiclesList);
+                    clearScreen();
                     System.out.println("\n---Vehicle store data---\n");
+                    delay(100);
                     break;
-
+                
                 case "foodin.txt":
                     FoodsList.clear();
                     for (Food f : foodData) {
                         FoodsList.add(f.toString());
                     }
                     dataMap.put(file, FoodsList);
+                    clearScreen();
                     System.out.println("\n---Food store data---\n");
+                    delay(100);
                     break;
-
+                
                 default:
                     break;
             }
@@ -292,6 +312,168 @@ public class ProjectVinMall {
             System.out.println(Employee.getInfo());
         });
     }
+    void displayElectronic(){
+    electronicData.forEach(Electronic -> {
+        System.out.println(Electronic.toString());
+    });
+    }
+    void addElectronic(){
+    System.out.println("Please enter ID: ");
+    String EId = getValidString();
+    boolean value = false;
+    for (int index = 0; index < electronicData.size();index++ ){
+        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
+            value = true;
+            System.out.println("ID already exists");
+            System.out.println("Please enter another ID!");
+            return;
+        }      
+        }
+    if (!value){
+    System.out.println("Please enter Name: ");
+            String EName = getValidString();
+            System.out.println("Please enter Price: ");
+            double EPrice = sc.nextDouble();
+            sc.nextLine();
+            System.out.println("Please enter Rating: ");
+            double ERating = sc.nextDouble();
+            sc.nextLine();
+            System.out.println("Please enter Brand: ");
+            String EBrand = getValidString();
+            System.out.println("Please enter Model: ");
+            String EModel = getValidString();
+            System.out.println("Please enter Release Year: ");
+            int EreleaseYear = sc.nextInt();
+            System.out.println("Please enter Battery Capacity: ");
+            int EbatteryCapacity = sc.nextInt();
+            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
+            electronicData.add(newApp);
+            System.out.println("Electronic add success. "); 
+            return;
+    }
+    }
+    void deleteElectronic(){
+        System.out.println("Please enter ID: ");
+        String EId = getValidString();
+        for (int index = 0; index < electronicData.size();index++ ){
+        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
+        electronicData.remove(index);
+        System.out.println("Electronic delete success.");
+        break;     
+        }
+         else {System.out.println("Electronic delete unsuccess.");break;}
+        }        
+    }
+    void editElectronic(){
+    System.out.println("Please enter ID: ");
+    String EId = getValidString().trim();
+    boolean value = false;
+    for (int index = 0; index < electronicData.size();index++ ){
+        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
+            value = true;
+        System.out.println("Please enter Name: ");
+        String ENewName = getValidString();
+        System.out.println("Please enter Price: ");
+        double ENewPrice = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Please enter Rating: ");
+        double ENewRating = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Please enter Brand: ");
+        String ENewBrand = getValidString();
+        System.out.println("Please enter Model: ");
+        String ENewModel = getValidString();
+        System.out.println("Please enter Release Year: ");
+        int ENewreleaseYear = sc.nextInt();
+        System.out.println("Please enter Battery Capacity: ");
+        int ENewbatteryCapacity = sc.nextInt();
+        Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
+        electronicData.set(index, newApp);
+        System.out.println("Electronic edit success.");  
+        break;
+        }    
+        }
+    if (!value){System.out.println("Electronic edit unsuccess.");}     
+    }
+    
+    
+    void searchElectronic(){
+    boolean value = true;
+    while(value){
+            System.out.println("Search by: ");
+            System.out.println("1. Id");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            boolean found = false;
+            switch(choose){
+                case 1:
+                    System.out.println("Enter ID: ");
+                    String id = getValidString();
+                    for (int index = 0; index < electronicData.size();index++ ){
+                     if (electronicData.get(index).getId().equalsIgnoreCase(id)){
+                     found = true;
+                       System.out.println(electronicData.get(index).toString());
+                       return;
+        }
+                     
+    }
+                    if (!found){System.out.println("Electronic id or name not found.");return;}
+                    
+                
+                case 2:
+                    System.out.println("Enter Name: ");
+                    String name = getValidString();
+                    for (int index = 0; index < electronicData.size();index++ ){
+                     if ( electronicData.get(index).getName().equalsIgnoreCase(name)){
+                     found = true;
+                      System.out.println(electronicData.get(index).toString());
+                      break;
+        }                     
+    }
+                    if (!found){System.out.println("Electronic id or name not found.");return;}
+                    
+                   
+                
+                case 0:
+                    System.out.println("Exit.");
+                    value=false;
+                break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+    void sortElectronic(){
+        boolean value = true;
+        List<Appliance> app;
+        while(value){
+            System.out.println("Sort by: ");
+            System.out.println("1. Id");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch(choose){
+                case 1:
+                    applianceData.sort(Comparator.comparing(Appliance::getBrand));
+                    System.out.println("Sorted by Price successfully!");
+                    value=false;
+                break;
+                case 2:
+                    applianceData.sort(Comparator.comparing(Appliance::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    value=false;
+                break;
+                case 0:
+                    System.out.println("Exit.");
+                    value=false;
+                break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+
     void listAppliance(){
         applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
     }
@@ -812,13 +994,13 @@ public void DrinkUI() {
 }
 
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
-    public static int getValidInput(int range) {
-        Scanner scanner = new Scanner(System.in);
+        public static int getValidInput(int range) {
+       Scanner sc = new Scanner(System.in);
         int input;
         while (true) {
             System.out.print("Please select an option: ");
-            if (scanner.hasNextInt()) {
-                input = scanner.nextInt();
+            if (sc.hasNextInt()) {
+                input = sc.nextInt();
                 if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
                     break; // valid
                 } else {
@@ -826,24 +1008,26 @@ public void DrinkUI() {
                 }
             } else {
                 System.out.println("Vui long nhap so nguyen.");
-                scanner.next();
+                sc.next();
             }
         }
-
+        sc.close();
         return input;
     }
     public static String getValidString(){
-        Scanner scanner = new Scanner(System.in);
-        String string=null;
+    String string;
+            Scanner sc = new Scanner(System.in);
+            string = null;
+            while (true){
+                string = sc.nextLine().trim();
+                if (string == null || string.isEmpty()){
+                    System.out.println("Try again!");
+                } else {
+                    break;
+                }
+            }
         
-        while (true){  
-            string = scanner.nextLine().trim();        
-            if (string == null || string.isEmpty()){
-                System.out.println("Try again!");
-            } else {
-                break;
-            }     
-        }       
+        sc.close();
         return string;
     }
     public static void clearScreen() {
@@ -859,7 +1043,15 @@ public void DrinkUI() {
         }
     }
     // clear cmd cho dep
-
+    public static void delay(long s) {
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() - start < s) {
+        }
+    }
+    
+    public static void printfc(String color, String format, Object... args) {
+        System.out.printf(color + format + RESET, args);
+    }
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
@@ -927,8 +1119,39 @@ public void DrinkUI() {
 
                     //------------------------------------endDrinks--------------------------------
                     break;
-                case 4://Electronic
-
+                case 4:{
+                    boolean stopE = true;
+                while(stopE){
+                 VinMall.ElectronicUI();
+                 int ElectronicSelect = getValidInput(6);
+                 
+                 switch(ElectronicSelect){
+                     case 1:
+                         VinMall.displayElectronic();
+                     break;
+                     case 2:
+                         VinMall.addElectronic();
+                     break;
+                     case 3:
+                         VinMall.editElectronic();
+                     break;
+                     case 4:
+                         VinMall.deleteElectronic();
+                     break;
+                     case 5:
+                         VinMall.sortElectronic();
+                     break;
+                     case 6:
+                         VinMall.searchElectronic();
+                     break;
+                     default:
+                         System.out.println("Data saved.");
+                         System.out.println("Exit.");
+                         stopE = false;
+                     break;
+                 }
+                }    
+                }
                     //------------------------------------endElectronic--------------------------------
                     break;
                 case 5://Food
@@ -958,6 +1181,13 @@ public void DrinkUI() {
 
     }
 }
+
+
+
+
+
+
+
 
 
 

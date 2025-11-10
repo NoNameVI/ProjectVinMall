@@ -17,17 +17,10 @@ public class Food extends Product{
     public void setSize(String size) {
         this.size = size;
     }
-    public void update() {
-
-    }
-
-    public static void UI() {
-        System.out.println("----Food UI");
-    }
-
     @Override
     public String toString() {
         return String.format("%s-%s-%.0f-%,1f-%s",getId(),getName(),getPrice(),getRating(),getSize());
     }
     
+
 }
