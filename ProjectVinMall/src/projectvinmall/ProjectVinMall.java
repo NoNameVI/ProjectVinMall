@@ -872,7 +872,38 @@ public void listAllFoods() {
         System.out.println("New Employee infor:" + newEmp.getInfo());
     }
     
-    
+    void editEmloyee(){
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkEmployeeID(newEmId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        System.out.print("Enter Employee Name:");
+        String newEmName = getValidString();
+        System.out.print("Enter Employee position:");
+        String newEmPos = getValidString();
+        System.out.print("Enter Employee phone number:");
+        String newEmPhone = getValidString();
+        System.out.print("Enter Employee salary:");
+        double newEmSa = getValidDouble();
+        Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
+        
+        int index =0;
+        for (int i =0 ; i < employeeData.size() ; i++){
+            if (employeeData.get(i).getId().equalsIgnoreCase(newEmId)){
+                index = i;
+                break;
+            }
+        }
+        
+        employeeData.set(index, newEmp);
+
+        System.out.println("Employee infor:" + newEmp.getInfo());
+        
+    }
     
     
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
@@ -1207,7 +1238,7 @@ public void listAllFoods() {
                                     VinMall.addEmployee();
                                     break;
                                 case 2://Edit
-                                    
+                                    VinMall.editEmloyee();
                                     break;
                                 case 3://Dissmis
                                     
