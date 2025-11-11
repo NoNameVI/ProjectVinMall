@@ -1475,7 +1475,40 @@ public void listAllFoods() {
 
             switch (MainSelect) {
                 case 1: //Book
-
+                    boolean stopB = true;
+                    VinMall.clearScreen();
+                    while (stopB) {
+                        VinMall.BookUI();
+                        int BookSelect = VinMall.getValidInput(6);
+                        switch (BookSelect) {
+                            case 1:
+                                VinMall.clearScreen();
+                                VinMall.listAllBooks();
+                                VinMall.delay(5000);
+                                VinMall.clearScreen();
+                                break;
+                            case 2:
+                                VinMall.addBook();
+                                break;
+                            case 3:
+                                VinMall.editBook();
+                                break;
+                            case 4:
+                                VinMall.deleteBook();
+                                break;
+                            case 5:
+                                VinMall.sortBooks();
+                                break;
+                            case 6:
+                                VinMall.searchBooks();
+                                break;
+                            default:
+                                System.out.println("Data saved.");
+                                System.out.println("Exit.");
+                                stopB = false;
+                                break;
+                        }
+                    }
                     //------------------------------------endBook-------------------------------------
                     break;
                 case 2://Appliance
@@ -1512,7 +1545,37 @@ public void listAllFoods() {
                     //------------------------------------endAppliance--------------------------------
                     break;
                 case 3://Drinks
+                    boolean stopD = true;
+                    while (stopD) {
+                        VinMall.DrinkUI();
+                        int DrinkSelect = VinMall.getValidInput(6);
 
+                        switch (DrinkSelect) {
+                            case 1:
+                                VinMall.listAllDrinks();
+                                break;
+                            case 2:
+                                VinMall.addDrink();
+                                break;
+                            case 3:
+                                VinMall.editDrink();
+                                break;
+                            case 4:
+                                VinMall.deleteDrink();
+                                break;
+                            case 5:
+                                VinMall.sortDrinks();
+                                break;
+                            case 6:
+                                VinMall.SearchDrinks();
+                                break;
+                            default:
+                                System.out.println("Data saved.");
+                                System.out.println("Exit.");
+                                stopD = false;
+                                break;
+                        }
+                    }
                     //------------------------------------endDrinks--------------------------------
                     break;
                 case 4:{
@@ -1551,7 +1614,37 @@ public void listAllFoods() {
                     //------------------------------------endElectronic--------------------------------
                     break;
                 case 5://Food
-                        
+                    boolean stopF = true;
+                    while (stopF) {
+                        VinMall.FoodUI();
+                        int FoodSelect = VinMall.getValidInput(5);
+
+                        switch (FoodSelect) {
+                            case 1:
+                                VinMall.listAllFoods();
+                                break;
+                            case 2:
+                                VinMall.addFood();
+                                break;
+                            case 3:
+                                VinMall.editFood();
+                                break;
+                            case 4:
+                                VinMall.deleteFood();
+                                break;
+                            case 5:
+                                VinMall.SortFoods();
+                                break;
+                            case 6:
+                                VinMall.searchFoods();
+                                break;
+                            default:
+                                System.out.println("Data saved.");
+                                System.out.println("Exit.");
+                                stopF = false;
+                                break;
+                        }
+                    }
                     //------------------------------------endFood--------------------------------
                     break;
                 case 6://Vehicle
@@ -1628,4 +1721,5 @@ public void listAllFoods() {
             }
         }
     }
+
 }
