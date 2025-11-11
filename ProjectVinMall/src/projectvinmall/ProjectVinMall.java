@@ -24,7 +24,7 @@ public class ProjectVinMall implements IMall {
     public static String PURPLE = "\u001B[35m";
     public static String CYAN = "\u001B[36m";
     public static String WHITE = "\u001B[37m";
-    
+    // color: reset, red, green, yellow, blue, purple, cyan, white
     Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
@@ -166,7 +166,6 @@ public class ProjectVinMall implements IMall {
                 }
                 case "vehiclesin.txt": {
                     for (int j = 0; j < VehiclesList.size(); j++) {
-
                         String[] item = VehiclesList.get(j).split("-");
                         String id = item[0];
                         String name = item[1];
@@ -335,19 +334,17 @@ public class ProjectVinMall implements IMall {
             System.out.println("Please enter Name: ");
             String EName = getValidString();
             System.out.println("Please enter Price: ");
-            double EPrice = sc.nextDouble();
-            sc.nextLine();
+            double EPrice = getValidDouble();
             System.out.println("Please enter Rating: ");
-            double ERating = sc.nextDouble();
-            sc.nextLine();
+            double ERating = getValidDouble();
             System.out.println("Please enter Brand: ");
             String EBrand = getValidString();
             System.out.println("Please enter Model: ");
             String EModel = getValidString();
             System.out.println("Please enter Release Year: ");
-            int EreleaseYear = sc.nextInt();
+            int EreleaseYear = getValidInt();
             System.out.println("Please enter Battery Capacity: ");
-            int EbatteryCapacity = sc.nextInt();
+            int EbatteryCapacity = getValidInt();
             Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear, EbatteryCapacity);
             electronicData.add(newApp);
             System.out.println("Electronic add success. ");
@@ -383,19 +380,17 @@ public class ProjectVinMall implements IMall {
                 System.out.println("Please enter Name: ");
                 String ENewName = getValidString();
                 System.out.println("Please enter Price: ");
-                double ENewPrice = sc.nextDouble();
-                sc.nextLine();
+                double ENewPrice = getValidDouble();
                 System.out.println("Please enter Rating: ");
-                double ENewRating = sc.nextDouble();
-                sc.nextLine();
+                double ENewRating = getValidDouble();
                 System.out.println("Please enter Brand: ");
                 String ENewBrand = getValidString();
                 System.out.println("Please enter Model: ");
                 String ENewModel = getValidString();
                 System.out.println("Please enter Release Year: ");
-                int ENewreleaseYear = sc.nextInt();
+                int ENewreleaseYear = getValidInt();
                 System.out.println("Please enter Battery Capacity: ");
-                int ENewbatteryCapacity = sc.nextInt();
+                int ENewbatteryCapacity = getValidInt();
                 Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear, ENewbatteryCapacity);
                 electronicData.set(index, newApp);
                 System.out.println("Electronic edit success.");
@@ -460,7 +455,6 @@ public class ProjectVinMall implements IMall {
 
     void sortElectronic() {
         boolean value = true;
-        List<Electronic> app;
         while (value) {
             System.out.println("Sort by: ");
             System.out.println("1. Brand");
@@ -500,16 +494,15 @@ public class ProjectVinMall implements IMall {
         System.out.print("Please enter Name: ");
         String Aname = getValidString();
         System.out.print("Please enter Price: ");
-        double Aprice = sc.nextDouble();
+        double Aprice = getValidDouble();
         System.out.print("Please enter Rating: ");
-        double Arating = sc.nextDouble();
-        sc.nextLine();
+        double Arating = getValidDouble();
         System.out.print("Please enter Brand: ");
         String Abrand = getValidString();
         System.out.print("Please enter Model: ");
         String Amodel = getValidString();
         System.out.print("Please enter Release Year: ");
-        int AreleaseYear = sc.nextInt();
+        int AreleaseYear = getValidInt();
         Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating, Abrand, Amodel, AreleaseYear);
         applianceData.add(newapp);
         System.out.println("Appliance added success.");
@@ -518,44 +511,49 @@ public class ProjectVinMall implements IMall {
     void deleteAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
-        for (int index = 0; index < applianceData.size(); index++) {
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
-                applianceData.remove(index);
+        int i=0;
+        boolean found = false;
+        while (true) {
+            if (applianceData.get(i).getId().equalsIgnoreCase(Aid)) {
+                applianceData.remove(i);
                 System.out.println("Appliance deleted success.");
+                found = true;
                 break;
             } else {
-                System.out.println("Appliance ID not found.");
-                break;
+                i++;
             }
         }
+        if (found == false) System.out.println("Appliance ID not found.");
     }
 
     void editAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
-        for (int index = 0; index < applianceData.size(); index++) {
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
+        boolean found = false;
+        int i=0;
+        while (true) {
+            if (applianceData.get(i).getId().equalsIgnoreCase(Aid)) {
+                found = true;
                 System.out.print("Please enter Name: ");
                 String Anewname = getValidString();
                 System.out.print("Please enter Price: ");
-                double Anewprice = sc.nextDouble();
+                double Anewprice = getValidDouble();
                 System.out.print("Please enter Rating: ");
-                double Anewrating = sc.nextDouble();
-                sc.nextLine();
+                double Anewrating = getValidDouble();
                 System.out.print("Please enter Brand: ");
                 String Anewbrand = getValidString();
                 System.out.print("Please enter Model: ");
                 String Anewmodel = getValidString();
                 System.out.print("Please enter Release Year: ");
-                int AnewreleaseYear = sc.nextInt();
+                int AnewreleaseYear = getValidInt();
                 Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating, Anewbrand, Anewmodel, AnewreleaseYear);
-                applianceData.set(index, newapp);
+                applianceData.set(i, newapp);
                 break;
             } else {
-                System.out.println("Appliance ID not found.");
-                break;
+                i++;
             }
         }
+        if (found == false) System.out.println("Appliance ID not found.");
     }
     
         void sortAppliance() {
@@ -569,7 +567,7 @@ public class ProjectVinMall implements IMall {
                 switch (choose) {
                     case 1:
                         applianceData.sort(Comparator.comparing(Appliance::getBrand));
-                        System.out.println("Sorted by Price successfully!");
+                        System.out.println("Sorted by Brand successfully!");
                         applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
                         Asort = false;
                         break;
@@ -863,13 +861,13 @@ public void listAllDrinks() {
             switch (choose) {
                 case 1:
                     drinkData.sort(Comparator.comparing(Drink::getPrice));
-                    System.out.println("Sorted by Author successfully!");
+                    System.out.println("Sorted by Price successfully!");
                     bookData.forEach(Drink -> System.out.println(Drink.toString()));
                     Dsort = false;
                     break;
                 case 2:
                     drinkData.sort(Comparator.comparing(Drink::getPrice));
-                    System.out.println("Sorted by Price successfully!");
+                    System.out.println("Sorted by Rating successfully!");
                     drinkData.forEach(Drink -> System.out.println(Drink.toString()));
                     Dsort = false;
                     break;
@@ -1128,7 +1126,7 @@ public void listAllFoods() {
         
         employeeData.add(newEmp);
         System.out.println("New Employee infor:" + newEmp.getInfo());
-        waitForEnter("Enter to continue.");
+        waitForEnter("Press any key to continue.");
     }
     
     void editEmloyee(){
@@ -1160,7 +1158,7 @@ public void listAllFoods() {
         }
         employeeData.set(index, newEmp);
         System.out.println("Employee infor:" + newEmp.getInfo());
-        waitForEnter("Enter to continue.");
+        waitForEnter("Press any key to continue.");
     }
     
     void DissmisEmployee(){
@@ -1204,7 +1202,7 @@ public void listAllFoods() {
             System.out.println("No resuft!");
             
         }
-        waitForEnter("Enter to continue.");
+        waitForEnter("Press any key to continue.");
     }
     
     void sortEmployee(){
@@ -1239,13 +1237,10 @@ public void listAllFoods() {
                     sortstop = true;                    
                     break;
             }
-            waitForEnter("Enter to continue.");
+            waitForEnter("Press any key to continue.");
         }
         
     }
-    
-    //Vehicle Method------------------------------------
-    
     
     //Vehicle Method------------------------------------
     
@@ -1262,33 +1257,21 @@ public void listAllFoods() {
         }
     System.out.print("Enter new vehicle Name:");
     String newVeName = getValidString();
-    double newPrice = -1; 
-    while (newPrice<0 ) {
-        System.out.print("Enter new vehicle Price:");
-        newPrice = getValidDouble();
-    }
-    double newRating = -1;
-    while (newRating<0 || newRating>10){
-        System.out.print("Enter new vehicle Rating:");
-        newRating = getValidDouble();
-    }
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
     System.out.print("Enter new vehicle Chassis Number:");
     String newCha = getValidString();
     System.out.print("Enter new vehicle Engine Type:");
     String newengineType = getValidString();
     System.out.print("Enter new vehicle brand:");
     String newbrand = getValidString();
-    
-    int newmanuyear = -1;
-    while (newmanuyear<0) {
-        System.out.print("Enter new vehicle manufacture Year:");
-        newmanuyear = getValidInt();
-    }
-    double Fee = -1;
-    while (Fee<0) {
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
     System.out.print("Enter new vehicle inspection Fee:");
-    Fee = getValidDouble();
-    }
+    double Fee = getValidDouble();
+    
     Vehicle newVe = new Vehicle(
             newVeId,
             newVeName,
@@ -1302,7 +1285,7 @@ public void listAllFoods() {
     );
     vehicleData.add(newVe);
     System.out.println("New Vehicle Informantion:"+newVe.toString());
-    waitForEnter("Enter to continue.");
+    waitForEnter("Press any key to continue.");
     }
     
     
@@ -1319,33 +1302,20 @@ public void listAllFoods() {
         
     System.out.print("Enter new vehicle Name:");
     String newVeName = getValidString();
-    double newPrice = -1; 
-    while (newPrice<0 ) {
-        System.out.print("Enter new vehicle Price:");
-        newPrice = getValidDouble();
-    }
-    double newRating = -1;
-    while (newRating<0 || newRating>10){
-        System.out.print("Enter new vehicle Rating:");
-        newRating = getValidDouble();
-    }
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
     System.out.print("Enter new vehicle Chassis Number:");
     String newCha = getValidString();
     System.out.print("Enter new vehicle Engine Type:");
     String newengineType = getValidString();
     System.out.print("Enter new vehicle brand:");
     String newbrand = getValidString();
-    int newmanuyear = 0;
-    while (newmanuyear<0) {
-        System.out.print("Enter new vehicle manufacture Year:");
-        newmanuyear = getValidInt();
-    }
-    double Fee = -1;
-    while (Fee<0) {
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
     System.out.print("Enter new vehicle inspection Fee:");
-    Fee = getValidDouble();
-    }
-
+    double Fee = getValidDouble();
         Vehicle newVe = new Vehicle(
             newId,
             newVeName,
@@ -1366,7 +1336,7 @@ public void listAllFoods() {
         }
         vehicleData.set(index, newVe);
         System.out.println("Vehicle Informantion:"+newVe.toString());
-        waitForEnter("Enter to continue.");  
+        waitForEnter("Press any key to continue.");  
     }
     
     
@@ -1390,7 +1360,7 @@ public void listAllFoods() {
         
         vehicleData.remove(i);
         System.out.println("Vehicle Deleted.");
-        waitForEnter("Enter to continue.");  
+        waitForEnter("Press any key to continue.");  
     }
     
     
@@ -1464,7 +1434,7 @@ public void listAllFoods() {
                     sortstop = true;                    
                     break;
             }
-            waitForEnter("Enter to continue.");
+            waitForEnter("\nPress any key to continue.");
         }   
    }
    
@@ -1494,42 +1464,46 @@ public void listAllFoods() {
             System.out.println("No resuft!");  
         
         }
-        waitForEnter("Enter to continue.");
+        waitForEnter("\nPress any key to continue.");
     }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
+    
+        // color: reset, red, green, yellow, blue, purple, cyan, white
+
+    
     public void mainUI() {//Vi du y nhu cai nay
-        System.out.println("----MALL MANAGEMENT SYSTEM----");
-        System.out.println("1. Manage Books");
-        System.out.println("2. Manage Appliances");
-        System.out.println("3. Manage Drinks");
-        System.out.println("4. Manage Electronics");
-        System.out.println("5. Manage Foods");
-        System.out.println("6. Manage Vehicles");
-        System.out.println("7. Manage Employees");
-        System.out.println("0. Exit");
+        printlnfc(YELLOW, "----MALL MANAGEMENT SYSTEM----");
+        printlnfc(CYAN, "1. Manage Books");
+        printlnfc(CYAN,"2. Manage Appliances");
+        printlnfc(CYAN,"3. Manage Drinks");
+        printlnfc(CYAN,"4. Manage Electronics");
+        printlnfc(CYAN,"5. Manage Foods");
+        printlnfc(CYAN,"6. Manage Vehicles");
+        printlnfc(CYAN,"7. Manage Employees");
+        printlnfc(CYAN,"0. Exit");
 
     }
 
     public void EmployeeUI() {
 
-        System.out.println("----EMPLOYEE MANAGEMENT----");
-        System.out.println("1. Hire Emloyee");
-        System.out.println("2. Edit Emloyee Information");
-        System.out.println("3. Dismiss Employee");
-        System.out.println("4. Find Employee");
-        System.out.println("5. Sort Employee");
-        System.out.println("0. Back To MALL MANAGEMENT");
+        printlnfc(GREEN,"----EMPLOYEE MANAGEMENT----");
+        printlnfc(YELLOW,"1. Hire Emloyee");
+        printlnfc(YELLOW,"2. Edit Emloyee Information");
+        printlnfc(YELLOW,"3. Dismiss Employee");
+        printlnfc(YELLOW,"4. Find Employee");
+        printlnfc(YELLOW,"5. Sort Employee");
+        printlnfc(CYAN,"0. Back To MALL MANAGEMENT");
 
     }
     public void VehicleUI() {
 
-        System.out.println("----VEHICLE MANAGEMENT----");
-        System.out.println("1. Add new Vehicle");
-        System.out.println("2. Edit vehicle infomation");
-        System.out.println("3. Delete vehicle");
-        System.out.println("4. Sort Vehicle");
-        System.out.println("5. Search Vehicle");
-        System.out.println("0. Back To MALL MANAGEMENT");
+        printlnfc(GREEN,"----VEHICLE MANAGEMENT----");
+        printlnfc(YELLOW,"1. Add new Vehicle");
+        printlnfc(YELLOW,"2. Edit vehicle infomation");
+        printlnfc(YELLOW,"3. Delete vehicle");
+        printlnfc(YELLOW,"4. Sort Vehicle");
+        printlnfc(YELLOW,"5. Search Vehicle");
+        printlnfc(CYAN,"0. Back To MALL MANAGEMENT");
 
     }
 
@@ -1556,8 +1530,6 @@ public void listAllFoods() {
     }
 
     public void FoodUI() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
             System.out.println("---- FOOD MANAGEMENT ----");
             System.out.println("1. List all foods");
             System.out.println("2. Add a food");
@@ -1566,59 +1538,6 @@ public void listAllFoods() {
             System.out.println("5. Sort foods by (ID, Name, Rating, Price)");
             System.out.println("6. Search foods by (ID or Name)");
             System.out.println("0. Back to Main Menu");
-            int choice = getValidInput(6);
-            switch (choice) {
-                case 1:
-                    listAllFoods();
-                    break;
-                case 2:
-                    addFood();
-                    break;
-                case 3:
-                    editFood();
-                    break;
-                case 4:
-                    deleteFood();
-                    break;
-                case 5:
-                System.out.println("Sort by: 1. ID, 2. Name, 3. Rating, 4. Price");
-                int sortChoice = getValidInput(4);
-                switch (sortChoice) {
-                    case 1: drinkData.sort((a, b) -> a.getId().compareTo(b.getId())); break;
-                    case 2: drinkData.sort((a, b) -> a.getName().compareTo(b.getName())); break;
-                    case 3: drinkData.sort((a, b) -> Double.compare(a.getRating(), b.getRating())); break;
-                    case 4: drinkData.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice())); break;
-                }
-                break;
-            case 6:
-                    System.out.println("Search by: 1. ID, 2. Name");
-                    int searchChoice = getValidInput(2);
-                    boolean found = false;
-                    if (searchChoice == 1) {
-                        System.out.print("Enter drink ID: ");
-                        String sid = sc.nextLine();
-                        for (Drink d : drinkData) {
-                            if (d.getId().equals(sid)) {
-                                System.out.println(d);
-                                found = true;
-                            }
-                        }
-                    } else {
-                        System.out.print("Enter drink name: ");
-                        String sname = sc.nextLine().toLowerCase();
-                        for (Drink d : drinkData) {
-                            if (d.getName().toLowerCase().contains(sname)) {
-                                System.out.println(d);
-                                found = true;
-                            }
-                        }
-                    }
-                    if (!found) System.out.println("Drink not found.");
-                    break;
-            case 0:
-                return;
-        }
-    }
 }
 
     public void BookUI() {
@@ -1657,12 +1576,12 @@ public void listAllFoods() {
      */
     @Override
     public int getValidInput(int range) {
-        Scanner lsc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int input; 
             System.out.print("Please select an option: ");
-            if (lsc.hasNextInt()) {
+            if (sc.hasNextInt()) {
 
-                input = lsc.nextInt();
+                input = sc.nextInt();
              
                 if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
                     return input;
@@ -1679,9 +1598,9 @@ public void listAllFoods() {
     @Override
     public String getValidString() {
         String string;
-        Scanner lsc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         string = null;
-        string = lsc.nextLine().trim();
+        string = sc.nextLine().trim();
      
         if (string == null || string.isEmpty()) {
             System.out.println("Try again!");
@@ -1693,10 +1612,10 @@ public void listAllFoods() {
     @Override 
     public double getValidDouble() {
         double input = 0;
-        Scanner lsc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
        
-        if (lsc.hasNextDouble()) {
-            input = lsc.nextDouble(); 
+        if (sc.hasNextDouble()) {
+            input = sc.nextDouble(); 
            
         } else {
                 System.out.println("Invalid input. Please enter a valid number.");
@@ -1708,10 +1627,10 @@ public void listAllFoods() {
     @Override
     public int getValidInt() {
         int input = 0;
-        Scanner lsc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         
-        if (lsc.hasNextInt()) {
-            input = lsc.nextInt(); 
+        if (sc.hasNextInt()) {
+            input = sc.nextInt(); 
             
         } else {
                 System.out.println("Invalid input. Please enter a valid integer.");
@@ -1748,6 +1667,11 @@ public void listAllFoods() {
     
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
+    }
+
+    public static void printlnfc(String color, String format, Object... args) {
+        System.out.printf(color + format + RESET, args);
+        System.out.println();
     }
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
@@ -1786,7 +1710,7 @@ public void listAllFoods() {
                             case 1:
                                 VinMall.clearScreen();
                                 VinMall.listAllBooks();
-                                VinMall.delay(5000);
+                                VinMall.waitForEnter("\nPress any key to continue.");
                                 VinMall.clearScreen();
                                 break;
                             case 2:
@@ -2029,12 +1953,4 @@ public void listAllFoods() {
     }
 
 }
-
-
-
-
-
-
-
-
 
