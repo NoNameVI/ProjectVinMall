@@ -1681,18 +1681,17 @@ public void listAllFoods() {
         
         return input;
     }
-
     @Override
     public void clearScreen() {
         try {
-            Thread.sleep(1000);
+            delay(350);
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (Exception e) {
-            System.out.println("Can not clear the Screen!" + e.getMessage());
+            System.out.println("Không thể xóa màn hình: " + e.getMessage());
         }
     }
     // clear cmd cho dep
@@ -1986,6 +1985,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
