@@ -1737,6 +1737,7 @@ public void listAllFoods() {
 
             switch (MainSelect) {
                 case 1: //Book
+                    
                     boolean stopB = true;
                     VinMall.clearScreen();
                     while (stopB) {
@@ -1776,6 +1777,7 @@ public void listAllFoods() {
                 case 2://Appliance
                     boolean stopA = true;
                     while(stopA){
+                        VinMall.clearScreen();
                         VinMall.ApplianceUI();
                         int ApplianceSelect = VinMall.getValidInput(7);
                         switch(ApplianceSelect){
@@ -1809,6 +1811,7 @@ public void listAllFoods() {
                 case 3://Drinks
                     boolean stopD = true;
                     while (stopD) {
+                        VinMall.clearScreen();
                         VinMall.DrinkUI();
                         int DrinkSelect = VinMall.getValidInput(6);
 
@@ -1843,7 +1846,8 @@ public void listAllFoods() {
                 case 4:{
                     boolean stopE = true;
                 while(stopE){
-                 VinMall.ElectronicUI();
+                    VinMall.clearScreen();
+                    VinMall.ElectronicUI();
                  int ElectronicSelect = VinMall.getValidInput(6);
                  
                  switch(ElectronicSelect){
@@ -1878,6 +1882,7 @@ public void listAllFoods() {
                 case 5://Food
                     boolean stopF = true;
                     while (stopF) {
+                        VinMall.clearScreen();
                         VinMall.FoodUI();
                         int FoodSelect = VinMall.getValidInput(5);
 
@@ -1913,7 +1918,7 @@ public void listAllFoods() {
                     boolean stopVe = false;
                     while (!stopVe){
                     VinMall.clearScreen();
-                     System.out.println("------------------- Vehicle List---------------");
+                    System.out.println("------------------- Vehicle List---------------");
                     VinMall.listVehicle();
                     VinMall.VehicleUI();   
                     int VehicleSelect = VinMall.getValidInput(5);
@@ -1985,6 +1990,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
