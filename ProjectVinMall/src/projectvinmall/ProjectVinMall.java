@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.Comparator;
 
+
+
+
 public class ProjectVinMall implements IMall {
 
     public static String RESET = "\u001B[0m";
@@ -21,7 +24,7 @@ public class ProjectVinMall implements IMall {
     public static String PURPLE = "\u001B[35m";
     public static String CYAN = "\u001B[36m";
     public static String WHITE = "\u001B[37m";
-
+    
     Scanner sc = new Scanner(System.in);
     ArrayList<String> BooksList = new ArrayList<>();
     ArrayList<String> AppliancesList = new ArrayList<>();
@@ -215,7 +218,7 @@ public class ProjectVinMall implements IMall {
         }
     }
 
-    public void saveData() {
+       public void saveData() {
         for (String file : fileList) {
             switch (file) {
                 case "bookin.txt":
@@ -227,7 +230,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Book store data---\n");
                     break;
-
+                
                 case "employeein.txt":
                     EmployeesList.clear();
                     for (Employee e : employeeData) {
@@ -237,7 +240,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Employees data---\n");
                     break;
-
+                
                 case "appliancein.txt":
                     AppliancesList.clear();
                     for (Appliance a : applianceData) {
@@ -247,7 +250,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Appliance store data---\n");
                     break;
-
+                
                 case "drinkin.txt":
                     DrinksList.clear();
                     for (Drink d : drinkData) {
@@ -257,7 +260,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Drink store data---\n");
                     break;
-
+                
                 case "electronicin.txt":
                     ElectronicsList.clear();
                     for (Electronic e : electronicData) {
@@ -267,7 +270,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Electronic store data---\n");
                     break;
-
+                
                 case "vehiclesin.txt":
                     VehiclesList.clear();
                     for (Vehicle v : vehicleData) {
@@ -278,7 +281,7 @@ public class ProjectVinMall implements IMall {
                     System.out.println("\n---Vehicle store data---\n");
                     delay(100);
                     break;
-
+                
                 case "foodin.txt":
                     FoodsList.clear();
                     for (Food f : foodData) {
@@ -289,7 +292,7 @@ public class ProjectVinMall implements IMall {
                     System.out.println("\n---Food store data---\n");
                     delay(100);
                     break;
-
+                
                 default:
                     break;
             }
@@ -303,7 +306,13 @@ public class ProjectVinMall implements IMall {
             System.out.println(Employee.getInfo());
         });
     }
+    void listVehicle() {
+        vehicleData.forEach(Vehicle -> {
+            System.out.println(Vehicle.toString());
+        });
+    }    
 
+    //----Electronic method----------------
     void displayElectronic() {
         electronicData.forEach(Electronic -> {
             System.out.println(Electronic.toString());
@@ -478,7 +487,9 @@ public class ProjectVinMall implements IMall {
             }
         }
     }
+    
 
+//-------Appliance Method------------------
     void listAppliance() {
         applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
     }
@@ -546,93 +557,92 @@ public class ProjectVinMall implements IMall {
             }
         }
     }
-
-    void sortAppliance() {
-        boolean Asort = true;
-        while (Asort) {
-            System.out.println("Sort by: ");
-            System.out.println("1. Brand");
-            System.out.println("2. Price");
-            System.out.println("0. Exit");
-            int choose = getValidInput(3);
-            switch (choose) {
-                case 1:
-                    applianceData.sort(Comparator.comparing(Appliance::getBrand));
-                    System.out.println("Sorted by Price successfully!");
-                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                    Asort = false;
-                    break;
-                case 2:
-                    applianceData.sort(Comparator.comparing(Appliance::getPrice));
-                    System.out.println("Sorted by Price successfully!");
-                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                    Asort = false;
-                    break;
-                case 0:
-                    System.out.println("Exit.");
-                    Asort = false;
-                    break;
-                default:
-                    System.out.println("Please choose again!");
+    
+        void sortAppliance() {
+            boolean Asort = true;
+            while (Asort) {
+                System.out.println("Sort by: ");
+                System.out.println("1. Brand");
+                System.out.println("2. Price");
+                System.out.println("0. Exit");
+                int choose = getValidInput(3);
+                switch (choose) {
+                    case 1:
+                        applianceData.sort(Comparator.comparing(Appliance::getBrand));
+                        System.out.println("Sorted by Price successfully!");
+                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                        Asort = false;
+                        break;
+                    case 2:
+                        applianceData.sort(Comparator.comparing(Appliance::getPrice));
+                        System.out.println("Sorted by Price successfully!");
+                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                        Asort = false;
+                        break;
+                    case 0:
+                        System.out.println("Exit.");
+                        Asort = false;
+                        break;
+                    default:
+                        System.out.println("Please choose again!");
+                }
             }
         }
-    }
 
-    void searchAppliance() {
-        boolean Asearch = true;
-        while (Asearch) {
-            System.out.println("Search by:");
-            System.out.println("1. ID");
-            System.out.println("2. Name");
-            System.out.println("0. Exit");
-            int choose = getValidInput(3);
-            switch (choose) {
-                case 1:
-                    System.out.print("Enter ID: ");
-                    String searchId = getValidString();
-                    boolean foundId = false;
-                    for (Appliance a : applianceData) {
-                        if (a.getId().equalsIgnoreCase(searchId)) {
-                            System.out.println("Found appliance:");
-                            System.out.println(a.toString());
-                            foundId = true;
-                            break;
-                        }
-                    }
-                    if (!foundId) {
-                        System.out.println("ID not found!");
-                    }
-                    Asearch = false;
-                    break;
-                case 2:
-                    System.out.print("Enter Name: ");
-                    String searchName = getValidString().toLowerCase();
-                    boolean foundName = false;
-                    for (Appliance a : applianceData) {
-                        if (a.getName().equalsIgnoreCase(searchName)) {
-                            if (!foundName) {
+        void searchAppliance() {
+            boolean Asearch = true;
+            while (Asearch) {
+                System.out.println("Search by:");
+                System.out.println("1. ID");
+                System.out.println("2. Name");
+                System.out.println("0. Exit");
+                int choose = getValidInput(3);
+                switch (choose) {
+                    case 1:
+                        System.out.print("Enter ID: ");
+                        String searchId = getValidString();
+                        boolean foundId = false;
+                        for (Appliance a : applianceData) {
+                            if (a.getId().equalsIgnoreCase(searchId)) {
                                 System.out.println("Found appliance:");
-                                foundName = true;
+                                System.out.println(a.toString());
+                                foundId = true;
+                                break;
                             }
-                            System.out.println(a.toString());
                         }
-                    }
-                    if (!foundName) {
-                        System.out.println("Name not found!");
-                    }
-                    Asearch = false;
-                    break;
-                case 0:
-                    System.out.println("Exit.");
-                    Asearch = false;
-                    break;
-                default:
-                    System.out.println("Please choose again!");
+                        if (!foundId) {
+                            System.out.println("ID not found!");
+                        }
+                        Asearch = false;
+                        break;
+                    case 2:
+                        System.out.print("Enter Name: ");
+                        String searchName = getValidString().toLowerCase();
+                        boolean foundName = false;
+                        for (Appliance a : applianceData) {
+                            if (a.getName().equalsIgnoreCase(searchName)) {
+                                if (!foundName) {
+                                    System.out.println("Found appliance:");
+                                    foundName = true;
+                                }
+                                System.out.println(a.toString());
+                            }
+                        }
+                        if (!foundName) {
+                            System.out.println("Name not found!");
+                        }
+                        Asearch = false;
+                        break;
+                    case 0:
+                        System.out.println("Exit.");
+                        Asearch = false;
+                        break;
+                    default:
+                        System.out.println("Please choose again!");
+                }
             }
         }
-    }
-
-    ///Bookmethod///
+    ///Book method///
     public void listAllBooks() {
         System.out.println("--- Book List ---\n");
         for (Book book : bookData) {
@@ -788,9 +798,11 @@ public class ProjectVinMall implements IMall {
             }
         }
     }
-// ------- Drink methods -------
 
-    public void listAllDrinks() {
+
+
+// ------- Drink methods -------
+public void listAllDrinks() {
         for (Drink drink : drinkData) {
             System.out.println(drink);
         }
@@ -940,9 +952,8 @@ public class ProjectVinMall implements IMall {
             }
         }
     }
-
-// ------- Food methods -------
-    public void listAllFoods() {
+    //-------------Food method-------------------------
+public void listAllFoods() {
         for (Food food : foodData) {
             System.out.println(food);
         }
@@ -1091,7 +1102,372 @@ public class ProjectVinMall implements IMall {
             }
         }
     }
-
+    //-----------------------------------Employee Method-------------------------------
+    
+    void addEmployee(){
+        System.out.println("--------------Hire new Employee----------------");
+        String newEmId;
+        while (true){
+            System.out.print("Enter new ID:");
+            newEmId = getValidString();
+            if (checkEmployeeID(newEmId)){
+                
+                break;
+            } else System.out.println("ID exist!");
+        }
+        System.out.print("Enter Employee Name:");
+        String newEmName = getValidString();
+        System.out.print("Enter Employee position:");
+        String newEmPos = getValidString();
+        System.out.print("Enter Employee phone number:");
+        String newEmPhone = getValidString();
+        System.out.print("Enter Employee salary:");
+        double newEmSa = getValidDouble();
+        
+        Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
+        
+        employeeData.add(newEmp);
+        System.out.println("New Employee infor:" + newEmp.getInfo());
+        waitForEnter("Enter to continue.");
+    }
+    
+    void editEmloyee(){
+        System.out.println("--------------Edit Employees information----------------");
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkEmployeeID(newEmId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        System.out.print("Enter Employee Name:");
+        String newEmName = getValidString();
+        System.out.print("Enter Employee position:");
+        String newEmPos = getValidString();
+        System.out.print("Enter Employee phone number:");
+        String newEmPhone = getValidString();
+        System.out.print("Enter Employee salary:");
+        double newEmSa = getValidDouble();
+        Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
+        
+        int index =0;
+        for (int i =0 ; i < employeeData.size() ; i++){
+            if (employeeData.get(i).getId().equalsIgnoreCase(newEmId)){
+                index = i;
+                break;
+            }
+        }
+        employeeData.set(index, newEmp);
+        System.out.println("Employee infor:" + newEmp.getInfo());
+        waitForEnter("Enter to continue.");
+    }
+    
+    void DissmisEmployee(){
+        System.out.println("--------------Dissmis Employees-----------------");
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkEmployeeID(newEmId)){
+                
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        int i=0;
+        for (int index =0 ; index < employeeData.size() ; index++){
+                if (employeeData.get(index).getId().equalsIgnoreCase(newEmId)){
+                    i = index;
+                    break;
+                }
+        }
+        
+        employeeData.remove(i);
+        System.out.println("Employee Dissmised");
+    }
+    
+    void findEmployee(){
+        System.out.println("--------------Find Employees-----------------");
+        System.out.print("Enter id, name or position :");
+        String find = getValidString();
+        int notfind = 0;
+        for (Employee e : employeeData){
+            if (  e.getId().contains(find) ||
+                   e.getName().contains(find) ||
+                   e.getPosition().contains(find)
+                    ){
+                System.out.println(e.getInfo());
+                ++notfind;
+            }
+        }
+        if (notfind == 0){
+            System.out.println("No resuft!");
+            
+        }
+        waitForEnter("Enter to continue.");
+    }
+    
+    void sortEmployee(){
+        boolean sortstop = false;
+        while (!sortstop) {
+        System.out.println("--------------Sort Employees-----------------");
+        System.out.println("Sorting by what?");
+        System.out.println("1. ID");
+        System.out.println("2. Name");
+        System.out.println("3. Salary");
+        System.out.println("0. Back to Employees manage");
+        int sortEmSelect = getValidInput(3);
+            switch (sortEmSelect){
+                case 1:
+                    employeeData.sort(Comparator.comparing(Employee :: getId));
+                    System.out.println("-----------List sorted by ID------------");
+                    listEmployee();
+                    
+                    break;
+                case 2:
+                    employeeData.sort(Comparator.comparing(Employee :: getName));
+                    System.out.println("-----------List sorted by Name------------");
+                    listEmployee();
+                    break;
+                case 3:
+                    employeeData.sort(Comparator.comparing(Employee :: getSalary));
+                    System.out.println("-----------List sorted by Salary------------");
+                    listEmployee();
+                    break;
+                case 0:
+                    System.out.println("Data saved.");
+                    sortstop = true;                    
+                    break;
+            }
+            waitForEnter("Enter to continue.");
+        }
+        
+    }
+    
+    //Vehicle Method------------------------------------
+    
+    
+    void addVehicle(){
+    System.out.println("-------------Add new Vehicle-----------");
+    String newVeId;
+        while (true){
+            System.out.print("Enter new ID:");
+            newVeId = getValidString();
+            if (checkVehicleID(newVeId)){
+                break;
+            } else System.out.println("ID exist!");
+        }
+    System.out.print("Enter new vehicle Name:");
+    String newVeName = getValidString();
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
+    System.out.print("Enter new vehicle Chassis Number:");
+    String newCha = getValidString();
+    System.out.print("Enter new vehicle Engine Type:");
+    String newengineType = getValidString();
+    System.out.print("Enter new vehicle brand:");
+    String newbrand = getValidString();
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
+    System.out.print("Enter new vehicle inspection Fee:");
+    double Fee = getValidDouble();
+    
+    Vehicle newVe = new Vehicle(
+            newVeId,
+            newVeName,
+            newPrice,
+            newRating,
+            newCha,
+            newengineType,
+            newbrand,
+            newmanuyear,
+            Fee
+    );
+    vehicleData.add(newVe);
+    System.out.println("New Vehicle Informantion:"+newVe.toString());
+    waitForEnter("Enter to continue.");
+    }
+    
+    
+    void editVehicle(){
+        System.out.println("--------------Edit Vehicle information----------------");
+        String newId;
+        while (true){
+            System.out.print("Enter Vehicle ID:");
+            newId = getValidString();
+            if (!checkVehicleID(newId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        
+    System.out.print("Enter new vehicle Name:");
+    String newVeName = getValidString();
+    System.out.print("Enter new vehicle Price:");
+    double newPrice = getValidDouble();
+    System.out.print("Enter new vehicle Rating:");
+    double newRating = getValidDouble();
+    System.out.print("Enter new vehicle Chassis Number:");
+    String newCha = getValidString();
+    System.out.print("Enter new vehicle Engine Type:");
+    String newengineType = getValidString();
+    System.out.print("Enter new vehicle brand:");
+    String newbrand = getValidString();
+    System.out.print("Enter new vehicle manufacture Year:");
+    int newmanuyear = getValidInt();
+    System.out.print("Enter new vehicle inspection Fee:");
+    double Fee = getValidDouble();
+        Vehicle newVe = new Vehicle(
+            newId,
+            newVeName,
+            newPrice,
+            newRating,
+            newCha,
+            newengineType,
+            newbrand,
+            newmanuyear,
+            Fee
+    );
+        int index = 0;
+        for (int i = 0 ; i<vehicleData.size() ; ++i ){
+            if (vehicleData.get(i).getId().equalsIgnoreCase(newId)){
+                index = i;
+                break;
+            }
+        }
+        vehicleData.set(index, newVe);
+        System.out.println("Vehicle Informantion:"+newVe.toString());
+        waitForEnter("Enter to continue.");  
+    }
+    
+    
+    void deleteVehicle(){
+        System.out.println("--------------Delete Vehicle-----------------");
+        String newEmId;
+        while (true){
+            System.out.print("Enter Employee ID:");
+            newEmId = getValidString();
+            if (!checkVehicleID(newEmId)){
+                break;
+            } else System.out.println("ID not exist!");
+        }
+        int i=0;
+        for (int index =0 ; index < vehicleData.size() ; index++){
+                if (vehicleData.get(index).getId().equalsIgnoreCase(newEmId)){
+                    i = index;
+                    break;
+                }
+        }
+        
+        vehicleData.remove(i);
+        System.out.println("Vehicle Deleted.");
+        waitForEnter("Enter to continue.");  
+    }
+    
+    
+   void sortVehicle(){
+       boolean sortstop = false;
+        while (!sortstop) {
+        System.out.println("--------------Sort Vehicle-----------------");
+        System.out.println("Sorting by what?");
+        System.out.println("1. ID");
+        System.out.println("2. Name");
+        System.out.println("3. Price");
+        System.out.println("4. Rating");
+        System.out.println("5. Chassis Number");
+        System.out.println("6. EngineType");
+        System.out.println("7. Brand");
+        System.out.println("8. Manufacture Year");
+        System.out.println("9. Inspection Fee");
+        System.out.println("0. Back to Employees manage");
+        int sortEmSelect = getValidInput(9);
+            switch (sortEmSelect){
+                case 1:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getId));
+                    System.out.println("----------- List sorted by ID ------------");
+                    listVehicle();
+                    
+                    break;
+                case 2:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getName));
+                    System.out.println("----------- List sorted by Name ------------");
+                    listVehicle();
+                    break;
+                case 3:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getPrice));
+                    System.out.println("----------- List sorted by Price ------------");
+                    listVehicle();
+                    break;
+                case 4:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getRating));
+                    System.out.println("-----------List sorted by Rating ------------");
+                    listVehicle();
+                    
+                    break;
+                case 5:
+                    vehicleData.sort(Comparator.comparing(Vehicle ::  getChassisNumber));
+                    System.out.println("-----------List sorted by Chassis Number ------------");
+                    listVehicle();
+                    break;
+                case 6:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getEngineType));
+                    System.out.println("-----------List sorted by EngineType ------------");
+                    listVehicle();
+                    break;
+                case 7:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getBrand));
+                    System.out.println("-----------List sorted by Brand ------------");
+                    listVehicle();
+                    
+                    break;
+                case 8:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getManufactureYear));
+                    System.out.println("-----------List sorted by Manufacture Year ------------");
+                    listVehicle();
+                    break;
+                case 9:
+                    vehicleData.sort(Comparator.comparing(Vehicle :: getInspectionFee));
+                    System.out.println("-----------List sorted by Inspection Fee ------------");
+                    listVehicle();
+                    break;
+                case 0:
+                    System.out.println("Data saved.");
+                    sortstop = true;                    
+                    break;
+            }
+            waitForEnter("Enter to continue.");
+        }   
+   }
+   
+   void findVehicle(){
+        System.out.println("--------------Find Vehicle-----------------");
+        System.out.print("Enter any thing to find:");
+        String find = getValidString();
+        System.out.println("--------------List Find Vehicle-----------------");
+        int notfind = 0;   
+   
+            for (Vehicle e : vehicleData){
+            if (  e.getId().contains(find) ||
+                   e.getName().contains(find) ||
+                   e.getBrand().contains(find) ||
+                   e.getChassisNumber().contains(find) ||
+                   e.getEngineType().contains(find) ||
+                   String.valueOf(e.getManufactureYear()).contains(find) ||
+                   String.valueOf(e.getInspectionFee()).contains(find) ||
+                   String.valueOf(e.getPrice()).contains(find) ||
+                   String.valueOf(e.getRating()).contains(find)
+                    ){
+                System.out.println(e.toString());
+                ++notfind;
+            }
+        }
+        if (notfind == 0){
+            System.out.println("No resuft!");  
+        
+        }
+        waitForEnter("Enter to continue.");
+    }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
     public void mainUI() {//Vi du y nhu cai nay
         System.out.println("----MALL MANAGEMENT SYSTEM----");
@@ -1113,6 +1489,18 @@ public class ProjectVinMall implements IMall {
         System.out.println("2. Edit Emloyee Information");
         System.out.println("3. Dismiss Employee");
         System.out.println("4. Find Employee");
+        System.out.println("5. Sort Employee");
+        System.out.println("0. Back To MALL MANAGEMENT");
+
+    }
+    public void VehicleUI() {
+
+        System.out.println("----VEHICLE MANAGEMENT----");
+        System.out.println("1. Add new Vehicle");
+        System.out.println("2. Edit vehicle infomation");
+        System.out.println("3. Delete vehicle");
+        System.out.println("4. Sort Vehicle");
+        System.out.println("5. Search Vehicle");
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
@@ -1140,26 +1528,70 @@ public class ProjectVinMall implements IMall {
     }
 
     public void FoodUI() {
-        System.out.println("---- FOOD MANAGEMENT ----");
-        System.out.println("1. List all foods");
-        System.out.println("2. Add a food");
-        System.out.println("3. Edit a food");
-        System.out.println("4. Delete a food");
-        System.out.println("5. Sort foods by (ID, Name, Rating, Price)");
-        System.out.println("6. Search food by (ID, Name)");
-        System.out.println("0. Back to Main Menu");
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("---- FOOD MANAGEMENT ----");
+            System.out.println("1. List all foods");
+            System.out.println("2. Add a food");
+            System.out.println("3. Edit a food");
+            System.out.println("4. Delete a food");
+            System.out.println("5. Sort foods by (ID, Name, Rating, Price)");
+            System.out.println("6. Search foods by (ID or Name)");
+            System.out.println("0. Back to Main Menu");
+            int choice = getValidInput(6);
+            switch (choice) {
+                case 1:
+                    listAllFoods();
+                    break;
+                case 2:
+                    addFood();
+                    break;
+                case 3:
+                    editFood();
+                    break;
+                case 4:
+                    deleteFood();
+                    break;
+                case 5:
+                System.out.println("Sort by: 1. ID, 2. Name, 3. Rating, 4. Price");
+                int sortChoice = getValidInput(4);
+                switch (sortChoice) {
+                    case 1: drinkData.sort((a, b) -> a.getId().compareTo(b.getId())); break;
+                    case 2: drinkData.sort((a, b) -> a.getName().compareTo(b.getName())); break;
+                    case 3: drinkData.sort((a, b) -> Double.compare(a.getRating(), b.getRating())); break;
+                    case 4: drinkData.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice())); break;
+                }
+                break;
+            case 6:
+                    System.out.println("Search by: 1. ID, 2. Name");
+                    int searchChoice = getValidInput(2);
+                    boolean found = false;
+                    if (searchChoice == 1) {
+                        System.out.print("Enter drink ID: ");
+                        String sid = sc.nextLine();
+                        for (Drink d : drinkData) {
+                            if (d.getId().equals(sid)) {
+                                System.out.println(d);
+                                found = true;
+                            }
+                        }
+                    } else {
+                        System.out.print("Enter drink name: ");
+                        String sname = sc.nextLine().toLowerCase();
+                        for (Drink d : drinkData) {
+                            if (d.getName().toLowerCase().contains(sname)) {
+                                System.out.println(d);
+                                found = true;
+                            }
+                        }
+                    }
+                    if (!found) System.out.println("Drink not found.");
+                    break;
+            case 0:
+                return;
+        }
     }
-
-    public void VehicleUI() {
-        System.out.println("---- VEHICLE MANAGEMENT ----");
-        System.out.println("1. List all vehicles");
-        System.out.println("2. Add a vehicle");
-        System.out.println("3. Edit a vehicle");
-        System.out.println("4. Delete a vehicle");
-        System.out.println("5. Sort vehicles by (ID, Name, Rating, Price)");
-        System.out.println("6. Search vehicle by (ID, Name)");
-        System.out.println("0. Back to Main Menu");
-    }
+}
 
     public void BookUI() {
         System.out.println("---- BOOK MANAGEMENT ----");
@@ -1183,15 +1615,27 @@ public class ProjectVinMall implements IMall {
         System.out.println("0. Back to Main Menu");
     }
 
+    public boolean checkEmployeeID(String id){
+        return !employeeData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
+    }
+    public boolean checkVehicleID(String id){
+        return !vehicleData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
+    }
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
+
+    /**
+     *
+     * @return
+     */
     @Override
     public int getValidInput(int range) {
-        Scanner  sc = new Scanner(System.in);
+        Scanner lsc = new Scanner(System.in);
         int input; 
             System.out.print("Please select an option: ");
-            if ( sc.hasNextInt()) {
-                input =  sc.nextInt();
-                 
+            if (lsc.hasNextInt()) {
+
+                input = lsc.nextInt();
+             
                 if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
                     return input;
                 } else {
@@ -1207,10 +1651,10 @@ public class ProjectVinMall implements IMall {
     @Override
     public String getValidString() {
         String string;
-        Scanner  sc = new Scanner(System.in);
+        Scanner lsc = new Scanner(System.in);
         string = null;
-        string =  sc.nextLine().trim();
-         
+        string = lsc.nextLine().trim();
+     
         if (string == null || string.isEmpty()) {
             System.out.println("Try again!");
             getValidString();
@@ -1221,12 +1665,13 @@ public class ProjectVinMall implements IMall {
     @Override 
     public double getValidDouble() {
         double input = 0;
-        Scanner  sc = new Scanner(System.in);
-        if ( sc.hasNextDouble()) {
-            input =  sc.nextDouble(); 
-             
+        Scanner lsc = new Scanner(System.in);
+       
+        if (lsc.hasNextDouble()) {
+            input = lsc.nextDouble(); 
+           
         } else {
-                System.out.println("Invalid input.\nPlease enter a valid number.");
+                System.out.println("Invalid input. Please enter a valid number.");
                 getValidDouble();
             }
         
@@ -1235,18 +1680,18 @@ public class ProjectVinMall implements IMall {
     @Override
     public int getValidInt() {
         int input = 0;
-        Scanner  sc = new Scanner(System.in);
-        if ( sc.hasNextInt()) {
-            input =  sc.nextInt(); 
-             
+        Scanner lsc = new Scanner(System.in);
+        
+        if (lsc.hasNextInt()) {
+            input = lsc.nextInt(); 
+            
         } else {
-                System.out.println("Invalid input. \nPlease enter a valid integer.");
+                System.out.println("Invalid input. Please enter a valid integer.");
                 getValidInt();
             }
         
         return input;
     }
-
     @Override
     public void clearScreen() {
         try {
@@ -1261,18 +1706,21 @@ public class ProjectVinMall implements IMall {
         }
     }
     // clear cmd cho dep
-
+    
     @Override
     public void delay(long s) {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < s) {
         }
     }
-
+    public void waitForEnter(String prompt) {
+        System.out.print(prompt);
+        sc.nextLine();
+    }
+    
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
     }
-
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
@@ -1288,9 +1736,9 @@ public class ProjectVinMall implements IMall {
         
          */
         ProjectVinMall VinMall = new ProjectVinMall();
-
+        
         VinMall.loadData();
-
+        
         boolean stop = false;
 
         while (!stop) {
@@ -1300,6 +1748,7 @@ public class ProjectVinMall implements IMall {
 
             switch (MainSelect) {
                 case 1: //Book
+                    
                     boolean stopB = true;
                     VinMall.clearScreen();
                     while (stopB) {
@@ -1338,33 +1787,34 @@ public class ProjectVinMall implements IMall {
                     break;
                 case 2://Appliance
                     boolean stopA = true;
-                    while (stopA) {
+                    while(stopA){
+                        VinMall.clearScreen();
                         VinMall.ApplianceUI();
                         int ApplianceSelect = VinMall.getValidInput(7);
-                        switch (ApplianceSelect) {
+                        switch(ApplianceSelect){
                             case 1:
                                 VinMall.listAppliance();
-                                break;
+                            break;
                             case 2:
                                 VinMall.addAppliance();
-                                break;
+                            break;
                             case 3:
                                 VinMall.editAppliance();
-                                break;
+                            break;
                             case 4:
                                 VinMall.deleteAppliance();
-                                break;
+                            break;
                             case 5:
                                 VinMall.sortAppliance();
-                                break;
+                            break;
                             case 6:
                                 VinMall.searchAppliance();
-                                break;
+                            break;
                             default:
                                 System.out.println("Data saved.");
                                 System.out.println("Exit.");
                                 stopA = false;
-                                break;
+                            break;
                         }
                     }
                     //------------------------------------endAppliance--------------------------------
@@ -1372,6 +1822,7 @@ public class ProjectVinMall implements IMall {
                 case 3://Drinks
                     boolean stopD = true;
                     while (stopD) {
+                        VinMall.clearScreen();
                         VinMall.DrinkUI();
                         int DrinkSelect = VinMall.getValidInput(6);
 
@@ -1403,44 +1854,46 @@ public class ProjectVinMall implements IMall {
                     }
                     //------------------------------------endDrinks--------------------------------
                     break;
-                case 4: 
+                case 4:{
                     boolean stopE = true;
-                    while (stopE) {
-                        VinMall.ElectronicUI();
-                        int ElectronicSelect = VinMall.getValidInput(6);
-
-                        switch (ElectronicSelect) {
-                            case 1:
-                                VinMall.displayElectronic();
-                                break;
-                            case 2:
-                                VinMall.addElectronic();
-                                break;
-                            case 3:
-                                VinMall.editElectronic();
-                                break;
-                            case 4:
-                                VinMall.deleteElectronic();
-                                break;
-                            case 5:
-                                VinMall.sortElectronic();
-                                break;
-                            case 6:
-                                VinMall.searchElectronic();
-                                break;
-                            default:
-                                System.out.println("Data saved.");
-                                System.out.println("Exit.");
-                                stopE = false;
-                                break;
-                        }
-                    }
-                
-                //------------------------------------endElectronic--------------------------------
-                break;
+                while(stopE){
+                    VinMall.clearScreen();
+                    VinMall.ElectronicUI();
+                 int ElectronicSelect = VinMall.getValidInput(6);
+                 
+                 switch(ElectronicSelect){
+                     case 1:
+                         VinMall.displayElectronic();
+                     break;
+                     case 2:
+                         VinMall.addElectronic();
+                     break;
+                     case 3:
+                         VinMall.editElectronic();
+                     break;
+                     case 4:
+                         VinMall.deleteElectronic();
+                     break;
+                     case 5:
+                         VinMall.sortElectronic();
+                     break;
+                     case 6:
+                         VinMall.searchElectronic();
+                     break;
+                     default:
+                         System.out.println("Data saved.");
+                         System.out.println("Exit.");
+                         stopE = false;
+                     break;
+                 }
+                }    
+                }
+                    //------------------------------------endElectronic--------------------------------
+                    break;
                 case 5://Food
                     boolean stopF = true;
                     while (stopF) {
+                        VinMall.clearScreen();
                         VinMall.FoodUI();
                         int FoodSelect = VinMall.getValidInput(5);
 
@@ -1470,61 +1923,88 @@ public class ProjectVinMall implements IMall {
                                 break;
                         }
                     }
-
                     //------------------------------------endFood--------------------------------
                     break;
                 case 6://Vehicle
-                    boolean stopV = true;
-                    while (stopV) {
-                        VinMall.VehicleUI();
-                        int VehicleSelect = VinMall.getValidInput(6);
-
-                        switch (VehicleSelect) {
-                            case 1:
-                                VinMall.listAllVehicles();
-                                break;
-                            case 2:
-                                VinMall.addVehicle();
-                                break;
-                            case 3:
-                                VinMall.editVehicle();
-                                break;
-                            case 4:
-                                VinMall.deleteVehicle();
-                                break;
-                            case 5:
-                                VinMall.sortVehicles();
-                                break;
-                            case 6:
-                                VinMall.searchVehicles();
-                                break;
-                            default:
-                                System.out.println("Data saved.");
-                                System.out.println("Exit.");
-                                stopV = false;
-                                break;
-                        }
+                    boolean stopVe = false;
+                    while (!stopVe){
+                    VinMall.clearScreen();
+                    System.out.println("------------------- Vehicle List---------------");
+                    VinMall.listVehicle();
+                    VinMall.VehicleUI();   
+                    int VehicleSelect = VinMall.getValidInput(5);
+                    switch (VehicleSelect){
+                        case 1:
+                            VinMall.addVehicle();
+                            break;
+                        case 2:
+                            VinMall.editVehicle();
+                            break;
+                        case 3:
+                            VinMall.deleteVehicle();
+                            break;
+                        case 4:
+                            VinMall.sortVehicle();
+                            break;
+                        case 5:
+                            VinMall.findVehicle();
+                            break;
+                        case 0:
+                            System.out.println("Back");
+                            stopVe = true;
+                            break;
                     }
-
+                    }
                     //------------------------------------endVehicle--------------------------------
                     break;
                 case 7://Employee
-
-                    VinMall.listEmployee();
-                    VinMall.EmployeeUI();
-                    int EmployeeSelect = VinMall.getValidInput(4);
-
+                    
+                    boolean stopEmp = false;
+                    while (!stopEmp) {
+                            VinMall.clearScreen();
+                            System.out.println("-------------List Employee--------------");
+                            VinMall.listEmployee();
+                            VinMall.EmployeeUI();
+                            int EmployeeSelect = VinMall.getValidInput(5);
+                            switch (EmployeeSelect){
+                                case 1: //Hire
+                                    VinMall.addEmployee();
+                                    break;
+                                case 2://Edit
+                                    VinMall.editEmloyee();
+                                    break;
+                                case 3://Dissmis
+                                    VinMall.DissmisEmployee();
+                                    break;
+                                case 4://Find
+                                    VinMall.findEmployee();
+                                    break;
+                                case 5://Sort
+                                    VinMall.sortEmployee();
+                                    break;
+                                case 0:
+                                    System.out.println("Back");
+                                    stopEmp = true;
+                            }
+                    }        
                     //------------------------------------endEmployee--------------------------------
                     break;
-                default:
+                case 0:
                     VinMall.saveData();
                     VinMall.clearScreen();
                     System.out.println("Data saved.");
                     System.out.println("Exit.");
                     stop = true;
+                    break;
             }
-            VinMall.clearScreen();
         }
-
     }
+
 }
+
+
+
+
+
+
+
