@@ -772,7 +772,7 @@ public void deleteDrink() {
         System.out.println("Drink not found.");
     }
 }
-    
+    //-------------Food method-------------------------
 public void listAllFoods() {
         for (Food food : foodData) {
             System.out.println(food);
@@ -780,25 +780,23 @@ public void listAllFoods() {
     }
 
     public void addFood() {
-        
         System.out.print("Food ID: ");
-        String id = sc.nextLine();
+        String id = getValidString();
         System.out.print("Food Name: ");
-        String name = sc.nextLine();
+        String name = getValidString();
         System.out.print("Price: ");
-        double price = Double.parseDouble(sc.nextLine());
+        double price = getValidDouble();
         System.out.print("Rating: ");
-        double rating = Double.parseDouble(sc.nextLine());
+        double rating = getValidDouble();
         System.out.print("Size: ");
-        String size = sc.nextLine();
+        String size = getValidString();
         foodData.add(new Food(id, name, price, rating, size));
         System.out.println("Food added.");
     }
 
     public void editFood() {
-        
         System.out.print("Enter food ID to edit: ");
-        String id = sc.nextLine();
+        String id = getValidString();
         Food food = null;
         for (Food f : foodData) {
             if (f.getId().equals(id)) {
@@ -808,28 +806,16 @@ public void listAllFoods() {
         }
         if (food != null) {
             System.out.print("New Name [" + food.getName() + "]: ");
-            String name = sc.nextLine();
-            if (!name.isEmpty()) {
-                food.setName(name);
-            }
+            food.setName(getValidString());
 
             System.out.print("New Price [" + food.getPrice() + "]: ");
-            String price = sc.nextLine();
-            if (!price.isEmpty()) {
-                food.setPrice(Double.parseDouble(price));
-            }
+            food.setPrice(getValidDouble());
 
             System.out.print("New Rating [" + food.getRating() + "]: ");
-            String rating = sc.nextLine();
-            if (!rating.isEmpty()) {
-                food.setRating(Double.parseDouble(rating));
-            }
+            food.setRating(getValidDouble());
 
             System.out.print("New Size [" + food.getSize() + "]: ");
-            String size = sc.nextLine();
-            if (!size.isEmpty()) {
-                food.setSize(size);
-            }
+            food.setSize(getValidString());
 
             System.out.println("Food updated.");
         } else {
@@ -838,9 +824,8 @@ public void listAllFoods() {
     }
 
     public void deleteFood() {
-        
         System.out.print("Enter food ID to delete: ");
-        String id = sc.nextLine();
+        String id = getValidString();
         boolean removed = foodData.removeIf(f -> f.getId().equals(id));
         if (removed) {
             System.out.println("Food deleted.");
@@ -848,6 +833,94 @@ public void listAllFoods() {
             System.out.println("Food not found.");
         }
     }
+
+    public void SortFoods() {
+        boolean Fsort = true;
+        while (Fsort) {
+            System.out.println("Sort by: ");
+            System.out.println("1. Price");
+            System.out.println("2. Rating");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    foodData.sort(Comparator.comparing(Food::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    foodData.forEach(Food -> System.out.println(Food.toString()));
+                    Fsort = false;
+                    break;
+                case 2:
+                    foodData.sort(Comparator.comparing(Food::getRating));
+                    System.out.println("Sorted by Rating successfully!");
+                    foodData.forEach(Food -> System.out.println(Food.toString()));
+                    Fsort = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Fsort = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+
+    public void searchFoods() {
+        boolean Fsearch = true;
+        while (Fsearch) {
+            System.out.println("Search by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+
+            switch (choose) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    String searchId = getValidString();
+                    boolean foundId = false;
+                    for (Food f : foodData) {
+                        if (f.getId().equalsIgnoreCase(searchId)) {
+                            System.out.println("Found food:");
+                            System.out.println(f.toString());
+                            foundId = true;
+                            break;
+                        }
+                    }
+                    if (!foundId) {
+                        System.out.println("ID not found!");
+                    }
+                    Fsearch = false;
+                    break;
+
+                case 2:
+                    System.out.print("Enter Name: ");
+                    String searchName = getValidString().toLowerCase();
+                    boolean foundName = false;
+                    for (Food f : foodData) {
+                        if (f.getName().equalsIgnoreCase(searchName)) {
+                            if (!foundName) {
+                                System.out.println("Found food:");
+                                System.out.println(f.toString());
+                                foundName = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!foundName) {
+                        System.out.println("Name not found!");
+                    }
+                    Fsearch = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Fsearch = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+                    break;
+            }
+        }
 
     //-----------------------------------Employee Method-------------------------------
     
@@ -1723,3 +1796,4 @@ public void listAllFoods() {
     }
 
 }
+
