@@ -1259,21 +1259,32 @@ public void listAllFoods() {
         }
     System.out.print("Enter new vehicle Name:");
     String newVeName = getValidString();
-    System.out.print("Enter new vehicle Price:");
-    double newPrice = getValidDouble();
-    System.out.print("Enter new vehicle Rating:");
-    double newRating = getValidDouble();
+    double newPrice = -1; 
+    while (newPrice<0 ) {
+        System.out.print("Enter new vehicle Price:");
+        newPrice = getValidDouble();
+    }
+    double newRating = -1;
+    while (newRating<0 || newRating>10){
+        System.out.print("Enter new vehicle Rating:");
+        newRating = getValidDouble();
+    }
     System.out.print("Enter new vehicle Chassis Number:");
     String newCha = getValidString();
     System.out.print("Enter new vehicle Engine Type:");
     String newengineType = getValidString();
     System.out.print("Enter new vehicle brand:");
     String newbrand = getValidString();
-    System.out.print("Enter new vehicle manufacture Year:");
-    int newmanuyear = getValidInt();
+    int newmanuyear = 0;
+    while (newmanuyear<0) {
+        System.out.print("Enter new vehicle manufacture Year:");
+        newmanuyear = getValidInt();
+    }
+    double Fee = -1;
+    while (Fee<0) {
     System.out.print("Enter new vehicle inspection Fee:");
-    double Fee = getValidDouble();
-    
+    Fee = getValidDouble();
+    }
     Vehicle newVe = new Vehicle(
             newVeId,
             newVeName,
@@ -1304,20 +1315,33 @@ public void listAllFoods() {
         
     System.out.print("Enter new vehicle Name:");
     String newVeName = getValidString();
-    System.out.print("Enter new vehicle Price:");
-    double newPrice = getValidDouble();
-    System.out.print("Enter new vehicle Rating:");
-    double newRating = getValidDouble();
+    double newPrice = -1; 
+    while (newPrice<0 ) {
+        System.out.print("Enter new vehicle Price:");
+        newPrice = getValidDouble();
+    }
+    double newRating = -1;
+    while (newRating<0 || newRating>10){
+        System.out.print("Enter new vehicle Rating:");
+        newRating = getValidDouble();
+    }
     System.out.print("Enter new vehicle Chassis Number:");
     String newCha = getValidString();
     System.out.print("Enter new vehicle Engine Type:");
     String newengineType = getValidString();
     System.out.print("Enter new vehicle brand:");
     String newbrand = getValidString();
-    System.out.print("Enter new vehicle manufacture Year:");
-    int newmanuyear = getValidInt();
+    int newmanuyear = 0;
+    while (newmanuyear<0) {
+        System.out.print("Enter new vehicle manufacture Year:");
+        newmanuyear = getValidInt();
+    }
+    double Fee = -1;
+    while (Fee<0) {
     System.out.print("Enter new vehicle inspection Fee:");
-    double Fee = getValidDouble();
+    Fee = getValidDouble();
+    }
+
         Vehicle newVe = new Vehicle(
             newId,
             newVeName,
@@ -2001,6 +2025,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
