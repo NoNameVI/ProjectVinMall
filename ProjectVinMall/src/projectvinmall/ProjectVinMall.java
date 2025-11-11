@@ -311,26 +311,28 @@ public class ProjectVinMall implements IMall {
             System.out.println(Vehicle.toString());
         });
     }    
-    void displayElectronic(){
-    electronicData.forEach(Electronic -> {
-        System.out.println(Electronic.toString());
-    });
+
+    //----Electronic method----------------
+    void displayElectronic() {
+        electronicData.forEach(Electronic -> {
+            System.out.println(Electronic.toString());
+        });
     }
-    
-    void addElectronic(){
-    System.out.println("Please enter ID: ");
-    String EId = getValidString();
-    boolean value = false;
-    for (int index = 0; index < electronicData.size();index++ ){
-        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
-            value = true;
-            System.out.println("ID already exists");
-            System.out.println("Please enter another ID!");
-            return;
-        }      
+
+    void addElectronic() {
+        System.out.println("Please enter ID: ");
+        String EId = getValidString();
+        boolean value = false;
+        for (int index = 0; index < electronicData.size(); index++) {
+            if (electronicData.get(index).getId().equalsIgnoreCase(EId)) {
+                value = true;
+                System.out.println("ID already exists");
+                System.out.println("Please enter another ID!");
+                return;
+            }
         }
-    if (!value){
-    System.out.println("Please enter Name: ");
+        if (!value) {
+            System.out.println("Please enter Name: ");
             String EName = getValidString();
             System.out.println("Please enter Price: ");
             double EPrice = sc.nextDouble();
@@ -346,139 +348,216 @@ public class ProjectVinMall implements IMall {
             int EreleaseYear = sc.nextInt();
             System.out.println("Please enter Battery Capacity: ");
             int EbatteryCapacity = sc.nextInt();
-            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear,EbatteryCapacity);
+            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear, EbatteryCapacity);
             electronicData.add(newApp);
-            System.out.println("Electronic add success. "); 
+            System.out.println("Electronic add success. ");
             return;
-    }
-    }
-    void deleteElectronic(){
-    System.out.println("Please enter ID: ");
-    String EId = getValidString();
-    boolean found = false;
-    for (int i = 0; i < electronicData.size(); i++) {
-    if (electronicData.get(i).getId().equalsIgnoreCase(EId)) {
-        electronicData.remove(i);
-        found = true;
-        System.out.println("Delete success!");
-        break;
         }
     }
-    if (!found) System.out.println("ID not found!");
-    
-        }
-    
 
-    void editElectronic(){
-    System.out.println("Please enter ID: ");
-    String EId = getValidString().trim();
-    boolean value = false;
-    for (int index = 0; index < electronicData.size();index++ ){
-        if (electronicData.get(index).getId().equalsIgnoreCase(EId)){
-            value = true;
-        System.out.println("Please enter Name: ");
-        String ENewName = getValidString();
-        System.out.println("Please enter Price: ");
-        double ENewPrice = sc.nextDouble();
-        sc.nextLine();
-        System.out.println("Please enter Rating: ");
-        double ENewRating = sc.nextDouble();
-        sc.nextLine();
-        System.out.println("Please enter Brand: ");
-        String ENewBrand = getValidString();
-        System.out.println("Please enter Model: ");
-        String ENewModel = getValidString();
-        System.out.println("Please enter Release Year: ");
-        int ENewreleaseYear = sc.nextInt();
-        System.out.println("Please enter Battery Capacity: ");
-        int ENewbatteryCapacity = sc.nextInt();
-        Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear,ENewbatteryCapacity);
-        electronicData.set(index, newApp);
-        System.out.println("Electronic edit success.");  
-        break;
-        }    
+    void deleteElectronic() {
+        System.out.println("Please enter ID: ");
+        String EId = getValidString();
+        boolean found = false;
+        for (int i = 0; i < electronicData.size(); i++) {
+            if (electronicData.get(i).getId().equalsIgnoreCase(EId)) {
+                electronicData.remove(i);
+                found = true;
+                System.out.println("Delete success!");
+                break;
+            }
         }
-    if (!value){System.out.println("Electronic edit unsuccess.");}     
+        if (!found) {
+            System.out.println("ID not found!");
+        }
+
     }
-    
-    
-    void searchElectronic(){
-    boolean value = true;
-    while(value){
+
+    void editElectronic() {
+        System.out.println("Please enter ID: ");
+        String EId = getValidString().trim();
+        boolean value = false;
+        for (int index = 0; index < electronicData.size(); index++) {
+            if (electronicData.get(index).getId().equalsIgnoreCase(EId)) {
+                value = true;
+                System.out.println("Please enter Name: ");
+                String ENewName = getValidString();
+                System.out.println("Please enter Price: ");
+                double ENewPrice = sc.nextDouble();
+                sc.nextLine();
+                System.out.println("Please enter Rating: ");
+                double ENewRating = sc.nextDouble();
+                sc.nextLine();
+                System.out.println("Please enter Brand: ");
+                String ENewBrand = getValidString();
+                System.out.println("Please enter Model: ");
+                String ENewModel = getValidString();
+                System.out.println("Please enter Release Year: ");
+                int ENewreleaseYear = sc.nextInt();
+                System.out.println("Please enter Battery Capacity: ");
+                int ENewbatteryCapacity = sc.nextInt();
+                Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear, ENewbatteryCapacity);
+                electronicData.set(index, newApp);
+                System.out.println("Electronic edit success.");
+                break;
+            }
+        }
+        if (!value) {
+            System.out.println("Electronic edit unsuccess.");
+        }
+    }
+
+    void searchElectronic() {
+        boolean value = true;
+        while (value) {
             System.out.println("Search by: ");
             System.out.println("1. Id");
             System.out.println("2. Name");
             System.out.println("0. Exit");
             int choose = getValidInput(3);
             boolean found = false;
-            switch(choose){
+            switch (choose) {
                 case 1:
                     System.out.println("Enter ID: ");
                     String id = getValidString();
-                    for (int index = 0; index < electronicData.size();index++ ){
-                     if (electronicData.get(index).getId().equalsIgnoreCase(id)){
-                     found = true;
-                       System.out.println(electronicData.get(index).toString());
-                       return;
-        }
-                     
-    }
-                    if (!found){System.out.println("Electronic id or name not found.");return;}
-                    
-                
+                    for (int index = 0; index < electronicData.size(); index++) {
+                        if (electronicData.get(index).getId().equalsIgnoreCase(id)) {
+                            found = true;
+                            System.out.println(electronicData.get(index).toString());
+                            break;
+                        }
+
+                    }
+                    if (!found) {
+                        System.out.println("Electronic id or name not found.");
+                        break;
+                    }
+
                 case 2:
                     System.out.println("Enter Name: ");
                     String name = getValidString();
-                    for (int index = 0; index < electronicData.size();index++ ){
-                     if ( electronicData.get(index).getName().equalsIgnoreCase(name)){
-                     found = true;
-                      System.out.println(electronicData.get(index).toString());
-                      break;
-        }                     
-    }
-                    if (!found){System.out.println("Electronic id or name not found.");return;}
-                    
-                   
-                
+                    for (int index = 0; index < electronicData.size(); index++) {
+                        if (electronicData.get(index).getName().equalsIgnoreCase(name)) {
+                            found = true;
+                            System.out.println(electronicData.get(index).toString());
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("Electronic id or name not found.");
+                        break;
+                    }
+
                 case 0:
                     System.out.println("Exit.");
-                    value=false;
-                break;
-                default:
-                    System.out.println("Please choose again!");
-            }
-        }
-    }
-    void sortElectronic(){
-        boolean value = true;
-        List<Electronic> app;
-        while(value){
-            System.out.println("Sort by: ");
-            System.out.println("1. Id");
-            System.out.println("2. Name");
-            System.out.println("0. Exit");
-            int choose = getValidInput(3);
-            switch(choose){
-                case 1:
-                    electronicData.sort(Comparator.comparing(Electronic::getBrand));
-                    System.out.println("Sorted by Price successfully!");
-                    value=false;
-                break;
-                case 2:
-                    electronicData.sort(Comparator.comparing(Electronic::getPrice));
-                    System.out.println("Sorted by Price successfully!");
-                    value=false;
-                break;
-                case 0:
-                    System.out.println("Exit.");
-                    value=false;
-                break;
+                    value = false;
+                    break;
                 default:
                     System.out.println("Please choose again!");
             }
         }
     }
 
+    void sortElectronic() {
+        boolean value = true;
+        List<Electronic> app;
+        while (value) {
+            System.out.println("Sort by: ");
+            System.out.println("1. Brand");
+            System.out.println("2. Price");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    electronicData.sort(Comparator.comparing(Electronic::getBrand));
+                    System.out.println("Sorted by Brand successfully!");
+                    value = false;
+                    break;
+                case 2:
+                    electronicData.sort(Comparator.comparing(Electronic::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    value = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    value = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+    
+
+//-------Appliance Method------------------
+    void listAppliance() {
+        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+    }
+
+    void addAppliance() {
+        System.out.print("Please enter ID: ");
+        String Aid = getValidString();
+        System.out.print("Please enter Name: ");
+        String Aname = getValidString();
+        System.out.print("Please enter Price: ");
+        double Aprice = sc.nextDouble();
+        System.out.print("Please enter Rating: ");
+        double Arating = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Please enter Brand: ");
+        String Abrand = getValidString();
+        System.out.print("Please enter Model: ");
+        String Amodel = getValidString();
+        System.out.print("Please enter Release Year: ");
+        int AreleaseYear = sc.nextInt();
+        Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating, Abrand, Amodel, AreleaseYear);
+        applianceData.add(newapp);
+        System.out.println("Appliance added success.");
+    }
+
+    void deleteAppliance() {
+        System.out.print("Please enter ID: ");
+        String Aid = getValidString();
+        for (int index = 0; index < applianceData.size(); index++) {
+            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
+                applianceData.remove(index);
+                System.out.println("Appliance deleted success.");
+                break;
+            } else {
+                System.out.println("Appliance ID not found.");
+                break;
+            }
+        }
+    }
+
+    void editAppliance() {
+        System.out.print("Please enter ID: ");
+        String Aid = getValidString();
+        for (int index = 0; index < applianceData.size(); index++) {
+            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
+                System.out.print("Please enter Name: ");
+                String Anewname = getValidString();
+                System.out.print("Please enter Price: ");
+                double Anewprice = sc.nextDouble();
+                System.out.print("Please enter Rating: ");
+                double Anewrating = sc.nextDouble();
+                sc.nextLine();
+                System.out.print("Please enter Brand: ");
+                String Anewbrand = getValidString();
+                System.out.print("Please enter Model: ");
+                String Anewmodel = getValidString();
+                System.out.print("Please enter Release Year: ");
+                int AnewreleaseYear = sc.nextInt();
+                Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating, Anewbrand, Anewmodel, AnewreleaseYear);
+                applianceData.set(index, newapp);
+                break;
+            } else {
+                System.out.println("Appliance ID not found.");
+                break;
+            }
+        }
+    }
+    
         void sortAppliance() {
             boolean Asort = true;
             while (Asort) {
@@ -563,75 +642,6 @@ public class ProjectVinMall implements IMall {
                 }
             }
         }
-//-------Appliance Method------------------
-    void listAppliance() {
-        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-    }
-
-    void addAppliance() {
-        System.out.print("Please enter ID: ");
-        String Aid = getValidString();
-        System.out.print("Please enter Name: ");
-        String Aname = getValidString();
-        System.out.print("Please enter Price: ");
-        double Aprice = sc.nextDouble();
-        System.out.print("Please enter Rating: ");
-        double Arating = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Please enter Brand: ");
-        String Abrand = getValidString();
-        System.out.print("Please enter Model: ");
-        String Amodel = getValidString();
-        System.out.print("Please enter Release Year: ");
-        int AreleaseYear = sc.nextInt();
-        Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating, Abrand, Amodel, AreleaseYear);
-        applianceData.add(newapp);
-        System.out.println("Appliance added success.");
-    }
-
-    void deleteAppliance() {
-        System.out.print("Please enter ID: ");
-        String Aid = getValidString();
-        for (int index = 0; index < applianceData.size(); index++) {
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
-                applianceData.remove(index);
-                System.out.println("Appliance deleted success.");
-                break;
-            } else {
-                System.out.println("Appliance ID not found.");
-                break;
-            }
-        }
-    }
-
-    void editAppliance() {
-        System.out.print("Please enter ID: ");
-        String Aid = getValidString();
-        for (int index = 0; index < applianceData.size(); index++) {
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
-                System.out.print("Please enter Name: ");
-                String Anewname = getValidString();
-                System.out.print("Please enter Price: ");
-                double Anewprice = sc.nextDouble();
-                System.out.print("Please enter Rating: ");
-                double Anewrating = sc.nextDouble();
-                sc.nextLine();
-                System.out.print("Please enter Brand: ");
-                String Anewbrand = getValidString();
-                System.out.print("Please enter Model: ");
-                String Anewmodel = getValidString();
-                System.out.print("Please enter Release Year: ");
-                int AnewreleaseYear = sc.nextInt();
-                Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating, Anewbrand, Anewmodel, AnewreleaseYear);
-                applianceData.set(index, newapp);
-                break;
-            } else {
-                System.out.println("Appliance ID not found.");
-                break;
-            }
-        }
-    }
-    
     ///Book method///
     public void listAllBooks() {
         System.out.println("--- Book List ---\n");
@@ -1976,6 +1986,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
