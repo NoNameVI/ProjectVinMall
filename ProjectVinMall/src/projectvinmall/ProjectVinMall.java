@@ -1247,6 +1247,9 @@ public void listAllFoods() {
     //Vehicle Method------------------------------------
     
     
+    //Vehicle Method------------------------------------
+    
+    
     void addVehicle(){
     System.out.println("-------------Add new Vehicle-----------");
     String newVeId;
@@ -1275,7 +1278,8 @@ public void listAllFoods() {
     String newengineType = getValidString();
     System.out.print("Enter new vehicle brand:");
     String newbrand = getValidString();
-    int newmanuyear = 0;
+    
+    int newmanuyear = -1;
     while (newmanuyear<0) {
         System.out.print("Enter new vehicle manufacture Year:");
         newmanuyear = getValidInt();
@@ -2025,6 +2029,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
