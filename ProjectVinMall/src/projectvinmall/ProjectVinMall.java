@@ -479,14 +479,100 @@ public class ProjectVinMall implements IMall {
         }
     }
 
-    void listAppliance(){
+        void sortAppliance() {
+            boolean Asort = true;
+            while (Asort) {
+                System.out.println("Sort by: ");
+                System.out.println("1. Brand");
+                System.out.println("2. Price");
+                System.out.println("0. Exit");
+                int choose = getValidInput(3);
+                switch (choose) {
+                    case 1:
+                        applianceData.sort(Comparator.comparing(Appliance::getBrand));
+                        System.out.println("Sorted by Price successfully!");
+                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                        Asort = false;
+                        break;
+                    case 2:
+                        applianceData.sort(Comparator.comparing(Appliance::getPrice));
+                        System.out.println("Sorted by Price successfully!");
+                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                        Asort = false;
+                        break;
+                    case 0:
+                        System.out.println("Exit.");
+                        Asort = false;
+                        break;
+                    default:
+                        System.out.println("Please choose again!");
+                }
+            }
+        }
+
+        void searchAppliance() {
+            boolean Asearch = true;
+            while (Asearch) {
+                System.out.println("Search by:");
+                System.out.println("1. ID");
+                System.out.println("2. Name");
+                System.out.println("0. Exit");
+                int choose = getValidInput(3);
+                switch (choose) {
+                    case 1:
+                        System.out.print("Enter ID: ");
+                        String searchId = getValidString();
+                        boolean foundId = false;
+                        for (Appliance a : applianceData) {
+                            if (a.getId().equalsIgnoreCase(searchId)) {
+                                System.out.println("Found appliance:");
+                                System.out.println(a.toString());
+                                foundId = true;
+                                break;
+                            }
+                        }
+                        if (!foundId) {
+                            System.out.println("ID not found!");
+                        }
+                        Asearch = false;
+                        break;
+                    case 2:
+                        System.out.print("Enter Name: ");
+                        String searchName = getValidString().toLowerCase();
+                        boolean foundName = false;
+                        for (Appliance a : applianceData) {
+                            if (a.getName().equalsIgnoreCase(searchName)) {
+                                if (!foundName) {
+                                    System.out.println("Found appliance:");
+                                    foundName = true;
+                                }
+                                System.out.println(a.toString());
+                            }
+                        }
+                        if (!foundName) {
+                            System.out.println("Name not found!");
+                        }
+                        Asearch = false;
+                        break;
+                    case 0:
+                        System.out.println("Exit.");
+                        Asearch = false;
+                        break;
+                    default:
+                        System.out.println("Please choose again!");
+                }
+            }
+        }
+//-------Appliance Method------------------
+    void listAppliance() {
         applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
     }
-    void addAppliance(){
+
+    void addAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
         System.out.print("Please enter Name: ");
-        String Aname= getValidString();
+        String Aname = getValidString();
         System.out.print("Please enter Price: ");
         double Aprice = sc.nextDouble();
         System.out.print("Please enter Rating: ");
@@ -498,32 +584,33 @@ public class ProjectVinMall implements IMall {
         String Amodel = getValidString();
         System.out.print("Please enter Release Year: ");
         int AreleaseYear = sc.nextInt();
-        Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating,Abrand,Amodel,AreleaseYear);
+        Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating, Abrand, Amodel, AreleaseYear);
         applianceData.add(newapp);
         System.out.println("Appliance added success.");
     }
-    void deleteAppliance(){
+
+    void deleteAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
-        for (int index = 0; index < applianceData.size();index++){
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)){
+        for (int index = 0; index < applianceData.size(); index++) {
+            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
                 applianceData.remove(index);
                 System.out.println("Appliance deleted success.");
                 break;
-            }
-            else{
+            } else {
                 System.out.println("Appliance ID not found.");
                 break;
             }
         }
     }
-    void editAppliance(){
+
+    void editAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
-        for (int index = 0; index < applianceData.size();index++){
-            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)){
+        for (int index = 0; index < applianceData.size(); index++) {
+            if (applianceData.get(index).getId().equalsIgnoreCase(Aid)) {
                 System.out.print("Please enter Name: ");
-                String Anewname= getValidString();
+                String Anewname = getValidString();
                 System.out.print("Please enter Price: ");
                 double Anewprice = sc.nextDouble();
                 System.out.print("Please enter Rating: ");
@@ -535,100 +622,15 @@ public class ProjectVinMall implements IMall {
                 String Anewmodel = getValidString();
                 System.out.print("Please enter Release Year: ");
                 int AnewreleaseYear = sc.nextInt();
-                Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating,Anewbrand,Anewmodel,AnewreleaseYear);
+                Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating, Anewbrand, Anewmodel, AnewreleaseYear);
                 applianceData.set(index, newapp);
                 break;
-            }
-            else{
+            } else {
                 System.out.println("Appliance ID not found.");
                 break;
             }
         }
     }
-    void sortAppliance(){
-        boolean Asort = true;
-        while(Asort){
-            System.out.println("Sort by: ");
-            System.out.println("1. Brand");
-            System.out.println("2. Price");
-            System.out.println("0. Exit");
-            int choose = getValidInput(3);
-            switch(choose){
-                case 1:
-                    applianceData.sort(Comparator.comparing(Appliance::getBrand));
-                    System.out.println("Sorted by Price successfully!");
-                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                    Asort=false;
-                break;
-                case 2:
-                    applianceData.sort(Comparator.comparing(Appliance::getPrice));
-                    System.out.println("Sorted by Price successfully!");
-                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                    Asort=false;
-                break;
-                case 0:
-                    System.out.println("Exit.");
-                    Asort=false;
-                break;
-                default:
-                    System.out.println("Please choose again!");
-            }
-        }
-    }
-    void searchAppliance(){
-        boolean Asearch=true;
-        while(Asearch){
-            System.out.println("Search by:");
-            System.out.println("1. ID");
-            System.out.println("2. Name");
-            System.out.println("0. Exit");
-            int choose = getValidInput(3);
-            switch(choose){
-                case 1:
-                    System.out.print("Enter ID: ");
-                    String searchId = getValidString();
-                    boolean foundId = false;
-                    for (Appliance a : applianceData) {
-                        if (a.getId().equalsIgnoreCase(searchId)) {
-                            System.out.println("Found appliance:");
-                            System.out.println(a.toString());
-                            foundId = true;
-                            break;
-                        }
-                    }
-                    if (!foundId) {
-                        System.out.println("ID not found!");
-                    }
-                    Asearch = false;
-                    break;
-                case 2:
-                    System.out.print("Enter Name: ");
-                    String searchName = getValidString().toLowerCase();
-                    boolean foundName = false;
-                    for (Appliance a : applianceData) {
-                        if (a.getName().equalsIgnoreCase(searchName)) {
-                            if (!foundName) {
-                                System.out.println("Found appliance:");
-                                foundName = true;
-                            }
-                            System.out.println(a.toString());
-                        }
-                    }
-                    if (!foundName) {
-                        System.out.println("Name not found!");
-                    }
-                    Asearch = false;
-                    break;
-                case 0:
-                    System.out.println("Exit.");
-                    Asearch = false;
-                    break;
-                default:
-                    System.out.println("Please choose again!");
-            }
-        }
-    }
-
     
     ///Book method///
     public void listAllBooks() {
@@ -1974,6 +1976,7 @@ public void listAllFoods() {
     }
 
 }
+
 
 
 
