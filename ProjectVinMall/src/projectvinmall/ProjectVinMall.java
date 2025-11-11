@@ -630,68 +630,162 @@ public class ProjectVinMall implements IMall {
     }
 
     
-    ///Bookmethot///
+    ///Book method///
     public void listAllBooks() {
+        System.out.println("--- Book List ---\n");
         for (Book book : bookData) {
             System.out.println(book);
         }
-}
+    }
 
-public void addBook() {
-    
-    System.out.print("Book ID: ");
-    String id = sc.nextLine();
-    System.out.print("Book Name: ");
-    String name = sc.nextLine();
-    System.out.print("Price: ");
-    double price = Double.parseDouble(sc.nextLine());
-    System.out.print("Rating: ");
-    double rating = Double.parseDouble(sc.nextLine());
-    System.out.print("Author: ");
-    String author = sc.nextLine();
-    System.out.print("Pages: ");
-    int pages = Integer.parseInt(sc.nextLine());
-    bookData.add(new Book(id, name, price, rating, author, pages));
-    System.out.println("Book added.");
-}
+    public void addBook() {
+        System.out.print("Book ID: ");
+        String id = getValidString();
+        System.out.print("Book Name: ");
+        String name = getValidString();
+        System.out.print("Price: ");
+        double price = getValidDouble();
+        System.out.print("Rating: ");
+        double rating = getValidDouble();
+        System.out.print("Author: ");
+        String author = getValidString();
+        System.out.print("Pages: ");
+        int pages = getValidInt();
+        bookData.add(new Book(id, name, price, rating, author, pages));
+        System.out.println("Book added.");
+    }
 
-public void editBook() {
-    
-    System.out.print("Enter book ID to edit: ");
-    String id = sc.nextLine();
-    Book book = null;
-    for (Book b : bookData) {
-        if (b.getId().equals(id)) {
-            book = b;
-            break;
+    public void editBook() {
+        System.out.print("Enter book ID to edit: ");
+        String id = getValidString();
+        Book book = null;
+        for (Book b : bookData) {
+            if (b.getId().equals(id)) {
+                book = b;
+                break;
+            }
+        }
+        if (book != null) {
+            System.out.print("New Name [" + book.getName() + "]: ");
+            book.setName(getValidString());
+
+            System.out.print("New Price [" + book.getPrice() + "]: ");
+            book.setPrice(getValidDouble());
+
+            System.out.print("New Rating [" + book.getRating() + "]: ");
+            book.setRating(getValidDouble());
+
+            System.out.print("New Author [" + book.getAuthor() + "]: ");
+            book.setAuthor(getValidString());
+
+            System.out.print("New Pages [" + book.getPages() + "]: ");
+            book.setPages(getValidInt());
+
+            System.out.println("Book updated.");
+        } else {
+            System.out.println("Book not found.");
         }
     }
-    if (book != null) {
-        System.out.print("New Name [" + book.getName() + "]: ");
-        String name = sc.nextLine();
-        if (!name.isEmpty()) book.setName(name);
 
-        System.out.print("New Price [" + book.getPrice() + "]: ");
-        String price = sc.nextLine();
-        if (!price.isEmpty()) book.setPrice(Double.parseDouble(price));
-
-        System.out.print("New Rating [" + book.getRating() + "]: ");
-        String rating = sc.nextLine();
-        if (!rating.isEmpty()) book.setRating(Double.parseDouble(rating));
-
-        System.out.print("New Author [" + book.getAuthor() + "]: ");
-        String author = sc.nextLine();
-        if (!author.isEmpty()) book.setAuthor(author);
-
-        System.out.print("New Pages [" + book.getPages() + "]: ");
-        String pages = sc.nextLine();
-        if (!pages.isEmpty()) book.setPages(Integer.parseInt(pages));
-
-        System.out.println("Book updated.");
-    } else {
-        System.out.println("Book not found.");
+    public void deleteBook() {
+        System.out.print("Enter book ID to delete: ");
+        String id = getValidString();
+        boolean removed = bookData.removeIf(b -> b.getId().equals(id));
+        if (removed) {
+            System.out.println("Book deleted.");
+        } else {
+            System.out.println("Book not found.");
+        }
     }
-}
+
+    public void sortBooks() {
+        boolean Bsort = true;
+        while (Bsort) {
+            System.out.println("Sort by: ");
+            System.out.println("1. Author");
+            System.out.println("2. Price");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    bookData.sort(Comparator.comparing(Book::getAuthor));
+                    System.out.println("Sorted by Author successfully!");
+                    bookData.forEach(Book -> System.out.println(Book.toString()));
+                    Bsort = false;
+                    break;
+                case 2:
+                    bookData.sort(Comparator.comparing(Book::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    bookData.forEach(Book -> System.out.println(Book.toString()));
+                    Bsort = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Bsort = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+
+    public void searchBooks() {
+        boolean Bsearch = true;
+        while (Bsearch) {
+            System.out.println("Search by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+
+            switch (choose) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    String searchId = getValidString();
+                    boolean foundId = false;
+                    for (Book b : bookData) {
+                        if (b.getId().equalsIgnoreCase(searchId)) {
+                            System.out.println("Found book:");
+                            System.out.println(b.toString());
+                            foundId = true;
+                            break;
+                        }
+                    }
+                    if (!foundId) {
+                        System.out.println("ID not found!");
+                    }
+                    Bsearch = false;
+                    break;
+
+                case 2:
+                    System.out.print("Enter Name: ");
+                    String searchName = getValidString().toLowerCase();
+                    boolean foundName = false;
+                    for (Book b : bookData) {
+                        if (b.getName().equalsIgnoreCase(searchName)) {
+                            if (!foundName) {
+                                System.out.println("Found book:");
+                                System.out.println(b.toString());
+                                foundName = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!foundName) {
+                        System.out.println("Name not found!");
+                    }
+                    Bsearch = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Bsearch = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+                    break;
+            }
+        }
+    }
 
 public void deleteBook() {
     
@@ -1880,5 +1974,6 @@ public void listAllFoods() {
     }
 
 }
+
 
 
