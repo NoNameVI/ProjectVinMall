@@ -710,68 +710,152 @@ public void listAllDrinks() {
         for (Drink drink : drinkData) {
             System.out.println(drink);
         }
-}
-public void addDrink() {
-    
-    System.out.print("Drink ID: ");
-    String id = sc.nextLine();
-    System.out.print("Drink Name: ");
-    String name = sc.nextLine();
-    System.out.print("Price: ");
-    double price = Double.parseDouble(sc.nextLine());
-    System.out.print("Rating: ");
-    double rating = Double.parseDouble(sc.nextLine());
-    System.out.print("Size: ");
-    String size = sc.nextLine();
-    drinkData.add(new Drink(id, name, price, rating, size));
-    System.out.println("Drink added.");
-}
+    }
 
-public void editDrink() {
-    
-    System.out.print("Enter drink ID to edit: ");
-    String id = sc.nextLine();
-    Drink drink = null;
-    for (Drink d : drinkData) {
-        if (d.getId().equals(id)) {
-            drink = d;
-            break;
+    public void addDrink() {
+        System.out.print("Drink ID: ");
+        String id = getValidString();
+        System.out.print("Drink Name: ");
+        String name = getValidString();
+        System.out.print("Price: ");
+        double price = getValidDouble();
+        System.out.print("Rating: ");
+        double rating = getValidDouble();
+        System.out.print("Size: ");
+        String size = getValidString();
+        drinkData.add(new Drink(id, name, price, rating, size));
+        System.out.println("Drink added.");
+    }
+
+    public void editDrink() {
+        System.out.print("Enter drink ID to edit: ");
+        String id = getValidString();
+        Drink drink = null;
+        for (Drink d : drinkData) {
+            if (d.getId().equals(id)) {
+                drink = d;
+                break;
+            }
+        }
+        if (drink != null) {
+            System.out.print("New Name [" + drink.getName() + "]: ");
+            drink.setName(getValidString());
+
+            System.out.print("New Price [" + drink.getPrice() + "]: ");
+            drink.setPrice(getValidDouble());
+
+            System.out.print("New Rating [" + drink.getRating() + "]: ");
+            drink.setRating(getValidDouble());
+
+            System.out.print("New Size [" + drink.getSize() + "]: ");
+            drink.setSize(getValidString());
+
+            System.out.println("Drink updated.");
+        } else {
+            System.out.println("Drink not found.");
         }
     }
-    if (drink != null) {
-        System.out.print("New Name [" + drink.getName() + "]: ");
-        String name = sc.nextLine();
-        if (!name.isEmpty()) drink.setName(name);
+    public void sortDrinks() {
 
-        System.out.print("New Price [" + drink.getPrice() + "]: ");
-        String price = sc.nextLine();
-        if (!price.isEmpty()) drink.setPrice(Double.parseDouble(price));
+        boolean Dsort = true;
+        while (Dsort) {
+            System.out.println("Sort by: ");
+            System.out.println("1. Price");
+            System.out.println("2. Rating");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    drinkData.sort(Comparator.comparing(Drink::getPrice));
+                    System.out.println("Sorted by Author successfully!");
+                    bookData.forEach(Drink -> System.out.println(Drink.toString()));
+                    Dsort = false;
+                    break;
+                case 2:
+                    drinkData.sort(Comparator.comparing(Drink::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    drinkData.forEach(Drink -> System.out.println(Drink.toString()));
+                    Dsort = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Dsort = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+        
 
-        System.out.print("New Rating [" + drink.getRating() + "]: ");
-        String rating = sc.nextLine();
-        if (!rating.isEmpty()) drink.setRating(Double.parseDouble(rating));
-
-        System.out.print("New Size [" + drink.getSize() + "]: ");
-        String size = sc.nextLine();
-        if (!size.isEmpty()) drink.setSize(size);
-
-        System.out.println("Drink updated.");
-    } else {
-        System.out.println("Drink not found.");
     }
-}
 
-public void deleteDrink() {
-    
-    System.out.print("Enter drink ID to delete: ");
-    String id = sc.nextLine();
-    boolean removed = drinkData.removeIf(d -> d.getId().equals(id));
-    if (removed) {
-        System.out.println("Drink deleted.");
-    } else {
-        System.out.println("Drink not found.");
+    public void deleteDrink() {
+        System.out.print("Enter drink ID to delete: ");
+        String id = getValidString();
+        boolean removed = drinkData.removeIf(d -> d.getId().equals(id));
+        if (removed) {
+            System.out.println("Drink deleted.");
+        } else {
+            System.out.println("Drink not found.");
+        }
     }
-}
+    public void SearchDrinks() {
+        boolean Dsearch = true;
+        while (Dsearch) {
+            System.out.println("Search by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+
+            switch (choose) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    String searchId = getValidString();
+                    boolean foundId = false;
+                    for (Drink d : drinkData) {
+                        if (d.getId().equalsIgnoreCase(searchId)) {
+                            System.out.println("Found drink:");
+                            System.out.println(d.toString());
+                            foundId = true;
+                            break;
+                        }
+                    }
+                    if (!foundId) {
+                        System.out.println("ID not found!");
+                    }
+                    Dsearch = false;
+                    break;
+
+                case 2:
+                    System.out.print("Enter Name: ");
+                    String searchName = getValidString().toLowerCase();
+                    boolean foundName = false;
+                    for (Drink d : drinkData) {
+                        if (d.getName().equalsIgnoreCase(searchName)) {
+                            if (!foundName) {
+                                System.out.println("Found drink:");
+                                System.out.println(d.toString());
+                                foundName = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!foundName) {
+                        System.out.println("Name not found!");
+                    }
+                    Dsearch = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Dsearch = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+                    break;
+            }
+        }
+    }
     //-------------Food method-------------------------
 public void listAllFoods() {
         for (Food food : foodData) {
@@ -1796,4 +1880,5 @@ public void listAllFoods() {
     }
 
 }
+
 
