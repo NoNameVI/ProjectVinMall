@@ -2321,7 +2321,7 @@ public class ProjectVinMall implements IMall {
         System.out.println("2. Add a drink");
         System.out.println("3. Edit a drink");
         System.out.println("4. Delete a drink");
-        System.out.println("5. Sort drinks by (ID, Name, Rating, Price)");
+        System.out.println("5. Sort drinks by (Rating, Price)");
         System.out.println("6. Search drink by (ID, Name)");
         System.out.println("0. Back to Main Menu");
     }
@@ -2820,3 +2820,4 @@ public class ProjectVinMall implements IMall {
     }   // lam mau: cls, wait moi lan nhap lenh
 
 }
+
