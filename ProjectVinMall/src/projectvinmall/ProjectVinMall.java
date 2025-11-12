@@ -1486,24 +1486,24 @@ public void listAllFoods() {
 
     public void EmployeeUI() {
 
-        printlnfc(GREEN,"----EMPLOYEE MANAGEMENT----");
-        printlnfc(YELLOW,"1. Hire Emloyee");
-        printlnfc(YELLOW,"2. Edit Emloyee Information");
-        printlnfc(YELLOW,"3. Dismiss Employee");
-        printlnfc(YELLOW,"4. Find Employee");
-        printlnfc(YELLOW,"5. Sort Employee");
-        printlnfc(CYAN,"0. Back To MALL MANAGEMENT");
+        System.out.println("----EMPLOYEE MANAGEMENT----");
+        System.out.println("1. Hire Emloyee");
+        System.out.println("2. Edit Emloyee Information");
+        System.out.println("3. Dismiss Employee");
+        System.out.println("4. Find Employee");
+        System.out.println("5. Sort Employee");
+        System.out.println("0. Back To MALL MANAGEMENT");
 
     }
     public void VehicleUI() {
 
-        printlnfc(GREEN,"----VEHICLE MANAGEMENT----");
-        printlnfc(YELLOW,"1. Add new Vehicle");
-        printlnfc(YELLOW,"2. Edit vehicle infomation");
-        printlnfc(YELLOW,"3. Delete vehicle");
-        printlnfc(YELLOW,"4. Sort Vehicle");
-        printlnfc(YELLOW,"5. Search Vehicle");
-        printlnfc(CYAN,"0. Back To MALL MANAGEMENT");
+        System.out.println("----VEHICLE MANAGEMENT----");
+        System.out.println("1. Add new Vehicle");
+        System.out.println("2. Edit vehicle infomation");
+        System.out.println("3. Delete vehicle");
+        System.out.println("4. Sort Vehicle");
+        System.out.println("5. Search Vehicle");
+        System.out.println("0. Back To MALL MANAGEMENT");
 
     }
 
