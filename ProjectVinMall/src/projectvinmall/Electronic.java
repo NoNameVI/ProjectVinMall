@@ -47,12 +47,12 @@ public class Electronic extends Product {
 
     @Override
     public String toString() {
-        return getId() + "-"
-                + getName() + "-"
-                + String.format("%.0f-%.1f-", getPrice(), getRating())
-                + getBrand() + "-"
-                + getModel() + "-"
-                + String.format("%d", getReleaseYear()) + "-"
+        return getId() + "~"
+                + getName() + "~"
+                + String.format("%.0f~%.1f~", getPrice(), getRating())
+                + getBrand() + "~"
+                + getModel() + "~"
+                + String.format("%d", getReleaseYear()) + "~"
                 + String.format("%d", getBatteryCapacity());
     }
 

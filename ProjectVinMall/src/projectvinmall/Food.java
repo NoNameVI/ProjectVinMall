@@ -1,8 +1,7 @@
-
 package projectvinmall;
 
+public class Food extends Product {
 
-public class Food extends Product{
     protected String size;
 
     public Food(String id, String name, double price, double rating, String size) {
@@ -17,10 +16,10 @@ public class Food extends Product{
     public void setSize(String size) {
         this.size = size;
     }
+
     @Override
     public String toString() {
-        return String.format("%s-%s-%.0f-%,1f-%s",getId(),getName(),getPrice(),getRating(),getSize());
+        return String.format("%s~%s~%.0f~%,1f~%s", getId(), getName(), getPrice(), getRating(), getSize());
     }
-    
 
 }

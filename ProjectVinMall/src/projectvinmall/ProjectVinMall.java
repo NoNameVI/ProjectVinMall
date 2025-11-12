@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -97,7 +98,7 @@ public class ProjectVinMall implements IMall {
             switch (fileList[i]) {
                 case "bookin.txt": {
                     for (int j = 0; j < BooksList.size(); j++) {
-                        String[] item = BooksList.get(j).split("-");
+                        String[] item = BooksList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -110,7 +111,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "employeein.txt": {
                     for (int j = 0; j < EmployeesList.size(); j++) {
-                        String[] item = EmployeesList.get(j).split("-");
+                        String[] item = EmployeesList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         String position = item[2];
@@ -122,7 +123,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "appliancein.txt": {
                     for (int j = 0; j < AppliancesList.size(); j++) {
-                        String[] item = AppliancesList.get(j).split("-");
+                        String[] item = AppliancesList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -136,7 +137,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "drinkin.txt": {
                     for (int j = 0; j < DrinksList.size(); j++) {
-                        String[] item = DrinksList.get(j).split("-");
+                        String[] item = DrinksList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -148,7 +149,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "electronicin.txt": {
                     for (int j = 0; j < ElectronicsList.size(); j++) {
-                        String[] item = ElectronicsList.get(j).split("-");
+                        String[] item = ElectronicsList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -164,7 +165,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "vehiclesin.txt": {
                     for (int j = 0; j < VehiclesList.size(); j++) {
-                        String[] item = VehiclesList.get(j).split("-");
+                        String[] item = VehiclesList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -180,7 +181,7 @@ public class ProjectVinMall implements IMall {
                 }
                 case "foodin.txt": {
                     for (int j = 0; j < FoodsList.size(); j++) {
-                        String[] item = FoodsList.get(j).split("-");
+                        String[] item = FoodsList.get(j).split("~");
                         String id = item[0];
                         String name = item[1];
                         double price = Double.parseDouble(item[2]);
@@ -206,7 +207,7 @@ public class ProjectVinMall implements IMall {
                 for (String line : tempList) {
                     fw.write(line + System.lineSeparator());
                     System.out.println("Data stored: " + line);
-                    delay(40);
+                    //delay(40);
                 }
             }
 
@@ -301,7 +302,7 @@ public class ProjectVinMall implements IMall {
     String fS(String string, int lenght) { //Chuan Hoa Do Dai Chuoi
         StringBuilder str = new StringBuilder();
         str.append(string);
-        while (str.length() <= lenght) {
+        while (str.length() < lenght) {
             str.append(" ");
         }
         return str.toString();
@@ -340,17 +341,17 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[2], 12) + " | "
                 + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | ";
+                + fS(headers[4], 15) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -358,11 +359,11 @@ public class ProjectVinMall implements IMall {
             String salaryStr = String.format("%.0f", E.getSalary());
 
             printlnfc(YELLOW,
-                    fS(E.getId(), maxlenght) + " | "
+                    fS(E.getId(), 6) + " | "
                     + fS(E.getName(), maxlenght) + " | "
-                    + fS(E.getPhoneNum(), maxlenght) + " | "
+                    + fS(E.getPhoneNum(), 12) + " | "
                     + fS(E.getPosition(), maxlenght) + " | "
-                    + fS(salaryStr, maxlenght) + " | "
+                    + fS(salaryStr, 15) + " | "
             );
         }
 
@@ -415,21 +416,20 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | "
-                + fS(headers[5], maxlenght) + " | "
-                + fS(headers[6], maxlenght) + " | "
-                + fS(headers[7], maxlenght) + " | "
-                + fS(headers[8], maxlenght) + " | ";
+                + fS(headers[2], 15) + " | "
+                + fS(headers[3], 6) + " | "
+                + fS(headers[4], 14) + " | "
+                + fS(headers[5], 11) + " | "
+                + fS(headers[6], 20) + " | "
+                + fS(headers[7], 4) + " | "
+                + fS(headers[8], 14) + "|";
 
         printlnfc(YELLOW, headerRow);
-
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -441,15 +441,15 @@ public class ProjectVinMall implements IMall {
             String feeStr = String.format("%.2f", v.getInspectionFee());
 
             printlnfc(YELLOW,
-                    fS(v.getId(), maxlenght) + " | "
+                    fS(v.getId(), 6) + " | "
                     + fS(v.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
-                    + fS(v.getChassisNumber(), maxlenght) + " | "
-                    + fS(v.getEngineType(), maxlenght) + " | "
-                    + fS(v.getBrand(), maxlenght) + " | "
-                    + fS(yearStr, maxlenght) + " | "
-                    + fS(feeStr, maxlenght) + " | "
+                    + fS(priceStr, 15) + " | "
+                    + fS(ratingStr, 6) + " | "
+                    + fS(v.getChassisNumber(), 14) + " | "
+                    + fS(v.getEngineType(), 11) + " | "
+                    + fS(v.getBrand(), 20) + " | "
+                    + fS(yearStr, 4) + " | "
+                    + fS(feeStr, 14) + "|"
             );
         }
 
@@ -508,20 +508,20 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | "
-                + fS(headers[5], maxlenght) + " | "
-                + fS(headers[6], maxlenght) + " | "
-                + fS(headers[7], maxlenght) + " | ";
+                + fS(headers[2], 12) + " | "
+                + fS(headers[3], 6) + " | "
+                + fS(headers[4], 15) + " | "
+                + fS(headers[5], 10) + " | "
+                + fS(headers[6], 12) + " | "
+                + fS(headers[7], 18) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -532,51 +532,64 @@ public class ProjectVinMall implements IMall {
             String batteryStr = String.valueOf(E.getBatteryCapacity());
 
             printlnfc(YELLOW,
-                    fS(E.getId(), maxlenght) + " | "
+                    fS(E.getId(), 6) + " | "
                     + fS(E.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
-                    + fS(E.getBrand(), maxlenght) + " | "
-                    + fS(E.getModel(), maxlenght) + " | "
-                    + fS(yearStr, maxlenght) + " | "
-                    + fS(batteryStr, maxlenght) + " | "
+                    + fS(priceStr, 12) + " | "
+                    + fS(ratingStr, 6) + " | "
+                    + fS(E.getBrand(), 15) + " | "
+                    + fS(E.getModel(), 10) + " | "
+                    + fS(yearStr, 12) + " | "
+                    + fS(batteryStr, 18) + " | "
             );
         }
-        waitForEnter("\nPress enter to continue.");
+
     }
 
     void addElectronic() {
-        System.out.println("Please enter ID: ");
-        String EId = getValidString();
-        boolean value = false;
-        for (int index = 0; index < electronicData.size(); index++) {
-            if (electronicData.get(index).getId().equalsIgnoreCase(EId)) {
-                value = true;
-                System.out.println("ID already exists");
-                System.out.println("Please enter another ID!");
-                return;
+        System.out.println("-------------Add new Electronic-----------");
+        String newEId;
+        while (true) {
+            System.out.print("Enter new ID:");
+            newEId = getValidString();
+            if (checkElectronicID(newEId)
+                    && newEId.length() == 6
+                    && newEId.charAt(0) == 'E') {
+                break;
+            } else {
+                System.out.println("ID Invalid!");
             }
         }
-        if (!value) {
-            System.out.println("Please enter Name: ");
-            String EName = getValidString();
-            System.out.println("Please enter Price: ");
-            double EPrice = getValidDouble();
-            System.out.println("Please enter Rating: ");
-            double ERating = getValidDouble();
-            System.out.println("Please enter Brand: ");
-            String EBrand = getValidString();
-            System.out.println("Please enter Model: ");
-            String EModel = getValidString();
-            System.out.println("Please enter Release Year: ");
-            int EreleaseYear = getValidInt();
-            System.out.println("Please enter Battery Capacity: ");
-            int EbatteryCapacity = getValidInt();
-            Electronic newApp = new Electronic(EId, EName, EPrice, ERating, EBrand, EModel, EreleaseYear, EbatteryCapacity);
-            electronicData.add(newApp);
-            System.out.println("Electronic add success. ");
-            return;
+        System.out.print("Enter new Electronic Name:");
+        String newEName = getValidString();
+        System.out.print("Enter new Electronic Price:");
+        double newEPrice = getValidDouble();
+        System.out.print("Enter new Electronic Rating:");
+        double newERating = getValidDouble();
+        while (newERating > 10.0 || newERating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            newERating = getValidDouble();
         }
+        System.out.print("Enter new Electronic Brand:");
+        String newEBrand = getValidString();
+        System.out.print("Enter new Electronic Model:");
+        String newEModel = getValidString();
+        System.out.print("Enter new Electronic Release Year:");
+        int newEReleaseYear = getValidInt();
+        System.out.print("Enter new Electronic Battery Capacity:");
+        int newEBatteryCapacity = getValidInt();
+
+        Electronic newE = new Electronic(
+                newEId,
+                newEName,
+                newEPrice,
+                newERating,
+                newEBrand,
+                newEModel,
+                newEReleaseYear,
+                newEBatteryCapacity
+        );
+        electronicData.add(newE);
+        System.out.println("New Electronic Informantion:" + newE.toString());
     }
 
     void deleteElectronic() {
@@ -598,36 +611,57 @@ public class ProjectVinMall implements IMall {
     }
 
     void editElectronic() {
-        System.out.println("Please enter ID: ");
-        String EId = getValidString().trim();
-        boolean value = false;
-        for (int index = 0; index < electronicData.size(); index++) {
-            if (electronicData.get(index).getId().equalsIgnoreCase(EId)) {
-                value = true;
-                System.out.println("Please enter Name: ");
-                String ENewName = getValidString();
-                System.out.println("Please enter Price: ");
-                double ENewPrice = getValidDouble();
-                System.out.println("Please enter Rating: ");
-                double ENewRating = getValidDouble();
-                System.out.println("Please enter Brand: ");
-                String ENewBrand = getValidString();
-                System.out.println("Please enter Model: ");
-                String ENewModel = getValidString();
-                System.out.println("Please enter Release Year: ");
-                int ENewreleaseYear = getValidInt();
-                System.out.println("Please enter Battery Capacity: ");
-                int ENewbatteryCapacity = getValidInt();
-                Electronic newApp = new Electronic(EId, ENewName, ENewPrice, ENewRating, ENewBrand, ENewModel, ENewreleaseYear, ENewbatteryCapacity);
-                electronicData.set(index, newApp);
-                System.out.println("Electronic edit success.");
+        System.out.println("--------------Edit Electronic Information----------------");
+        System.out.print("Enter Electronic ID: ");
+        String id = getValidString();
+        boolean found = false;
+
+        for (Electronic e : electronicData) {
+            if (e.getId().equalsIgnoreCase(id)) {
+                found = true;
+
+                System.out.print("New Name: ");
+                e.setName(getValidString());
+
+                System.out.print("New Price: ");
+                e.setPrice(getValidDouble());
+
+                System.out.print("New Rating: ");
+                e.setRating(getValidDouble());
+                while (e.getRating() < 0.0 || e.getRating() > 10.0) {
+                    System.out.print("Please re-enter Rating (0.0-10.0): ");
+                    e.setRating(getValidDouble());
+                }
+
+                System.out.print("New Brand: ");
+                e.setBrand(getValidString());
+
+                System.out.print("New Model: ");
+                e.setModel(getValidString());
+
+                System.out.print("New Release Year: ");
+                e.setReleaseYear(getValidInt());
+
+                System.out.print("New Battery Capacity (mAh): ");
+                e.setBatteryCapacity(getValidInt());
+                while (e.getBatteryCapacity() <= 0) {
+                    System.out.print("Please re-enter valid Battery Capacity (>0): ");
+                    e.setBatteryCapacity(getValidInt());
+                }
+
+                System.out.println("Electronic updated successfully!");
+                System.out.println(e.toString());
                 break;
             }
         }
-        if (!value) {
-            System.out.println("Electronic edit unsuccess.");
+
+        if (!found) {
+            System.out.println("Electronic ID not found.");
         }
+
+        waitForEnter("Press enter to continue.");
     }
+    // update: optimized
 
     void searchElectronic() {
         boolean value = true;
@@ -757,19 +791,19 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | "
-                + fS(headers[5], maxlenght) + " | "
-                + fS(headers[6], maxlenght) + " | ";
+                + fS(headers[2], 15) + " | "
+                + fS(headers[3], 6) + " | "
+                + fS(headers[4], 15) + " | "
+                + fS(headers[5], 20) + " | "
+                + fS(headers[6], 12) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -779,36 +813,57 @@ public class ProjectVinMall implements IMall {
             String yearStr = String.valueOf(A.getReleaseYear());
 
             printlnfc(YELLOW,
-                    fS(A.getId(), maxlenght) + " | "
+                    fS(A.getId(), 6) + " | "
                     + fS(A.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
-                    + fS(A.getBrand(), maxlenght) + " | "
-                    + fS(A.getModel(), maxlenght) + " | "
-                    + fS(yearStr, maxlenght) + " | "
+                    + fS(priceStr, 15) + " | "
+                    + fS(ratingStr, 6) + " | "
+                    + fS(A.getBrand(), 15) + " | "
+                    + fS(A.getModel(), 20) + " | "
+                    + fS(yearStr, 12) + " | "
             );
         }
-        waitForEnter("\nPress enter to continue.");
     }
 
     void addAppliance() {
-        System.out.print("Please enter ID: ");
-        String Aid = getValidString();
+
+        String Aid;
+        while (true) {
+            System.out.print("Please enter ID: ");
+            Aid = getValidString();
+
+            if (checkApplianceID(Aid) && Aid.matches("A\\d{5}")) {
+                break;
+            } else {
+                System.out.println("ID exist!");
+            }
+        }
+
         System.out.print("Please enter Name: ");
         String Aname = getValidString();
         System.out.print("Please enter Price: ");
         double Aprice = getValidDouble();
         System.out.print("Please enter Rating: ");
         double Arating = getValidDouble();
+        while (Arating > 10.0 || Arating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            Arating = getValidDouble();
+        } // update: gioi han rating
         System.out.print("Please enter Brand: ");
         String Abrand = getValidString();
         System.out.print("Please enter Model: ");
         String Amodel = getValidString();
         System.out.print("Please enter Release Year: ");
         int AreleaseYear = getValidInt();
+        int currentYear = Year.now().getValue();
+        while (AreleaseYear < 1800 || AreleaseYear > currentYear) {
+            System.out.print("Please enter Release Year between 1800 to " + currentYear + ": ");
+            AreleaseYear = getValidInt();
+        }
+
         Appliance newapp = new Appliance(Aid, Aname, Aprice, Arating, Abrand, Amodel, AreleaseYear);
         applianceData.add(newapp);
         System.out.println("Appliance added success.");
+
     }
 
     void deleteAppliance() {
@@ -835,33 +890,39 @@ public class ProjectVinMall implements IMall {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
         boolean found = false;
-        int i = 0;
-        while (true) {
-            if (applianceData.get(i).getId().equalsIgnoreCase(Aid)) {
+        for (Appliance a : applianceData) {
+            if (a.getId().equalsIgnoreCase(Aid)) {
                 found = true;
                 System.out.print("Please enter Name: ");
-                String Anewname = getValidString();
+                a.setName(getValidString());
                 System.out.print("Please enter Price: ");
-                double Anewprice = getValidDouble();
+                a.setPrice(getValidDouble());
                 System.out.print("Please enter Rating: ");
-                double Anewrating = getValidDouble();
+                a.setRating(getValidDouble());
+                while (a.getRating() > 10.0 || a.getRating() < 0.0) {
+                    System.out.print("Please re-enter Rating(0.0-10.0): ");
+                    a.setRating(getValidDouble());
+                } // update: gioi han rating
                 System.out.print("Please enter Brand: ");
-                String Anewbrand = getValidString();
+                a.setBrand(getValidString());
                 System.out.print("Please enter Model: ");
-                String Anewmodel = getValidString();
+                a.setModel(getValidString());
                 System.out.print("Please enter Release Year: ");
-                int AnewreleaseYear = getValidInt();
-                Appliance newapp = new Appliance(Aid, Anewname, Anewprice, Anewrating, Anewbrand, Anewmodel, AnewreleaseYear);
-                applianceData.set(i, newapp);
+                int AreleaseYear = getValidInt();
+                int currentYear = Year.now().getValue();
+                while (AreleaseYear < 1800 || AreleaseYear > currentYear) {
+                    System.out.print("Please enter Release Year between 1800 to " + currentYear + ": ");
+                    AreleaseYear = getValidInt();
+                }
+                a.setReleaseYear(AreleaseYear);
                 break;
-            } else {
-                i++;
             }
         }
         if (found == false) {
             System.out.println("Appliance ID not found.");
         }
     }
+    // update: optimized
 
     void sortAppliance() {
         boolean Asort = true;
@@ -990,18 +1051,18 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[2], 15) + " | "
+                + fS(headers[3], 6) + " | "
                 + fS(headers[4], maxlenght) + " | "
-                + fS(headers[5], maxlenght) + " | ";
+                + fS(headers[5], 6) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -1011,26 +1072,39 @@ public class ProjectVinMall implements IMall {
             String pagesStr = String.valueOf(B.getPages());
 
             printlnfc(YELLOW,
-                    fS(B.getId(), maxlenght) + " | "
+                    fS(B.getId(), 6) + " | "
                     + fS(B.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(priceStr, 15) + " | "
+                    + fS(ratingStr, 6) + " | "
                     + fS(B.getAuthor(), maxlenght) + " | "
-                    + fS(pagesStr, maxlenght) + " | "
+                    + fS(pagesStr, 6) + " | "
             );
-        }
-
+        }// fix bugs: 2 lan wait for
     }
 
     public void addBook() {
-        System.out.print("Book ID: ");
-        String id = getValidString();
+        String id;
+        while (true) {
+            System.out.print("Book ID: ");
+            id = getValidString();
+
+            if (checkBookID(id) && id.matches("B\\d{5}")) {
+                break;
+            } else {
+                System.out.println("ID Invalid!");
+            }
+        }
+
         System.out.print("Book Name: ");
         String name = getValidString();
         System.out.print("Price: ");
         double price = getValidDouble();
         System.out.print("Rating: ");
         double rating = getValidDouble();
+        while (rating > 10.0 || rating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            rating = getValidDouble();
+        } // update: gioi han rating
         System.out.print("Author: ");
         String author = getValidString();
         System.out.print("Pages: ");
@@ -1039,37 +1113,37 @@ public class ProjectVinMall implements IMall {
         System.out.println("Book added.");
     }
 
-    public void editBook() {
+    void editBook() {
         System.out.print("Enter book ID to edit: ");
         String id = getValidString();
-        Book book = null;
+        boolean found = false;
+
         for (Book b : bookData) {
-            if (b.getId().equals(id)) {
-                book = b;
+            if (b.getId().equalsIgnoreCase(id)) {
+                found = true;
+                System.out.print("New Name: ");
+                b.setName(getValidString());
+                System.out.print("New Price: ");
+                b.setPrice(getValidDouble());
+                System.out.print("New Rating: ");
+                b.setRating(getValidDouble());
+                while (b.getRating() < 0.0 || b.getRating() > 10.0) {
+                    System.out.print("Re-enter Rating (0.0-10.0): ");
+                    b.setRating(getValidDouble());
+                } // update: gioi han rating 
+                System.out.print("New Author: ");
+                b.setAuthor(getValidString());
+                System.out.print("New Pages: ");
+                b.setPages(getValidInt());
+                System.out.println("Book updated.");
                 break;
             }
         }
-        if (book != null) {
-            System.out.print("New Name [" + book.getName() + "]: ");
-            book.setName(getValidString());
 
-            System.out.print("New Price [" + book.getPrice() + "]: ");
-            book.setPrice(getValidDouble());
-
-            System.out.print("New Rating [" + book.getRating() + "]: ");
-            book.setRating(getValidDouble());
-
-            System.out.print("New Author [" + book.getAuthor() + "]: ");
-            book.setAuthor(getValidString());
-
-            System.out.print("New Pages [" + book.getPages() + "]: ");
-            book.setPages(getValidInt());
-
-            System.out.println("Book updated.");
-        } else {
-            System.out.println("Book not found.");
+        if (found == false) {
+            System.out.println("Book ID not found.");
         }
-    }
+    } // update: optimized
 
     public void deleteBook() {
         System.out.print("Enter book ID to delete: ");
@@ -1208,17 +1282,17 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | ";
+                + fS(headers[2], 15) + " | "
+                + fS(headers[3], 6) + " | "
+                + fS(headers[4], 4) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -1227,25 +1301,38 @@ public class ProjectVinMall implements IMall {
             String ratingStr = String.format("%.1f", D.getRating());
 
             printlnfc(YELLOW,
-                    fS(D.getId(), maxlenght) + " | "
+                    fS(D.getId(), 6) + " | "
                     + fS(D.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
-                    + fS(D.getSize(), maxlenght) + " | "
+                    + fS(priceStr, 15) + " | "
+                    + fS(ratingStr, 6) + " | "
+                    + fS(D.getSize(), 4) + " | "
             );
         }
-        waitForEnter("\nPress enter to continue.");
+
     }
 
     public void addDrink() {
-        System.out.print("Drink ID: ");
-        String id = getValidString();
+        String id;
+        while (true) {
+            System.out.print("Drink ID: ");
+            id = getValidString();
+
+            if (checkDrinkID(id) && id.matches("D\\d{5}")) {
+                break;
+            } else {
+                System.out.println("ID exist!");
+            }
+        }
         System.out.print("Drink Name: ");
         String name = getValidString();
         System.out.print("Price: ");
         double price = getValidDouble();
         System.out.print("Rating: ");
         double rating = getValidDouble();
+        while (rating > 10.0 || rating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            rating = getValidDouble();
+        } // update: gioi han rating
         System.out.print("Size: ");
         String size = getValidString();
         drinkData.add(new Drink(id, name, price, rating, size));
@@ -1255,31 +1342,39 @@ public class ProjectVinMall implements IMall {
     public void editDrink() {
         System.out.print("Enter drink ID to edit: ");
         String id = getValidString();
-        Drink drink = null;
+        boolean found = false;
+
         for (Drink d : drinkData) {
-            if (d.getId().equals(id)) {
-                drink = d;
+            if (d.getId().equalsIgnoreCase(id)) {
+
+                found = true;
+                System.out.print("New Name: ");
+                d.setName(getValidString());
+
+                System.out.print("New Price: ");
+                d.setPrice(getValidDouble());
+
+                System.out.print("New Rating: ");
+                d.setRating(getValidDouble());
+
+                while (d.getRating() < 0.0 || d.getRating() > 10.0) {
+                    System.out.print("Please re-enter Rating (0.0-10.0): ");
+                    d.setRating(getValidDouble());
+                } // update: gioi han rating
+
+                System.out.print("New Size: ");
+                d.setSize(getValidString());
+
+                System.out.println("Drink updated.");
                 break;
+
             }
         }
-        if (drink != null) {
-            System.out.print("New Name [" + drink.getName() + "]: ");
-            drink.setName(getValidString());
 
-            System.out.print("New Price [" + drink.getPrice() + "]: ");
-            drink.setPrice(getValidDouble());
-
-            System.out.print("New Rating [" + drink.getRating() + "]: ");
-            drink.setRating(getValidDouble());
-
-            System.out.print("New Size [" + drink.getSize() + "]: ");
-            drink.setSize(getValidString());
-
-            System.out.println("Drink updated.");
-        } else {
-            System.out.println("Drink not found.");
+        if (found == false) {
+            System.out.println("Drink ID not found.");
         }
-    }
+    } // update: optimized
 
     public void sortDrinks() {
 
@@ -1420,17 +1515,17 @@ public class ProjectVinMall implements IMall {
             }
         }
 
-        String headerRow = fS(headers[0], maxlenght) + " | "
+        String headerRow = fS(headers[0], 6) + " | "
                 + fS(headers[1], maxlenght) + " | "
-                + fS(headers[2], maxlenght) + " | "
-                + fS(headers[3], maxlenght) + " | "
-                + fS(headers[4], maxlenght) + " | ";
+                + fS(headers[2], 15) + " | "
+                + fS(headers[3], 6) + " | "
+                + fS(headers[4], 4) + " | ";
 
         printlnfc(YELLOW, headerRow);
 
         StringBuilder separator = new StringBuilder();
         for (int i = 0; i < headerRow.length(); i++) {
-            separator.append("-");
+            separator.append("_");
         }
         printlnfc(YELLOW, separator.toString());
 
@@ -1439,25 +1534,38 @@ public class ProjectVinMall implements IMall {
             String ratingStr = String.format("%.1f", food.getRating());
 
             printlnfc(YELLOW,
-                    fS(food.getId(), maxlenght) + " | "
+                    fS(food.getId(), 6) + " | "
                     + fS(food.getName(), maxlenght) + " | "
-                    + fS(priceStr, maxlenght) + " | "
-                    + fS(ratingStr, maxlenght) + " | "
-                    + fS(food.getSize(), maxlenght) + " | "
+                    + fS(priceStr, 15) + " | "
+                    + fS(ratingStr, 6) + " | "
+                    + fS(food.getSize(), 4) + " | "
             );
         }
-        waitForEnter("\nPress enter to continue.");
+
     }
 
     public void addFood() {
-        System.out.print("Food ID: ");
-        String id = getValidString();
+        String id;
+        while (true) {
+            System.out.print("Food ID: ");
+            id = getValidString();
+
+            if (checkFoodID(id) && id.matches("F\\d{5}")) {
+                break;
+            } else {
+                System.out.println("ID exist!");
+            }
+        }
         System.out.print("Food Name: ");
         String name = getValidString();
         System.out.print("Price: ");
         double price = getValidDouble();
         System.out.print("Rating: ");
         double rating = getValidDouble();
+        while (rating > 10.0 || rating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            rating = getValidDouble();
+        } // update: gioi han rating
         System.out.print("Size: ");
         String size = getValidString();
         foodData.add(new Food(id, name, price, rating, size));
@@ -1467,31 +1575,36 @@ public class ProjectVinMall implements IMall {
     public void editFood() {
         System.out.print("Enter food ID to edit: ");
         String id = getValidString();
-        Food food = null;
+        boolean found = false;
+
         for (Food f : foodData) {
-            if (f.getId().equals(id)) {
-                food = f;
+            if (f.getId().equalsIgnoreCase(id)) {
+                found = true;
+                System.out.print("New Name: ");
+                f.setName(getValidString());
+
+                System.out.print("New Price: ");
+                f.setPrice(getValidDouble());
+
+                System.out.print("New Rating: ");
+                f.setRating(getValidDouble());
+                while (f.getRating() < 0.0 || f.getRating() > 10.0) {
+                    System.out.print("Please re-enter Rating (0.0-10.0): ");
+                    f.setRating(getValidDouble());
+                } // update: gioi han rating
+
+                System.out.print("New Size: ");
+                f.setSize(getValidString());
+
+                System.out.println("Food updated.");
                 break;
             }
         }
-        if (food != null) {
-            System.out.print("New Name [" + food.getName() + "]: ");
-            food.setName(getValidString());
 
-            System.out.print("New Price [" + food.getPrice() + "]: ");
-            food.setPrice(getValidDouble());
-
-            System.out.print("New Rating [" + food.getRating() + "]: ");
-            food.setRating(getValidDouble());
-
-            System.out.print("New Size [" + food.getSize() + "]: ");
-            food.setSize(getValidString());
-
-            System.out.println("Food updated.");
-        } else {
-            System.out.println("Food not found.");
+        if (found == false) {
+            System.out.println("Food ID not found.");
         }
-    }
+    }// update: optimized
 
     public void deleteFood() {
         System.out.print("Enter food ID to delete: ");
@@ -1600,8 +1713,9 @@ public class ProjectVinMall implements IMall {
         while (true) {
             System.out.print("Enter new ID:");
             newEmId = getValidString();
-            if (checkEmployeeID(newEmId)) {
-
+            if (checkEmployeeID(newEmId)
+                    && newEmId.length() == 6
+                    && newEmId.charAt(0) == 'E') {
                 break;
             } else {
                 System.out.println("ID exist!");
@@ -1620,43 +1734,70 @@ public class ProjectVinMall implements IMall {
 
         employeeData.add(newEmp);
         System.out.println("New Employee infor:" + newEmp.getInfo());
-        waitForEnter("Press enter to continue.");
+
     }
 
-    void editEmloyee() {
-        System.out.println("--------------Edit Employees information----------------");
-        String newEmId;
-        while (true) {
-            System.out.print("Enter Employee ID:");
-            newEmId = getValidString();
-            if (!checkEmployeeID(newEmId)) {
-                break;
-            } else {
-                System.out.println("ID not exist!");
-            }
-        }
-        System.out.print("Enter Employee Name:");
-        String newEmName = getValidString();
-        System.out.print("Enter Employee position:");
-        String newEmPos = getValidString();
-        System.out.print("Enter Employee phone number:");
-        String newEmPhone = getValidString();
-        System.out.print("Enter Employee salary:");
-        double newEmSa = getValidDouble();
-        Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
+    void editEmployee() {
+        System.out.println("--------------Edit Employee Information----------------");
+        System.out.print("Enter Employee ID: ");
+        String id = getValidString();
+        boolean found = false;
 
-        int index = 0;
-        for (int i = 0; i < employeeData.size(); i++) {
-            if (employeeData.get(i).getId().equalsIgnoreCase(newEmId)) {
-                index = i;
-                break;
+        for (Employee e : employeeData) {
+            if (e.getId().equalsIgnoreCase(id)) {
+                found = true;
+
+                System.out.printf("New Name(Blank to keep %s ): ", e.getName());
+                String name = sc.nextLine().trim();
+                if (!name.isEmpty()) {
+                    e.setName(name);
+                }
+
+                System.out.printf("New Position(Blank to keep %s ): ", e.getPosition());
+                String pos = sc.nextLine();
+                if (!pos.isEmpty()) {
+                    e.setPosition(pos);
+                }
+
+                System.out.printf("New Phone Number(Blank to keep %s ): ", e.getPhoneNum());
+                String phone = sc.nextLine().trim();
+                if (!phone.isEmpty()) {
+                    e.setPhoneNum(phone);
+                }
+
+                while (true) {
+                    System.out.printf("New Salary(Blank to keep %.0f ): ", e.getSalary());
+                    String salary = sc.nextLine().trim();
+                    if (salary.isEmpty()) {
+                        break;
+                    }
+                    double sala;
+                    try {
+                        sala = Double.parseDouble(salary);
+                        if (sala < 0) {
+                            printlnfc(GREEN, "Positive Real number only!");
+                        } else {
+                            e.setSalary(sala);
+                            break;
+                        }
+                    } catch (NumberFormatException err) {
+                        printlnfc(GREEN, "Real number only!");
+                    }
+
+                }
+
+                System.out.println("Employee infor: " + e.getInfo());
+
             }
         }
-        employeeData.set(index, newEmp);
-        System.out.println("Employee infor:" + newEmp.getInfo());
-        waitForEnter("Press enter to continue.");
+
+        if (found == false) {
+            System.out.println("Employee ID not found.");
+        }
+
     }
 
+    // update: optimized
     void DissmisEmployee() {
         System.out.println("--------------Dissmis Employees-----------------");
         String newEmId;
@@ -1684,7 +1825,7 @@ public class ProjectVinMall implements IMall {
 
     void findEmployee() {
         System.out.println("--------------Find Employees-----------------");
-        System.out.print("Enter id, name or position :");
+        System.out.print("What are you looking for? :");
         String find = getValidString();
         int notfind = 0;
         for (Employee e : employeeData) {
@@ -1699,7 +1840,7 @@ public class ProjectVinMall implements IMall {
             System.out.println("No resuft!");
 
         }
-        waitForEnter("Press enter to continue.");
+
     }
 
     void sortEmployee() {
@@ -1708,10 +1849,11 @@ public class ProjectVinMall implements IMall {
             System.out.println("--------------Sort Employees-----------------");
             System.out.println("Sorting by what?");
             System.out.println("1. ID");
-            System.out.println("2. Name");
+            System.out.println("2. First Name");
             System.out.println("3. Salary");
+            System.out.println("4. Position");
             System.out.println("0. Back to Employees manage");
-            int sortEmSelect = getValidInput(3);
+            int sortEmSelect = getValidInput(4);
             switch (sortEmSelect) {
                 case 1:
                     employeeData.sort(Comparator.comparing(Employee::getId));
@@ -1729,12 +1871,17 @@ public class ProjectVinMall implements IMall {
                     System.out.println("-----------List sorted by Salary------------");
                     listEmployee();
                     break;
+                case 4:
+                    employeeData.sort(Comparator.comparing(Employee::getPosition));
+                    System.out.println("-----------List sorted by Position------------");
+                    listEmployee();
+                    break;
                 case 0:
                     System.out.println("Data saved.");
                     sortstop = true;
                     break;
             }
-            waitForEnter("Press enter to continue.");
+
         }
 
     }
@@ -1746,10 +1893,12 @@ public class ProjectVinMall implements IMall {
         while (true) {
             System.out.print("Enter new ID:");
             newVeId = getValidString();
-            if (checkVehicleID(newVeId)) {
+            if (checkVehicleID(newVeId)
+                    && newVeId.length() == 6
+                    && newVeId.charAt(0) == 'V') {
                 break;
             } else {
-                System.out.println("ID exist!");
+                System.out.println("ID Invalid!");
             }
         }
         System.out.print("Enter new vehicle Name:");
@@ -1758,6 +1907,10 @@ public class ProjectVinMall implements IMall {
         double newPrice = getValidDouble();
         System.out.print("Enter new vehicle Rating:");
         double newRating = getValidDouble();
+        while (newRating > 10.0 || newRating < 0.0) {
+            System.out.print("Please re-enter Rating(0.0-10.0): ");
+            newRating = getValidDouble();
+        } // update: gioi han rating
         System.out.print("Enter new vehicle Chassis Number:");
         String newCha = getValidString();
         System.out.print("Enter new vehicle Engine Type:");
@@ -1766,7 +1919,9 @@ public class ProjectVinMall implements IMall {
         String newbrand = getValidString();
         System.out.print("Enter new vehicle manufacture Year:");
         int newmanuyear = getValidInt();
-        System.out.print("Enter new vehicle inspection Fee:");
+        while (newmanuyear < 1800) {
+            System.out.print("Enter new vehicle inspection Fee:");
+        }
         double Fee = getValidDouble();
 
         Vehicle newVe = new Vehicle(
@@ -1782,66 +1937,172 @@ public class ProjectVinMall implements IMall {
         );
         vehicleData.add(newVe);
         System.out.println("New Vehicle Informantion:" + newVe.toString());
-        waitForEnter("Press enter to continue.");
+
     }
 
     void editVehicle() {
-        System.out.println("--------------Edit Vehicle information----------------");
-        String newId;
-        while (true) {
-            System.out.print("Enter Vehicle ID:");
-            newId = getValidString();
-            if (!checkVehicleID(newId)) {
+        System.out.println("--------------Edit Vehicle Information----------------");
+        System.out.print("Enter Vehicle ID: ");
+        String id = getValidString();
+        boolean found = false;
+
+        for (Vehicle v : vehicleData) {
+            if (v.getId().equalsIgnoreCase(id)) {
+                found = true;
+
+                System.out.printf("New Name(Blank to keep %s): ", v.getName());
+                String name = sc.nextLine().trim();
+                if (!name.isEmpty()) {
+                    v.setName(name);
+                }
+
+                System.out.printf("New Price(Blank to keep %.2f): ", v.getPrice());
+                String priceLine = sc.nextLine().trim();
+                if (!priceLine.isEmpty()) {
+                    while (true) {
+                        try {
+                            double p = Double.parseDouble(priceLine);
+                            v.setPrice(p);
+                            break;
+                        } catch (NumberFormatException err) {
+                            printlnfc(GREEN, "Real number only!");
+                            System.out.print("New Price(Blank to keep " + String.format("%.2f", v.getPrice()) + "): ");
+                            priceLine = sc.nextLine().trim();
+                            if (priceLine.isEmpty()) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.out.printf("New Rating(Blank to keep %.1f): ", v.getRating());
+                String ratingLine = sc.nextLine().trim();
+                if (!ratingLine.isEmpty()) {
+                    while (true) {
+                        try {
+                            double r = Double.parseDouble(ratingLine);
+                            if (r < 0.0 || r > 10.0) {
+                                System.out.print("Please re-enter Rating (0.0-10.0): ");
+                                ratingLine = sc.nextLine().trim();
+                                if (ratingLine.isEmpty()) {
+                                    break;
+                                }
+                                continue;
+                            }
+                            v.setRating(r);
+                            break;
+                        } catch (NumberFormatException err) {
+                            printlnfc(GREEN, "Real number only!");
+                            System.out.print("New Rating(Blank to keep " + String.format("%.1f", v.getRating()) + "): ");
+                            ratingLine = sc.nextLine().trim();
+                            if (ratingLine.isEmpty()) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.out.printf("New Chassis Number(Blank to keep %s): ", v.getChassisNumber());
+                String chassis = sc.nextLine().trim();
+                if (!chassis.isEmpty()) {
+                    v.setChassisNumber(chassis);
+                }
+
+                System.out.printf("New Engine Type(Blank to keep %s): ", v.getEngineType());
+                String engine = sc.nextLine().trim();
+                if (!engine.isEmpty()) {
+                    v.setEngineType(engine);
+                }
+
+                System.out.printf("New Brand(Blank to keep %s): ", v.getBrand());
+                String brand = sc.nextLine().trim();
+                if (!brand.isEmpty()) {
+                    v.setBrand(brand);
+                }
+
+                System.out.printf("New Manufacture Year(Blank to keep %d): ", v.getManufactureYear());
+                String yearLine = sc.nextLine().trim();
+                if (!yearLine.isEmpty()) {
+                    while (true) {
+                        try {
+                            int Y = Integer.parseInt(yearLine);
+                            int CY = Year.now().getValue();
+                            if (Y < 1800 || Y > CY) {
+                                if (Y < -230000000) {
+                                    printlnfc(GREEN, "Bro think dinosaurs can drive?");
+                                } else if (Y < 0) {
+                                    printlnfc(GREEN, "Hmm, I think people from before the Common Era could have built vehicles, but I can't prove it.");
+                                } else if (Y < 1500) {
+                                    printlnfc(GREEN, "There were no cars in the Middle Ages, sir!");
+                                } else if (Y > 2100) {
+                                    printlnfc(GREEN, "Sir, do you need me to help you find a time machine?");
+                                } else {
+                                    printlnfc(GREEN, "Bro try again!");
+                                }
+                                System.out.print("New Manufacture Year(Blank to keep " + v.getManufactureYear() + "): ");
+                                yearLine = sc.nextLine().trim();
+                                if (yearLine.isEmpty()) {
+                                    break;
+                                }
+                                continue;
+                            }
+                            v.setManufactureYear(Y);
+                            break;
+                        } catch (NumberFormatException err) {
+                            printlnfc(GREEN, "Integer number only!");
+                            System.out.print("New Manufacture Year(Blank to keep " + v.getManufactureYear() + "): ");
+                            yearLine = sc.nextLine().trim();
+                            if (yearLine.isEmpty()) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.out.printf("New Inspection Fee(Blank to keep %.2f): ", v.getInspectionFee());
+                String feeLine = sc.nextLine().trim();
+                if (!feeLine.isEmpty()) {
+                    while (true) {
+                        try {
+                            double f = Double.parseDouble(feeLine);
+                            if (f < 0.0) {
+                                System.out.print("Please re-enter Inspection Fee (>=0): ");
+                                feeLine = sc.nextLine().trim();
+                                if (feeLine.isEmpty()) {
+                                    break;
+                                }
+                                continue;
+                            }
+                            v.setInspectionFee(f);
+                            break;
+                        } catch (NumberFormatException err) {
+                            printlnfc(GREEN, "Real number only!");
+                            System.out.print("New Inspection Fee(Blank to keep " + String.format("%.2f", v.getInspectionFee()) + "): ");
+                            feeLine = sc.nextLine().trim();
+                            if (feeLine.isEmpty()) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.out.println("Vehicle Informantion: " + v.toString());
                 break;
-            } else {
-                System.out.println("ID not exist!");
             }
         }
 
-        System.out.print("Enter new vehicle Name:");
-        String newVeName = getValidString();
-        System.out.print("Enter new vehicle Price:");
-        double newPrice = getValidDouble();
-        System.out.print("Enter new vehicle Rating:");
-        double newRating = getValidDouble();
-        System.out.print("Enter new vehicle Chassis Number:");
-        String newCha = getValidString();
-        System.out.print("Enter new vehicle Engine Type:");
-        String newengineType = getValidString();
-        System.out.print("Enter new vehicle brand:");
-        String newbrand = getValidString();
-        System.out.print("Enter new vehicle manufacture Year:");
-        int newmanuyear = getValidInt();
-        System.out.print("Enter new vehicle inspection Fee:");
-        double Fee = getValidDouble();
-        Vehicle newVe = new Vehicle(
-                newId,
-                newVeName,
-                newPrice,
-                newRating,
-                newCha,
-                newengineType,
-                newbrand,
-                newmanuyear,
-                Fee
-        );
-        int index = 0;
-        for (int i = 0; i < vehicleData.size(); ++i) {
-            if (vehicleData.get(i).getId().equalsIgnoreCase(newId)) {
-                index = i;
-                break;
-            }
+        if (found == false) {
+            System.out.println("Vehicle ID not found.");
         }
-        vehicleData.set(index, newVe);
-        System.out.println("Vehicle Informantion:" + newVe.toString());
-        waitForEnter("Press enter to continue.");
+
     }
+    // update: optimized
 
     void deleteVehicle() {
         System.out.println("--------------Delete Vehicle-----------------");
         String newEmId;
         while (true) {
-            System.out.print("Enter Employee ID:");
+            System.out.print("Enter vehicle ID:"); // fix bugs: loi copy ko sua
             newEmId = getValidString();
             if (!checkVehicleID(newEmId)) {
                 break;
@@ -1859,7 +2120,7 @@ public class ProjectVinMall implements IMall {
 
         vehicleData.remove(i);
         System.out.println("Vehicle Deleted.");
-        waitForEnter("Press enter to continue.");
+
     }
 
     void sortVehicle() {
@@ -1932,42 +2193,49 @@ public class ProjectVinMall implements IMall {
                     sortstop = true;
                     break;
             }
-            waitForEnter("\nPress enter to continue.");
+
         }
     }
 
     void findVehicle() {
+        clearScreen();
         System.out.println("--------------Find Vehicle-----------------");
-        System.out.print("Enter any thing to find:");
-        String find = getValidString();
-        System.out.println("--------------List Find Vehicle-----------------");
-        int notfind = 0;
 
-        for (Vehicle e : vehicleData) {
-            if (e.getId().contains(find)
-                    || e.getName().contains(find)
-                    || e.getBrand().contains(find)
-                    || e.getChassisNumber().contains(find)
-                    || e.getEngineType().contains(find)
-                    || String.valueOf(e.getManufactureYear()).contains(find)
-                    || String.valueOf(e.getInspectionFee()).contains(find)
-                    || String.valueOf(e.getPrice()).contains(find)
-                    || String.valueOf(e.getRating()).contains(find)) {
-                System.out.println(e.toString());
-                ++notfind;
+        String find = "find";
+        while (!find.isEmpty()) {
+            System.out.print("Enter any thing to find(Enter to back):");
+            find = sc.nextLine().toLowerCase().trim();
+            if (find.isEmpty()) {
+                break;
             }
-        }
-        if (notfind == 0) {
-            System.out.println("No resuft!");
+            System.out.println("--------------List Find Vehicle-----------------");
+            int notfind = 0;
+            for (Vehicle e : vehicleData) {
+                if (e.getId().toLowerCase().contains(find)
+                        || e.getName().toLowerCase().contains(find)
+                        || e.getBrand().toLowerCase().contains(find)
+                        || e.getChassisNumber().toLowerCase().contains(find)
+                        || e.getEngineType().toLowerCase().contains(find)
+                        || String.valueOf(e.getManufactureYear()).toLowerCase().contains(find)
+                        || String.valueOf(e.getInspectionFee()).toLowerCase().contains(find)
+                        || String.valueOf(e.getPrice()).toLowerCase().contains(find)
+                        || String.valueOf(e.getRating()).toLowerCase().contains(find)) {
+                    System.out.println(e.toString());
+                    ++notfind;
+                }
+            }
+            if (notfind == 0) {
+                System.out.println("No resuft!");
+            }
 
         }
-        waitForEnter("\nPress enter to continue.");
+
     }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
 
     // color: reset, red, green, yellow, blue, purple, cyan, white
     public void mainUI() {//Vi du y nhu cai nay
-        printlnfc(YELLOW, "***MALL MANAGEMENT SYSTEM***");
+        printlnfc(YELLOW, "----MALL MANAGEMENT SYSTEM----");
         printlnfc(CYAN, "1. Manage Books");
         printlnfc(CYAN, "2. Manage Appliances");
         printlnfc(CYAN, "3. Manage Drinks");
@@ -2063,7 +2331,28 @@ public class ProjectVinMall implements IMall {
     }
 
     public boolean checkVehicleID(String id) {
+
         return !vehicleData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
+    }
+
+    public boolean checkBookID(String id) {
+        return !bookData.stream().anyMatch((B) -> (B.getId().equalsIgnoreCase(id)));
+    }
+
+    public boolean checkFoodID(String id) {
+        return !foodData.stream().anyMatch((F) -> (F.getId().equalsIgnoreCase(id)));
+    }
+
+    public boolean checkDrinkID(String id) {
+        return !drinkData.stream().anyMatch((D) -> (D.getId().equalsIgnoreCase(id)));
+    }
+
+    public boolean checkApplianceID(String id) {
+        return !applianceData.stream().anyMatch((A) -> (A.getId().equalsIgnoreCase(id)));
+    }
+
+    public boolean checkElectronicID(String id) {
+        return !electronicData.stream().anyMatch((E) -> (E.getId().equalsIgnoreCase(id)));
     }
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
 
@@ -2083,12 +2372,10 @@ public class ProjectVinMall implements IMall {
             if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
                 return input;
             } else {
-                System.out.printf("The value is out of range(0-%d).", range);
+                System.out.printf("The value is out of range(0-%d).\n", range);
             }
 
-        } else {
-            System.out.println("Please select an option:");
-        }
+        } // fix bugs: tranh repeat 2 lan enter
         return getValidInput(range);
     }
 
@@ -2098,17 +2385,16 @@ public class ProjectVinMall implements IMall {
         Scanner sc = new Scanner(System.in);
         string = null;
         string = sc.nextLine().trim();
-
         if (string == null || string.isEmpty()) {
-            System.out.println("Try again!");
-            getValidString();
+            System.out.print("Try again!:");
+            return getValidString(); // fix bugs: khong tra gia tri
         }
         return string;
     }
 
     @Override
     public double getValidDouble() {
-        double input = 0;
+        double input = 0.0;
         Scanner sc = new Scanner(System.in);
 
         if (sc.hasNextDouble()) {
@@ -2116,7 +2402,7 @@ public class ProjectVinMall implements IMall {
 
         } else {
             System.out.println("Invalid input. Please enter a valid number.");
-            getValidDouble();
+            return getValidDouble(); // fix bugs: khong tra gia tri
         }
 
         return input;
@@ -2132,7 +2418,7 @@ public class ProjectVinMall implements IMall {
 
         } else {
             System.out.println("Invalid input. Please enter a valid integer.");
-            getValidInt();
+            return getValidInt(); // fix bugs: khong tra gia tri
         }
 
         return input;
@@ -2162,8 +2448,10 @@ public class ProjectVinMall implements IMall {
 
     public void waitForEnter(String prompt) {
         System.out.print(prompt);
+        while (!sc.hasNextLine()) {
+        }
         sc.nextLine();
-    }
+    } // fix bugs: dung de cho nhan enter
 
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
@@ -2207,27 +2495,37 @@ public class ProjectVinMall implements IMall {
                     while (stopB) {
                         VinMall.BookUI();
                         int BookSelect = VinMall.getValidInput(6);
+                        VinMall.clearScreen();
                         switch (BookSelect) {
                             case 1:
-                                VinMall.clearScreen();
                                 VinMall.listAllBooks();
                                 VinMall.waitForEnter("\nPress enter to continue.");
                                 VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.addBook();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.editBook();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.deleteBook();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.sortBooks();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 6:
                                 VinMall.searchBooks();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             default:
                                 System.out.println("Data saved.");
@@ -2244,24 +2542,37 @@ public class ProjectVinMall implements IMall {
                         VinMall.clearScreen();
                         VinMall.ApplianceUI();
                         int ApplianceSelect = VinMall.getValidInput(7);
+                        VinMall.clearScreen();
                         switch (ApplianceSelect) {
                             case 1:
                                 VinMall.listAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.addAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.editAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.deleteAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.sortAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 6:
                                 VinMall.searchAppliance();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             default:
                                 System.out.println("Data saved.");
@@ -2278,25 +2589,37 @@ public class ProjectVinMall implements IMall {
                         VinMall.clearScreen();
                         VinMall.DrinkUI();
                         int DrinkSelect = VinMall.getValidInput(6);
-
+                        VinMall.clearScreen();
                         switch (DrinkSelect) {
                             case 1:
                                 VinMall.listAllDrinks();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.addDrink();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.editDrink();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.deleteDrink();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.sortDrinks();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 6:
                                 VinMall.SearchDrinks();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             default:
                                 System.out.println("Data saved.");
@@ -2313,25 +2636,37 @@ public class ProjectVinMall implements IMall {
                         VinMall.clearScreen();
                         VinMall.ElectronicUI();
                         int ElectronicSelect = VinMall.getValidInput(6);
-
+                        VinMall.clearScreen();
                         switch (ElectronicSelect) {
                             case 1:
                                 VinMall.displayElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.addElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.editElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.deleteElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.sortElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 6:
                                 VinMall.searchElectronic();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             default:
                                 System.out.println("Data saved.");
@@ -2349,25 +2684,37 @@ public class ProjectVinMall implements IMall {
                         VinMall.clearScreen();
                         VinMall.FoodUI();
                         int FoodSelect = VinMall.getValidInput(5);
-
+                        VinMall.clearScreen();
                         switch (FoodSelect) {
                             case 1:
                                 VinMall.listAllFoods();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.addFood();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.editFood();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.deleteFood();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.SortFoods();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 6:
                                 VinMall.searchFoods();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             default:
                                 System.out.println("Data saved.");
@@ -2385,21 +2732,31 @@ public class ProjectVinMall implements IMall {
                         VinMall.listVehicle();
                         VinMall.VehicleUI();
                         int VehicleSelect = VinMall.getValidInput(5);
+
                         switch (VehicleSelect) {
                             case 1:
                                 VinMall.addVehicle();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2:
                                 VinMall.editVehicle();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3:
                                 VinMall.deleteVehicle();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4:
                                 VinMall.sortVehicle();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5:
                                 VinMall.findVehicle();
+                                VinMall.clearScreen();
                                 break;
                             case 0:
                                 System.out.println("Back");
@@ -2414,25 +2771,35 @@ public class ProjectVinMall implements IMall {
                     boolean stopEmp = false;
                     while (!stopEmp) {
                         VinMall.clearScreen();
-
                         VinMall.listEmployee();
                         VinMall.EmployeeUI();
                         int EmployeeSelect = VinMall.getValidInput(5);
+                        VinMall.clearScreen();
                         switch (EmployeeSelect) {
                             case 1: //Hire
                                 VinMall.addEmployee();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 2://Edit
-                                VinMall.editEmloyee();
+                                VinMall.editEmployee();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 3://Dissmis
                                 VinMall.DissmisEmployee();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 4://Find
                                 VinMall.findEmployee();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 5://Sort
                                 VinMall.sortEmployee();
+                                VinMall.waitForEnter("\nPress enter to continue.");
+                                VinMall.clearScreen();
                                 break;
                             case 0:
                                 System.out.println("Back");
@@ -2450,6 +2817,6 @@ public class ProjectVinMall implements IMall {
                     break;
             }
         }
-    }
+    }   // lam mau: cls, wait moi lan nhap lenh
 
 }
