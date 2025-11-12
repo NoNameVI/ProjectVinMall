@@ -1295,13 +1295,13 @@ public class ProjectVinMall implements IMall {
                     drinkData.sort(Comparator.comparing(Drink::getPrice));
                     System.out.println("Sorted by Price successfully!");
                     bookData.forEach(Drink -> System.out.println(Drink.toString()));
-                    Dsort = false;
+                    waitForEnter("\nPress enter to continue.");
                     break;
                 case 2:
                     drinkData.sort(Comparator.comparing(Drink::getPrice));
                     System.out.println("Sorted by Rating successfully!");
                     drinkData.forEach(Drink -> System.out.println(Drink.toString()));
-                    Dsort = false;
+                    waitForEnter("\nPress enter to continue.");
                     break;
                 case 0:
                     System.out.println("Exit.");
@@ -2453,3 +2453,4 @@ public class ProjectVinMall implements IMall {
     }
 
 }
+
