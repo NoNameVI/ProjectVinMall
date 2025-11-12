@@ -5,14 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Comparator;
-
-
-
 
 public class ProjectVinMall implements IMall {
 
@@ -74,8 +72,8 @@ public class ProjectVinMall implements IMall {
         try (Scanner sc = new Scanner(new File(df))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
-                delay(40);
-                System.out.println("Data loaded: " + line);
+                //delay(40);
+                //System.out.println("Data loaded: " + line);
                 dataMap.get(df).add(line);
             }
 
@@ -217,7 +215,7 @@ public class ProjectVinMall implements IMall {
         }
     }
 
-       public void saveData() {
+    public void saveData() {
         for (String file : fileList) {
             switch (file) {
                 case "bookin.txt":
@@ -229,7 +227,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Book store data---\n");
                     break;
-                
+
                 case "employeein.txt":
                     EmployeesList.clear();
                     for (Employee e : employeeData) {
@@ -239,7 +237,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Employees data---\n");
                     break;
-                
+
                 case "appliancein.txt":
                     AppliancesList.clear();
                     for (Appliance a : applianceData) {
@@ -249,7 +247,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Appliance store data---\n");
                     break;
-                
+
                 case "drinkin.txt":
                     DrinksList.clear();
                     for (Drink d : drinkData) {
@@ -259,7 +257,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Drink store data---\n");
                     break;
-                
+
                 case "electronicin.txt":
                     ElectronicsList.clear();
                     for (Electronic e : electronicData) {
@@ -269,7 +267,7 @@ public class ProjectVinMall implements IMall {
                     clearScreen();
                     System.out.println("\n---Electronic store data---\n");
                     break;
-                
+
                 case "vehiclesin.txt":
                     VehiclesList.clear();
                     for (Vehicle v : vehicleData) {
@@ -280,7 +278,7 @@ public class ProjectVinMall implements IMall {
                     System.out.println("\n---Vehicle store data---\n");
                     delay(100);
                     break;
-                
+
                 case "foodin.txt":
                     FoodsList.clear();
                     for (Food f : foodData) {
@@ -291,7 +289,7 @@ public class ProjectVinMall implements IMall {
                     System.out.println("\n---Food store data---\n");
                     delay(100);
                     break;
-                
+
                 default:
                     break;
             }
@@ -300,22 +298,251 @@ public class ProjectVinMall implements IMall {
     }
 
     //--------------------------------------------------Ham ho tro -------------------------------------------------------------------------------------------------------------------------------
-    void listEmployee() {
-        employeeData.forEach(Employee -> {
-            System.out.println(Employee.getInfo());
-        });
+    String fS(String string, int lenght) { //Chuan Hoa Do Dai Chuoi
+        StringBuilder str = new StringBuilder();
+        str.append(string);
+        while (str.length() <= lenght) {
+            str.append(" ");
+        }
+        return str.toString();
     }
+
+    void listEmployee() {
+        printlnfc(CYAN, "Employee's List");
+
+        String[] headers = {"ID", "Name", "Phone Number", "Position", "Salary"};
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
+        }
+
+        for (Employee E : employeeData) {
+            if (E.getId().length() > maxlenght) {
+                maxlenght = E.getId().length();
+            }
+            if (E.getName().length() > maxlenght) {
+                maxlenght = E.getName().length();
+            }
+            if (E.getPhoneNum().length() > maxlenght) {
+                maxlenght = E.getPhoneNum().length();
+            }
+            if (E.getPosition().length() > maxlenght) {
+                maxlenght = E.getPosition().length();
+            }
+
+            String salaryStr = String.format("%.0f", E.getSalary());
+            if (salaryStr.length() > maxlenght) {
+                maxlenght = salaryStr.length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Employee E : employeeData) {
+            String salaryStr = String.format("%.0f", E.getSalary());
+
+            printlnfc(YELLOW,
+                    fS(E.getId(), maxlenght) + " | "
+                    + fS(E.getName(), maxlenght) + " | "
+                    + fS(E.getPhoneNum(), maxlenght) + " | "
+                    + fS(E.getPosition(), maxlenght) + " | "
+                    + fS(salaryStr, maxlenght) + " | "
+            );
+        }
+
+    }
+
     void listVehicle() {
-        vehicleData.forEach(Vehicle -> {
-            System.out.println(Vehicle.toString());
-        });
-    }    
+        printlnfc(CYAN, "List Vehicle");
+
+        String[] headers = {
+            "ID", "Name", "Price", "Rating", "Chassis Number",
+            "Engine Type", "Brand", "Year", "Inspection Fee"
+        };
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
+        }
+
+        for (Vehicle v : vehicleData) {
+            if (v.getId().length() > maxlenght) {
+                maxlenght = v.getId().length();
+            }
+            if (v.getName().length() > maxlenght) {
+                maxlenght = v.getName().length();
+            }
+
+            if (String.format("%.2f", v.getPrice()).length() > maxlenght) {
+                maxlenght = String.format("%.2f", v.getPrice()).length();
+            }
+            if (String.format("%.1f", v.getRating()).length() > maxlenght) {
+                maxlenght = String.format("%.1f", v.getRating()).length();
+            }
+            if (v.getChassisNumber().length() > maxlenght) {
+                maxlenght = v.getChassisNumber().length();
+            }
+            if (v.getEngineType().length() > maxlenght) {
+                maxlenght = v.getEngineType().length();
+            }
+            if (v.getBrand().length() > maxlenght) {
+                maxlenght = v.getBrand().length();
+            }
+            if (String.valueOf(v.getManufactureYear()).length() > maxlenght) {
+                maxlenght = String.valueOf(v.getManufactureYear()).length();
+            }
+            if (String.format("%.2f", v.getInspectionFee()).length() > maxlenght) {
+                maxlenght = String.format("%.2f", v.getInspectionFee()).length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | "
+                + fS(headers[5], maxlenght) + " | "
+                + fS(headers[6], maxlenght) + " | "
+                + fS(headers[7], maxlenght) + " | "
+                + fS(headers[8], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Vehicle v : vehicleData) {
+
+            String priceStr = String.format("%.2f", v.getPrice());
+            String ratingStr = String.format("%.1f", v.getRating());
+            String yearStr = String.valueOf(v.getManufactureYear());
+            String feeStr = String.format("%.2f", v.getInspectionFee());
+
+            printlnfc(YELLOW,
+                    fS(v.getId(), maxlenght) + " | "
+                    + fS(v.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(v.getChassisNumber(), maxlenght) + " | "
+                    + fS(v.getEngineType(), maxlenght) + " | "
+                    + fS(v.getBrand(), maxlenght) + " | "
+                    + fS(yearStr, maxlenght) + " | "
+                    + fS(feeStr, maxlenght) + " | "
+            );
+        }
+
+    }
 
     //----Electronic method----------------
     void displayElectronic() {
-        electronicData.forEach(Electronic -> {
-            System.out.println(Electronic.toString());
-        });
+        printlnfc(CYAN, "Electronic List");
+
+        String[] headers = {
+            "ID", "Name", "Price", "Rating", "Brand",
+            "Model", "Release Year", "Battery Capacity"
+        };
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
+        }
+
+        for (Electronic E : electronicData) {
+            if (E.getId().length() > maxlenght) {
+                maxlenght = E.getId().length();
+            }
+            if (E.getName().length() > maxlenght) {
+                maxlenght = E.getName().length();
+            }
+
+            String priceStr = String.format("%.2f", E.getPrice());
+            if (priceStr.length() > maxlenght) {
+                maxlenght = priceStr.length();
+            }
+
+            String ratingStr = String.format("%.1f", E.getRating());
+            if (ratingStr.length() > maxlenght) {
+                maxlenght = ratingStr.length();
+            }
+
+            if (E.getBrand().length() > maxlenght) {
+                maxlenght = E.getBrand().length();
+            }
+            if (E.getModel().length() > maxlenght) {
+                maxlenght = E.getModel().length();
+            }
+
+            String yearStr = String.valueOf(E.getReleaseYear());
+            if (yearStr.length() > maxlenght) {
+                maxlenght = yearStr.length();
+            }
+
+            String batteryStr = String.valueOf(E.getBatteryCapacity());
+            if (batteryStr.length() > maxlenght) {
+                maxlenght = batteryStr.length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | "
+                + fS(headers[5], maxlenght) + " | "
+                + fS(headers[6], maxlenght) + " | "
+                + fS(headers[7], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Electronic E : electronicData) {
+            String priceStr = String.format("%.2f", E.getPrice());
+            String ratingStr = String.format("%.1f", E.getRating());
+            String yearStr = String.valueOf(E.getReleaseYear());
+            String batteryStr = String.valueOf(E.getBatteryCapacity());
+
+            printlnfc(YELLOW,
+                    fS(E.getId(), maxlenght) + " | "
+                    + fS(E.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(E.getBrand(), maxlenght) + " | "
+                    + fS(E.getModel(), maxlenght) + " | "
+                    + fS(yearStr, maxlenght) + " | "
+                    + fS(batteryStr, maxlenght) + " | "
+            );
+        }
+        waitForEnter("\nPress enter to continue.");
     }
 
     void addElectronic() {
@@ -480,12 +707,88 @@ public class ProjectVinMall implements IMall {
                     System.out.println("Please choose again!");
             }
         }
+        waitForEnter("\nPress enter to continue.");
     }
-    
 
 //-------Appliance Method------------------
     void listAppliance() {
-        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+        printlnfc(CYAN, "Appliance List");
+
+        String[] headers = {
+            "ID", "Name", "Price", "Rating", "Brand", "Model", "Release Year"
+        };
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
+        }
+
+        for (Appliance A : applianceData) {
+            if (A.getId().length() > maxlenght) {
+                maxlenght = A.getId().length();
+            }
+            if (A.getName().length() > maxlenght) {
+                maxlenght = A.getName().length();
+            }
+
+            String priceStr = String.format("%.2f", A.getPrice());
+            if (priceStr.length() > maxlenght) {
+                maxlenght = priceStr.length();
+            }
+
+            String ratingStr = String.format("%.1f", A.getRating());
+            if (ratingStr.length() > maxlenght) {
+                maxlenght = ratingStr.length();
+            }
+
+            if (A.getBrand().length() > maxlenght) {
+                maxlenght = A.getBrand().length();
+            }
+            if (A.getModel().length() > maxlenght) {
+                maxlenght = A.getModel().length();
+            }
+
+            String yearStr = String.valueOf(A.getReleaseYear());
+            if (yearStr.length() > maxlenght) {
+                maxlenght = yearStr.length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | "
+                + fS(headers[5], maxlenght) + " | "
+                + fS(headers[6], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Appliance A : applianceData) {
+            String priceStr = String.format("%.2f", A.getPrice());
+            String ratingStr = String.format("%.1f", A.getRating());
+            String yearStr = String.valueOf(A.getReleaseYear());
+
+            printlnfc(YELLOW,
+                    fS(A.getId(), maxlenght) + " | "
+                    + fS(A.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(A.getBrand(), maxlenght) + " | "
+                    + fS(A.getModel(), maxlenght) + " | "
+                    + fS(yearStr, maxlenght) + " | "
+            );
+        }
+        waitForEnter("\nPress enter to continue.");
     }
 
     void addAppliance() {
@@ -511,7 +814,7 @@ public class ProjectVinMall implements IMall {
     void deleteAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
-        int i=0;
+        int i = 0;
         boolean found = false;
         while (true) {
             if (applianceData.get(i).getId().equalsIgnoreCase(Aid)) {
@@ -523,14 +826,16 @@ public class ProjectVinMall implements IMall {
                 i++;
             }
         }
-        if (found == false) System.out.println("Appliance ID not found.");
+        if (found == false) {
+            System.out.println("Appliance ID not found.");
+        }
     }
 
     void editAppliance() {
         System.out.print("Please enter ID: ");
         String Aid = getValidString();
         boolean found = false;
-        int i=0;
+        int i = 0;
         while (true) {
             if (applianceData.get(i).getId().equalsIgnoreCase(Aid)) {
                 found = true;
@@ -553,99 +858,168 @@ public class ProjectVinMall implements IMall {
                 i++;
             }
         }
-        if (found == false) System.out.println("Appliance ID not found.");
+        if (found == false) {
+            System.out.println("Appliance ID not found.");
+        }
     }
-    
-        void sortAppliance() {
-            boolean Asort = true;
-            while (Asort) {
-                System.out.println("Sort by: ");
-                System.out.println("1. Brand");
-                System.out.println("2. Price");
-                System.out.println("0. Exit");
-                int choose = getValidInput(3);
-                switch (choose) {
-                    case 1:
-                        applianceData.sort(Comparator.comparing(Appliance::getBrand));
-                        System.out.println("Sorted by Brand successfully!");
-                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                        Asort = false;
-                        break;
-                    case 2:
-                        applianceData.sort(Comparator.comparing(Appliance::getPrice));
-                        System.out.println("Sorted by Price successfully!");
-                        applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
-                        Asort = false;
-                        break;
-                    case 0:
-                        System.out.println("Exit.");
-                        Asort = false;
-                        break;
-                    default:
-                        System.out.println("Please choose again!");
-                }
+
+    void sortAppliance() {
+        boolean Asort = true;
+        while (Asort) {
+            System.out.println("Sort by: ");
+            System.out.println("1. Brand");
+            System.out.println("2. Price");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    applianceData.sort(Comparator.comparing(Appliance::getBrand));
+                    System.out.println("Sorted by Brand successfully!");
+                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                    Asort = false;
+                    break;
+                case 2:
+                    applianceData.sort(Comparator.comparing(Appliance::getPrice));
+                    System.out.println("Sorted by Price successfully!");
+                    applianceData.forEach(Appliance -> System.out.println(Appliance.toString()));
+                    Asort = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Asort = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+
+    void searchAppliance() {
+        boolean Asearch = true;
+        while (Asearch) {
+            System.out.println("Search by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("0. Exit");
+            int choose = getValidInput(3);
+            switch (choose) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    String searchId = getValidString();
+                    boolean foundId = false;
+                    for (Appliance a : applianceData) {
+                        if (a.getId().equalsIgnoreCase(searchId)) {
+                            System.out.println("Found appliance:");
+                            System.out.println(a.toString());
+                            foundId = true;
+                            break;
+                        }
+                    }
+                    if (!foundId) {
+                        System.out.println("ID not found!");
+                    }
+                    Asearch = false;
+                    break;
+                case 2:
+                    System.out.print("Enter Name: ");
+                    String searchName = getValidString().toLowerCase();
+                    boolean foundName = false;
+                    for (Appliance a : applianceData) {
+                        if (a.getName().equalsIgnoreCase(searchName)) {
+                            if (!foundName) {
+                                System.out.println("Found appliance:");
+                                foundName = true;
+                            }
+                            System.out.println(a.toString());
+                        }
+                    }
+                    if (!foundName) {
+                        System.out.println("Name not found!");
+                    }
+                    Asearch = false;
+                    break;
+                case 0:
+                    System.out.println("Exit.");
+                    Asearch = false;
+                    break;
+                default:
+                    System.out.println("Please choose again!");
+            }
+        }
+    }
+
+    ///Book method///
+    void listAllBooks() {
+        printlnfc(CYAN, "Book List");
+
+        String[] headers = {"ID", "Name", "Price", "Rating", "Author", "Pages"};
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
             }
         }
 
-        void searchAppliance() {
-            boolean Asearch = true;
-            while (Asearch) {
-                System.out.println("Search by:");
-                System.out.println("1. ID");
-                System.out.println("2. Name");
-                System.out.println("0. Exit");
-                int choose = getValidInput(3);
-                switch (choose) {
-                    case 1:
-                        System.out.print("Enter ID: ");
-                        String searchId = getValidString();
-                        boolean foundId = false;
-                        for (Appliance a : applianceData) {
-                            if (a.getId().equalsIgnoreCase(searchId)) {
-                                System.out.println("Found appliance:");
-                                System.out.println(a.toString());
-                                foundId = true;
-                                break;
-                            }
-                        }
-                        if (!foundId) {
-                            System.out.println("ID not found!");
-                        }
-                        Asearch = false;
-                        break;
-                    case 2:
-                        System.out.print("Enter Name: ");
-                        String searchName = getValidString().toLowerCase();
-                        boolean foundName = false;
-                        for (Appliance a : applianceData) {
-                            if (a.getName().equalsIgnoreCase(searchName)) {
-                                if (!foundName) {
-                                    System.out.println("Found appliance:");
-                                    foundName = true;
-                                }
-                                System.out.println(a.toString());
-                            }
-                        }
-                        if (!foundName) {
-                            System.out.println("Name not found!");
-                        }
-                        Asearch = false;
-                        break;
-                    case 0:
-                        System.out.println("Exit.");
-                        Asearch = false;
-                        break;
-                    default:
-                        System.out.println("Please choose again!");
-                }
+        for (Book B : bookData) {
+            if (B.getId().length() > maxlenght) {
+                maxlenght = B.getId().length();
+            }
+            if (B.getName().length() > maxlenght) {
+                maxlenght = B.getName().length();
+            }
+
+            String priceStr = String.format("%.2f", B.getPrice());
+            if (priceStr.length() > maxlenght) {
+                maxlenght = priceStr.length();
+            }
+
+            String ratingStr = String.format("%.1f", B.getRating());
+            if (ratingStr.length() > maxlenght) {
+                maxlenght = ratingStr.length();
+            }
+
+            if (B.getAuthor().length() > maxlenght) {
+                maxlenght = B.getAuthor().length();
+            }
+
+            String pagesStr = String.valueOf(B.getPages());
+            if (pagesStr.length() > maxlenght) {
+                maxlenght = pagesStr.length();
             }
         }
-    ///Book method///
-    public void listAllBooks() {
-        System.out.println("--- Book List ---\n");
-        for (Book book : bookData) {
-            System.out.println(book);
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | "
+                + fS(headers[5], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
         }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Book B : bookData) {
+            String priceStr = String.format("%.2f", B.getPrice());
+            String ratingStr = String.format("%.1f", B.getRating());
+            String pagesStr = String.valueOf(B.getPages());
+
+            printlnfc(YELLOW,
+                    fS(B.getId(), maxlenght) + " | "
+                    + fS(B.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(B.getAuthor(), maxlenght) + " | "
+                    + fS(pagesStr, maxlenght) + " | "
+            );
+        }
+
     }
 
     public void addBook() {
@@ -797,13 +1171,70 @@ public class ProjectVinMall implements IMall {
         }
     }
 
-
-
 // ------- Drink methods -------
-public void listAllDrinks() {
-        for (Drink drink : drinkData) {
-            System.out.println(drink);
+    void listAllDrinks() {
+        printlnfc(CYAN, "Drink List");
+
+        String[] headers = {"ID", "Name", "Price", "Rating", "Size"};
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
         }
+
+        for (Drink D : drinkData) {
+            if (D.getId().length() > maxlenght) {
+                maxlenght = D.getId().length();
+            }
+            if (D.getName().length() > maxlenght) {
+                maxlenght = D.getName().length();
+            }
+
+            String priceStr = String.format("%.2f", D.getPrice());
+            if (priceStr.length() > maxlenght) {
+                maxlenght = priceStr.length();
+            }
+
+            String ratingStr = String.format("%.1f", D.getRating());
+            if (ratingStr.length() > maxlenght) {
+                maxlenght = ratingStr.length();
+            }
+
+            if (D.getSize().length() > maxlenght) {
+                maxlenght = D.getSize().length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Drink D : drinkData) {
+            String priceStr = String.format("%.2f", D.getPrice());
+            String ratingStr = String.format("%.1f", D.getRating());
+
+            printlnfc(YELLOW,
+                    fS(D.getId(), maxlenght) + " | "
+                    + fS(D.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(D.getSize(), maxlenght) + " | "
+            );
+        }
+        waitForEnter("\nPress enter to continue.");
     }
 
     public void addDrink() {
@@ -849,6 +1280,7 @@ public void listAllDrinks() {
             System.out.println("Drink not found.");
         }
     }
+
     public void sortDrinks() {
 
         boolean Dsort = true;
@@ -879,7 +1311,6 @@ public void listAllDrinks() {
                     System.out.println("Please choose again!");
             }
         }
-        
 
     }
 
@@ -893,6 +1324,7 @@ public void listAllDrinks() {
             System.out.println("Drink not found.");
         }
     }
+
     public void SearchDrinks() {
         boolean Dsearch = true;
         while (Dsearch) {
@@ -951,10 +1383,70 @@ public void listAllDrinks() {
         }
     }
     //-------------Food method-------------------------
-public void listAllFoods() {
-        for (Food food : foodData) {
-            System.out.println(food);
+
+    void listAllFoods() {
+        printlnfc(CYAN, "Food List");
+
+        String[] headers = {"ID", "Name", "Price", "Rating", "Size"};
+
+        int maxlenght = 0;
+
+        for (String h : headers) {
+            if (h.length() > maxlenght) {
+                maxlenght = h.length();
+            }
         }
+
+        for (Food food : foodData) {
+            if (food.getId().length() > maxlenght) {
+                maxlenght = food.getId().length();
+            }
+            if (food.getName().length() > maxlenght) {
+                maxlenght = food.getName().length();
+            }
+
+            String priceStr = String.format("%.2f", food.getPrice());
+            if (priceStr.length() > maxlenght) {
+                maxlenght = priceStr.length();
+            }
+
+            String ratingStr = String.format("%.1f", food.getRating());
+            if (ratingStr.length() > maxlenght) {
+                maxlenght = ratingStr.length();
+            }
+
+            if (food.getSize().length() > maxlenght) {
+                maxlenght = food.getSize().length();
+            }
+        }
+
+        String headerRow = fS(headers[0], maxlenght) + " | "
+                + fS(headers[1], maxlenght) + " | "
+                + fS(headers[2], maxlenght) + " | "
+                + fS(headers[3], maxlenght) + " | "
+                + fS(headers[4], maxlenght) + " | ";
+
+        printlnfc(YELLOW, headerRow);
+
+        StringBuilder separator = new StringBuilder();
+        for (int i = 0; i < headerRow.length(); i++) {
+            separator.append("-");
+        }
+        printlnfc(YELLOW, separator.toString());
+
+        for (Food food : foodData) {
+            String priceStr = String.format("%.2f", food.getPrice());
+            String ratingStr = String.format("%.1f", food.getRating());
+
+            printlnfc(YELLOW,
+                    fS(food.getId(), maxlenght) + " | "
+                    + fS(food.getName(), maxlenght) + " | "
+                    + fS(priceStr, maxlenght) + " | "
+                    + fS(ratingStr, maxlenght) + " | "
+                    + fS(food.getSize(), maxlenght) + " | "
+            );
+        }
+        waitForEnter("\nPress enter to continue.");
     }
 
     public void addFood() {
@@ -1101,17 +1593,19 @@ public void listAllFoods() {
         }
     }
     //-----------------------------------Employee Method-------------------------------
-    
-    void addEmployee(){
+
+    void addEmployee() {
         System.out.println("--------------Hire new Employee----------------");
         String newEmId;
-        while (true){
+        while (true) {
             System.out.print("Enter new ID:");
             newEmId = getValidString();
-            if (checkEmployeeID(newEmId)){
-                
+            if (checkEmployeeID(newEmId)) {
+
                 break;
-            } else System.out.println("ID exist!");
+            } else {
+                System.out.println("ID exist!");
+            }
         }
         System.out.print("Enter Employee Name:");
         String newEmName = getValidString();
@@ -1121,23 +1615,25 @@ public void listAllFoods() {
         String newEmPhone = getValidString();
         System.out.print("Enter Employee salary:");
         double newEmSa = getValidDouble();
-        
+
         Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
-        
+
         employeeData.add(newEmp);
         System.out.println("New Employee infor:" + newEmp.getInfo());
-        waitForEnter("Press any key to continue.");
+        waitForEnter("Press enter to continue.");
     }
-    
-    void editEmloyee(){
+
+    void editEmloyee() {
         System.out.println("--------------Edit Employees information----------------");
         String newEmId;
-        while (true){
+        while (true) {
             System.out.print("Enter Employee ID:");
             newEmId = getValidString();
-            if (!checkEmployeeID(newEmId)){
+            if (!checkEmployeeID(newEmId)) {
                 break;
-            } else System.out.println("ID not exist!");
+            } else {
+                System.out.println("ID not exist!");
+            }
         }
         System.out.print("Enter Employee Name:");
         String newEmName = getValidString();
@@ -1148,339 +1644,338 @@ public void listAllFoods() {
         System.out.print("Enter Employee salary:");
         double newEmSa = getValidDouble();
         Employee newEmp = new Employee(newEmId, newEmName, newEmPos, newEmPhone, newEmSa);
-        
-        int index =0;
-        for (int i =0 ; i < employeeData.size() ; i++){
-            if (employeeData.get(i).getId().equalsIgnoreCase(newEmId)){
+
+        int index = 0;
+        for (int i = 0; i < employeeData.size(); i++) {
+            if (employeeData.get(i).getId().equalsIgnoreCase(newEmId)) {
                 index = i;
                 break;
             }
         }
         employeeData.set(index, newEmp);
         System.out.println("Employee infor:" + newEmp.getInfo());
-        waitForEnter("Press any key to continue.");
+        waitForEnter("Press enter to continue.");
     }
-    
-    void DissmisEmployee(){
+
+    void DissmisEmployee() {
         System.out.println("--------------Dissmis Employees-----------------");
         String newEmId;
-        while (true){
+        while (true) {
             System.out.print("Enter Employee ID:");
             newEmId = getValidString();
-            if (!checkEmployeeID(newEmId)){
-                
+            if (!checkEmployeeID(newEmId)) {
+
                 break;
-            } else System.out.println("ID not exist!");
+            } else {
+                System.out.println("ID not exist!");
+            }
         }
-        int i=0;
-        for (int index =0 ; index < employeeData.size() ; index++){
-                if (employeeData.get(index).getId().equalsIgnoreCase(newEmId)){
-                    i = index;
-                    break;
-                }
+        int i = 0;
+        for (int index = 0; index < employeeData.size(); index++) {
+            if (employeeData.get(index).getId().equalsIgnoreCase(newEmId)) {
+                i = index;
+                break;
+            }
         }
-        
+
         employeeData.remove(i);
         System.out.println("Employee Dissmised");
     }
-    
-    void findEmployee(){
+
+    void findEmployee() {
         System.out.println("--------------Find Employees-----------------");
         System.out.print("Enter id, name or position :");
         String find = getValidString();
         int notfind = 0;
-        for (Employee e : employeeData){
-            if (  e.getId().contains(find) ||
-                   e.getName().contains(find) ||
-                   e.getPosition().contains(find)
-                    ){
+        for (Employee e : employeeData) {
+            if (e.getId().contains(find)
+                    || e.getName().contains(find)
+                    || e.getPosition().contains(find)) {
                 System.out.println(e.getInfo());
                 ++notfind;
             }
         }
-        if (notfind == 0){
+        if (notfind == 0) {
             System.out.println("No resuft!");
-            
+
         }
-        waitForEnter("Press any key to continue.");
+        waitForEnter("Press enter to continue.");
     }
-    
-    void sortEmployee(){
+
+    void sortEmployee() {
         boolean sortstop = false;
         while (!sortstop) {
-        System.out.println("--------------Sort Employees-----------------");
-        System.out.println("Sorting by what?");
-        System.out.println("1. ID");
-        System.out.println("2. Name");
-        System.out.println("3. Salary");
-        System.out.println("0. Back to Employees manage");
-        int sortEmSelect = getValidInput(3);
-            switch (sortEmSelect){
+            System.out.println("--------------Sort Employees-----------------");
+            System.out.println("Sorting by what?");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Salary");
+            System.out.println("0. Back to Employees manage");
+            int sortEmSelect = getValidInput(3);
+            switch (sortEmSelect) {
                 case 1:
-                    employeeData.sort(Comparator.comparing(Employee :: getId));
+                    employeeData.sort(Comparator.comparing(Employee::getId));
                     System.out.println("-----------List sorted by ID------------");
                     listEmployee();
-                    
+
                     break;
                 case 2:
-                    employeeData.sort(Comparator.comparing(Employee :: getName));
+                    employeeData.sort(Comparator.comparing(Employee::getName));
                     System.out.println("-----------List sorted by Name------------");
                     listEmployee();
                     break;
                 case 3:
-                    employeeData.sort(Comparator.comparing(Employee :: getSalary));
+                    employeeData.sort(Comparator.comparing(Employee::getSalary));
                     System.out.println("-----------List sorted by Salary------------");
                     listEmployee();
                     break;
                 case 0:
                     System.out.println("Data saved.");
-                    sortstop = true;                    
+                    sortstop = true;
                     break;
             }
-            waitForEnter("Press any key to continue.");
+            waitForEnter("Press enter to continue.");
         }
-        
+
     }
-    
+
     //Vehicle Method------------------------------------
-    
-    
-    void addVehicle(){
-    System.out.println("-------------Add new Vehicle-----------");
-    String newVeId;
-        while (true){
+    void addVehicle() {
+        System.out.println("-------------Add new Vehicle-----------");
+        String newVeId;
+        while (true) {
             System.out.print("Enter new ID:");
             newVeId = getValidString();
-            if (checkVehicleID(newVeId)){
+            if (checkVehicleID(newVeId)) {
                 break;
-            } else System.out.println("ID exist!");
+            } else {
+                System.out.println("ID exist!");
+            }
         }
-    System.out.print("Enter new vehicle Name:");
-    String newVeName = getValidString();
-    System.out.print("Enter new vehicle Price:");
-    double newPrice = getValidDouble();
-    System.out.print("Enter new vehicle Rating:");
-    double newRating = getValidDouble();
-    System.out.print("Enter new vehicle Chassis Number:");
-    String newCha = getValidString();
-    System.out.print("Enter new vehicle Engine Type:");
-    String newengineType = getValidString();
-    System.out.print("Enter new vehicle brand:");
-    String newbrand = getValidString();
-    System.out.print("Enter new vehicle manufacture Year:");
-    int newmanuyear = getValidInt();
-    System.out.print("Enter new vehicle inspection Fee:");
-    double Fee = getValidDouble();
-    
-    Vehicle newVe = new Vehicle(
-            newVeId,
-            newVeName,
-            newPrice,
-            newRating,
-            newCha,
-            newengineType,
-            newbrand,
-            newmanuyear,
-            Fee
-    );
-    vehicleData.add(newVe);
-    System.out.println("New Vehicle Informantion:"+newVe.toString());
-    waitForEnter("Press any key to continue.");
+        System.out.print("Enter new vehicle Name:");
+        String newVeName = getValidString();
+        System.out.print("Enter new vehicle Price:");
+        double newPrice = getValidDouble();
+        System.out.print("Enter new vehicle Rating:");
+        double newRating = getValidDouble();
+        System.out.print("Enter new vehicle Chassis Number:");
+        String newCha = getValidString();
+        System.out.print("Enter new vehicle Engine Type:");
+        String newengineType = getValidString();
+        System.out.print("Enter new vehicle brand:");
+        String newbrand = getValidString();
+        System.out.print("Enter new vehicle manufacture Year:");
+        int newmanuyear = getValidInt();
+        System.out.print("Enter new vehicle inspection Fee:");
+        double Fee = getValidDouble();
+
+        Vehicle newVe = new Vehicle(
+                newVeId,
+                newVeName,
+                newPrice,
+                newRating,
+                newCha,
+                newengineType,
+                newbrand,
+                newmanuyear,
+                Fee
+        );
+        vehicleData.add(newVe);
+        System.out.println("New Vehicle Informantion:" + newVe.toString());
+        waitForEnter("Press enter to continue.");
     }
-    
-    
-    void editVehicle(){
+
+    void editVehicle() {
         System.out.println("--------------Edit Vehicle information----------------");
         String newId;
-        while (true){
+        while (true) {
             System.out.print("Enter Vehicle ID:");
             newId = getValidString();
-            if (!checkVehicleID(newId)){
+            if (!checkVehicleID(newId)) {
                 break;
-            } else System.out.println("ID not exist!");
+            } else {
+                System.out.println("ID not exist!");
+            }
         }
-        
-    System.out.print("Enter new vehicle Name:");
-    String newVeName = getValidString();
-    System.out.print("Enter new vehicle Price:");
-    double newPrice = getValidDouble();
-    System.out.print("Enter new vehicle Rating:");
-    double newRating = getValidDouble();
-    System.out.print("Enter new vehicle Chassis Number:");
-    String newCha = getValidString();
-    System.out.print("Enter new vehicle Engine Type:");
-    String newengineType = getValidString();
-    System.out.print("Enter new vehicle brand:");
-    String newbrand = getValidString();
-    System.out.print("Enter new vehicle manufacture Year:");
-    int newmanuyear = getValidInt();
-    System.out.print("Enter new vehicle inspection Fee:");
-    double Fee = getValidDouble();
+
+        System.out.print("Enter new vehicle Name:");
+        String newVeName = getValidString();
+        System.out.print("Enter new vehicle Price:");
+        double newPrice = getValidDouble();
+        System.out.print("Enter new vehicle Rating:");
+        double newRating = getValidDouble();
+        System.out.print("Enter new vehicle Chassis Number:");
+        String newCha = getValidString();
+        System.out.print("Enter new vehicle Engine Type:");
+        String newengineType = getValidString();
+        System.out.print("Enter new vehicle brand:");
+        String newbrand = getValidString();
+        System.out.print("Enter new vehicle manufacture Year:");
+        int newmanuyear = getValidInt();
+        System.out.print("Enter new vehicle inspection Fee:");
+        double Fee = getValidDouble();
         Vehicle newVe = new Vehicle(
-            newId,
-            newVeName,
-            newPrice,
-            newRating,
-            newCha,
-            newengineType,
-            newbrand,
-            newmanuyear,
-            Fee
-    );
+                newId,
+                newVeName,
+                newPrice,
+                newRating,
+                newCha,
+                newengineType,
+                newbrand,
+                newmanuyear,
+                Fee
+        );
         int index = 0;
-        for (int i = 0 ; i<vehicleData.size() ; ++i ){
-            if (vehicleData.get(i).getId().equalsIgnoreCase(newId)){
+        for (int i = 0; i < vehicleData.size(); ++i) {
+            if (vehicleData.get(i).getId().equalsIgnoreCase(newId)) {
                 index = i;
                 break;
             }
         }
         vehicleData.set(index, newVe);
-        System.out.println("Vehicle Informantion:"+newVe.toString());
-        waitForEnter("Press any key to continue.");  
+        System.out.println("Vehicle Informantion:" + newVe.toString());
+        waitForEnter("Press enter to continue.");
     }
-    
-    
-    void deleteVehicle(){
+
+    void deleteVehicle() {
         System.out.println("--------------Delete Vehicle-----------------");
         String newEmId;
-        while (true){
+        while (true) {
             System.out.print("Enter Employee ID:");
             newEmId = getValidString();
-            if (!checkVehicleID(newEmId)){
+            if (!checkVehicleID(newEmId)) {
                 break;
-            } else System.out.println("ID not exist!");
+            } else {
+                System.out.println("ID not exist!");
+            }
         }
-        int i=0;
-        for (int index =0 ; index < vehicleData.size() ; index++){
-                if (vehicleData.get(index).getId().equalsIgnoreCase(newEmId)){
-                    i = index;
-                    break;
-                }
+        int i = 0;
+        for (int index = 0; index < vehicleData.size(); index++) {
+            if (vehicleData.get(index).getId().equalsIgnoreCase(newEmId)) {
+                i = index;
+                break;
+            }
         }
-        
+
         vehicleData.remove(i);
         System.out.println("Vehicle Deleted.");
-        waitForEnter("Press any key to continue.");  
+        waitForEnter("Press enter to continue.");
     }
-    
-    
-   void sortVehicle(){
-       boolean sortstop = false;
+
+    void sortVehicle() {
+        boolean sortstop = false;
         while (!sortstop) {
-        System.out.println("--------------Sort Vehicle-----------------");
-        System.out.println("Sorting by what?");
-        System.out.println("1. ID");
-        System.out.println("2. Name");
-        System.out.println("3. Price");
-        System.out.println("4. Rating");
-        System.out.println("5. Chassis Number");
-        System.out.println("6. EngineType");
-        System.out.println("7. Brand");
-        System.out.println("8. Manufacture Year");
-        System.out.println("9. Inspection Fee");
-        System.out.println("0. Back to Employees manage");
-        int sortEmSelect = getValidInput(9);
-            switch (sortEmSelect){
+            System.out.println("--------------Sort Vehicle-----------------");
+            System.out.println("Sorting by what?");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Price");
+            System.out.println("4. Rating");
+            System.out.println("5. Chassis Number");
+            System.out.println("6. EngineType");
+            System.out.println("7. Brand");
+            System.out.println("8. Manufacture Year");
+            System.out.println("9. Inspection Fee");
+            System.out.println("0. Back to Employees manage");
+            int sortEmSelect = getValidInput(9);
+            switch (sortEmSelect) {
                 case 1:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getId));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getId));
                     System.out.println("----------- List sorted by ID ------------");
                     listVehicle();
-                    
+
                     break;
                 case 2:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getName));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getName));
                     System.out.println("----------- List sorted by Name ------------");
                     listVehicle();
                     break;
                 case 3:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getPrice));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getPrice));
                     System.out.println("----------- List sorted by Price ------------");
                     listVehicle();
                     break;
                 case 4:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getRating));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getRating));
                     System.out.println("-----------List sorted by Rating ------------");
                     listVehicle();
-                    
+
                     break;
                 case 5:
-                    vehicleData.sort(Comparator.comparing(Vehicle ::  getChassisNumber));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getChassisNumber));
                     System.out.println("-----------List sorted by Chassis Number ------------");
                     listVehicle();
                     break;
                 case 6:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getEngineType));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getEngineType));
                     System.out.println("-----------List sorted by EngineType ------------");
                     listVehicle();
                     break;
                 case 7:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getBrand));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getBrand));
                     System.out.println("-----------List sorted by Brand ------------");
                     listVehicle();
-                    
+
                     break;
                 case 8:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getManufactureYear));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getManufactureYear));
                     System.out.println("-----------List sorted by Manufacture Year ------------");
                     listVehicle();
                     break;
                 case 9:
-                    vehicleData.sort(Comparator.comparing(Vehicle :: getInspectionFee));
+                    vehicleData.sort(Comparator.comparing(Vehicle::getInspectionFee));
                     System.out.println("-----------List sorted by Inspection Fee ------------");
                     listVehicle();
                     break;
                 case 0:
                     System.out.println("Data saved.");
-                    sortstop = true;                    
+                    sortstop = true;
                     break;
             }
-            waitForEnter("\nPress any key to continue.");
-        }   
-   }
-   
-   void findVehicle(){
+            waitForEnter("\nPress enter to continue.");
+        }
+    }
+
+    void findVehicle() {
         System.out.println("--------------Find Vehicle-----------------");
         System.out.print("Enter any thing to find:");
         String find = getValidString();
         System.out.println("--------------List Find Vehicle-----------------");
-        int notfind = 0;   
-   
-            for (Vehicle e : vehicleData){
-            if (  e.getId().contains(find) ||
-                   e.getName().contains(find) ||
-                   e.getBrand().contains(find) ||
-                   e.getChassisNumber().contains(find) ||
-                   e.getEngineType().contains(find) ||
-                   String.valueOf(e.getManufactureYear()).contains(find) ||
-                   String.valueOf(e.getInspectionFee()).contains(find) ||
-                   String.valueOf(e.getPrice()).contains(find) ||
-                   String.valueOf(e.getRating()).contains(find)
-                    ){
+        int notfind = 0;
+
+        for (Vehicle e : vehicleData) {
+            if (e.getId().contains(find)
+                    || e.getName().contains(find)
+                    || e.getBrand().contains(find)
+                    || e.getChassisNumber().contains(find)
+                    || e.getEngineType().contains(find)
+                    || String.valueOf(e.getManufactureYear()).contains(find)
+                    || String.valueOf(e.getInspectionFee()).contains(find)
+                    || String.valueOf(e.getPrice()).contains(find)
+                    || String.valueOf(e.getRating()).contains(find)) {
                 System.out.println(e.toString());
                 ++notfind;
             }
         }
-        if (notfind == 0){
-            System.out.println("No resuft!");  
-        
+        if (notfind == 0) {
+            System.out.println("No resuft!");
+
         }
-        waitForEnter("\nPress any key to continue.");
+        waitForEnter("\nPress enter to continue.");
     }
     //----------------------------------------------------Anh em them ham UI o day----------------------------------------------------------------------------------------------------------------
-    
-        // color: reset, red, green, yellow, blue, purple, cyan, white
 
-    
+    // color: reset, red, green, yellow, blue, purple, cyan, white
     public void mainUI() {//Vi du y nhu cai nay
-        printlnfc(YELLOW, "----MALL MANAGEMENT SYSTEM----");
+        printlnfc(YELLOW, "***MALL MANAGEMENT SYSTEM***");
         printlnfc(CYAN, "1. Manage Books");
-        printlnfc(CYAN,"2. Manage Appliances");
-        printlnfc(CYAN,"3. Manage Drinks");
-        printlnfc(CYAN,"4. Manage Electronics");
-        printlnfc(CYAN,"5. Manage Foods");
-        printlnfc(CYAN,"6. Manage Vehicles");
-        printlnfc(CYAN,"7. Manage Employees");
-        printlnfc(CYAN,"0. Exit");
+        printlnfc(CYAN, "2. Manage Appliances");
+        printlnfc(CYAN, "3. Manage Drinks");
+        printlnfc(CYAN, "4. Manage Electronics");
+        printlnfc(CYAN, "5. Manage Foods");
+        printlnfc(CYAN, "6. Manage Vehicles");
+        printlnfc(CYAN, "7. Manage Employees");
+        printlnfc(CYAN, "0. Exit");
 
     }
 
@@ -1495,6 +1990,7 @@ public void listAllFoods() {
         System.out.println("0. Back To MALL MANAGEMENT");
 
     }
+
     public void VehicleUI() {
 
         System.out.println("----VEHICLE MANAGEMENT----");
@@ -1530,15 +2026,15 @@ public void listAllFoods() {
     }
 
     public void FoodUI() {
-            System.out.println("---- FOOD MANAGEMENT ----");
-            System.out.println("1. List all foods");
-            System.out.println("2. Add a food");
-            System.out.println("3. Edit a food");
-            System.out.println("4. Delete a food");
-            System.out.println("5. Sort foods by (ID, Name, Rating, Price)");
-            System.out.println("6. Search foods by (ID or Name)");
-            System.out.println("0. Back to Main Menu");
-}
+        System.out.println("---- FOOD MANAGEMENT ----");
+        System.out.println("1. List all foods");
+        System.out.println("2. Add a food");
+        System.out.println("3. Edit a food");
+        System.out.println("4. Delete a food");
+        System.out.println("5. Sort foods by (ID, Name, Rating, Price)");
+        System.out.println("6. Search foods by (ID or Name)");
+        System.out.println("0. Back to Main Menu");
+    }
 
     public void BookUI() {
         System.out.println("---- BOOK MANAGEMENT ----");
@@ -1562,10 +2058,11 @@ public void listAllFoods() {
         System.out.println("0. Back to Main Menu");
     }
 
-    public boolean checkEmployeeID(String id){
+    public boolean checkEmployeeID(String id) {
         return !employeeData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
     }
-    public boolean checkVehicleID(String id){
+
+    public boolean checkVehicleID(String id) {
         return !vehicleData.stream().anyMatch((EM) -> (EM.getId().equalsIgnoreCase(id)));
     }
     //###########################Dung ham nay de nhan input ma nguoi dung nhap ############################
@@ -1577,22 +2074,22 @@ public void listAllFoods() {
     @Override
     public int getValidInput(int range) {
         Scanner sc = new Scanner(System.in);
-        int input; 
-            System.out.print("Please select an option: ");
-            if (sc.hasNextInt()) {
+        int input;
+        System.out.print("Please select an option: ");
+        if (sc.hasNextInt()) {
 
-                input = sc.nextInt();
-             
-                if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
-                    return input;
-                } else {
-                    System.out.printf("The value is out of range(0-%d).", range);
-                }
+            input = sc.nextInt();
 
+            if (input >= 0 && input <= range) { //Nho truyen range la gia tri toi da vao 
+                return input;
             } else {
-                System.out.println("Please select an option:");
+                System.out.printf("The value is out of range(0-%d).", range);
             }
-        return getValidInput(range);  
+
+        } else {
+            System.out.println("Please select an option:");
+        }
+        return getValidInput(range);
     }
 
     @Override
@@ -1601,44 +2098,46 @@ public void listAllFoods() {
         Scanner sc = new Scanner(System.in);
         string = null;
         string = sc.nextLine().trim();
-     
+
         if (string == null || string.isEmpty()) {
             System.out.println("Try again!");
             getValidString();
-        } 
+        }
         return string;
     }
 
-    @Override 
+    @Override
     public double getValidDouble() {
         double input = 0;
         Scanner sc = new Scanner(System.in);
-       
+
         if (sc.hasNextDouble()) {
-            input = sc.nextDouble(); 
-           
+            input = sc.nextDouble();
+
         } else {
-                System.out.println("Invalid input. Please enter a valid number.");
-                getValidDouble();
-            }
-        
+            System.out.println("Invalid input. Please enter a valid number.");
+            getValidDouble();
+        }
+
         return input;
     }
+
     @Override
     public int getValidInt() {
         int input = 0;
         Scanner sc = new Scanner(System.in);
-        
+
         if (sc.hasNextInt()) {
-            input = sc.nextInt(); 
-            
+            input = sc.nextInt();
+
         } else {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                getValidInt();
-            }
-        
+            System.out.println("Invalid input. Please enter a valid integer.");
+            getValidInt();
+        }
+
         return input;
     }
+
     @Override
     public void clearScreen() {
         try {
@@ -1653,18 +2152,19 @@ public void listAllFoods() {
         }
     }
     // clear cmd cho dep
-    
+
     @Override
     public void delay(long s) {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < s) {
         }
     }
+
     public void waitForEnter(String prompt) {
         System.out.print(prompt);
         sc.nextLine();
     }
-    
+
     public static void printfc(String color, String format, Object... args) {
         System.out.printf(color + format + RESET, args);
     }
@@ -1673,6 +2173,7 @@ public void listAllFoods() {
         System.out.printf(color + format + RESET, args);
         System.out.println();
     }
+
     //----------------------------------------------------Bat dau code o day-----------------------------------------------------------------------
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
@@ -1688,9 +2189,9 @@ public void listAllFoods() {
         
          */
         ProjectVinMall VinMall = new ProjectVinMall();
-        
+
         VinMall.loadData();
-        
+
         boolean stop = false;
 
         while (!stop) {
@@ -1700,7 +2201,7 @@ public void listAllFoods() {
 
             switch (MainSelect) {
                 case 1: //Book
-                    
+
                     boolean stopB = true;
                     VinMall.clearScreen();
                     while (stopB) {
@@ -1710,7 +2211,7 @@ public void listAllFoods() {
                             case 1:
                                 VinMall.clearScreen();
                                 VinMall.listAllBooks();
-                                VinMall.waitForEnter("\nPress any key to continue.");
+                                VinMall.waitForEnter("\nPress enter to continue.");
                                 VinMall.clearScreen();
                                 break;
                             case 2:
@@ -1739,34 +2240,34 @@ public void listAllFoods() {
                     break;
                 case 2://Appliance
                     boolean stopA = true;
-                    while(stopA){
+                    while (stopA) {
                         VinMall.clearScreen();
                         VinMall.ApplianceUI();
                         int ApplianceSelect = VinMall.getValidInput(7);
-                        switch(ApplianceSelect){
+                        switch (ApplianceSelect) {
                             case 1:
                                 VinMall.listAppliance();
-                            break;
+                                break;
                             case 2:
                                 VinMall.addAppliance();
-                            break;
+                                break;
                             case 3:
                                 VinMall.editAppliance();
-                            break;
+                                break;
                             case 4:
                                 VinMall.deleteAppliance();
-                            break;
+                                break;
                             case 5:
                                 VinMall.sortAppliance();
-                            break;
+                                break;
                             case 6:
                                 VinMall.searchAppliance();
-                            break;
+                                break;
                             default:
                                 System.out.println("Data saved.");
                                 System.out.println("Exit.");
                                 stopA = false;
-                            break;
+                                break;
                         }
                     }
                     //------------------------------------endAppliance--------------------------------
@@ -1806,42 +2307,42 @@ public void listAllFoods() {
                     }
                     //------------------------------------endDrinks--------------------------------
                     break;
-                case 4:{
+                case 4: {
                     boolean stopE = true;
-                while(stopE){
-                    VinMall.clearScreen();
-                    VinMall.ElectronicUI();
-                 int ElectronicSelect = VinMall.getValidInput(6);
-                 
-                 switch(ElectronicSelect){
-                     case 1:
-                         VinMall.displayElectronic();
-                     break;
-                     case 2:
-                         VinMall.addElectronic();
-                     break;
-                     case 3:
-                         VinMall.editElectronic();
-                     break;
-                     case 4:
-                         VinMall.deleteElectronic();
-                     break;
-                     case 5:
-                         VinMall.sortElectronic();
-                     break;
-                     case 6:
-                         VinMall.searchElectronic();
-                     break;
-                     default:
-                         System.out.println("Data saved.");
-                         System.out.println("Exit.");
-                         stopE = false;
-                     break;
-                 }
-                }    
+                    while (stopE) {
+                        VinMall.clearScreen();
+                        VinMall.ElectronicUI();
+                        int ElectronicSelect = VinMall.getValidInput(6);
+
+                        switch (ElectronicSelect) {
+                            case 1:
+                                VinMall.displayElectronic();
+                                break;
+                            case 2:
+                                VinMall.addElectronic();
+                                break;
+                            case 3:
+                                VinMall.editElectronic();
+                                break;
+                            case 4:
+                                VinMall.deleteElectronic();
+                                break;
+                            case 5:
+                                VinMall.sortElectronic();
+                                break;
+                            case 6:
+                                VinMall.searchElectronic();
+                                break;
+                            default:
+                                System.out.println("Data saved.");
+                                System.out.println("Exit.");
+                                stopE = false;
+                                break;
+                        }
+                    }
                 }
-                    //------------------------------------endElectronic--------------------------------
-                    break;
+                //------------------------------------endElectronic--------------------------------
+                break;
                 case 5://Food
                     boolean stopF = true;
                     while (stopF) {
@@ -1879,66 +2380,65 @@ public void listAllFoods() {
                     break;
                 case 6://Vehicle
                     boolean stopVe = false;
-                    while (!stopVe){
-                    VinMall.clearScreen();
-                    System.out.println("------------------- Vehicle List---------------");
-                    VinMall.listVehicle();
-                    VinMall.VehicleUI();   
-                    int VehicleSelect = VinMall.getValidInput(5);
-                    switch (VehicleSelect){
-                        case 1:
-                            VinMall.addVehicle();
-                            break;
-                        case 2:
-                            VinMall.editVehicle();
-                            break;
-                        case 3:
-                            VinMall.deleteVehicle();
-                            break;
-                        case 4:
-                            VinMall.sortVehicle();
-                            break;
-                        case 5:
-                            VinMall.findVehicle();
-                            break;
-                        case 0:
-                            System.out.println("Back");
-                            stopVe = true;
-                            break;
-                    }
+                    while (!stopVe) {
+                        VinMall.clearScreen();
+                        VinMall.listVehicle();
+                        VinMall.VehicleUI();
+                        int VehicleSelect = VinMall.getValidInput(5);
+                        switch (VehicleSelect) {
+                            case 1:
+                                VinMall.addVehicle();
+                                break;
+                            case 2:
+                                VinMall.editVehicle();
+                                break;
+                            case 3:
+                                VinMall.deleteVehicle();
+                                break;
+                            case 4:
+                                VinMall.sortVehicle();
+                                break;
+                            case 5:
+                                VinMall.findVehicle();
+                                break;
+                            case 0:
+                                System.out.println("Back");
+                                stopVe = true;
+                                break;
+                        }
                     }
                     //------------------------------------endVehicle--------------------------------
                     break;
                 case 7://Employee
-                    
+
                     boolean stopEmp = false;
                     while (!stopEmp) {
-                            VinMall.clearScreen();
-                            System.out.println("-------------List Employee--------------");
-                            VinMall.listEmployee();
-                            VinMall.EmployeeUI();
-                            int EmployeeSelect = VinMall.getValidInput(5);
-                            switch (EmployeeSelect){
-                                case 1: //Hire
-                                    VinMall.addEmployee();
-                                    break;
-                                case 2://Edit
-                                    VinMall.editEmloyee();
-                                    break;
-                                case 3://Dissmis
-                                    VinMall.DissmisEmployee();
-                                    break;
-                                case 4://Find
-                                    VinMall.findEmployee();
-                                    break;
-                                case 5://Sort
-                                    VinMall.sortEmployee();
-                                    break;
-                                case 0:
-                                    System.out.println("Back");
-                                    stopEmp = true;
-                            }
-                    }        
+                        VinMall.clearScreen();
+
+                        VinMall.listEmployee();
+                        VinMall.EmployeeUI();
+                        int EmployeeSelect = VinMall.getValidInput(5);
+                        switch (EmployeeSelect) {
+                            case 1: //Hire
+                                VinMall.addEmployee();
+                                break;
+                            case 2://Edit
+                                VinMall.editEmloyee();
+                                break;
+                            case 3://Dissmis
+                                VinMall.DissmisEmployee();
+                                break;
+                            case 4://Find
+                                VinMall.findEmployee();
+                                break;
+                            case 5://Sort
+                                VinMall.sortEmployee();
+                                break;
+                            case 0:
+                                System.out.println("Back");
+                                stopEmp = true;
+                        }
+                    }
                     //------------------------------------endEmployee--------------------------------
                     break;
                 case 0:
@@ -1953,4 +2453,3 @@ public void listAllFoods() {
     }
 
 }
-
